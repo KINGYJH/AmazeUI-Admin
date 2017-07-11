@@ -1,51 +1,70 @@
 $(function () {
-    var menu_tree_id = mini.get("menu_tree_id");
-    menu_tree_id.load(pojectpath + "/sys/menu/user_tree_data");
-    // $('#menu_tree_id').tree({
-    //     url: pojectpath + "/sys/menu/user_tree_data",//数据加载地址
-    //     ajaxType: "post",//ajax类型：get/post。
-    //     showTreeIcon: true,//显示节点图标
-    //     showTreeLines: true,//显示树形线条
-    //     expandOnNodeClick: true,//单击节点展开收缩
-    //     nodecheck: function (sender, node, isLeaf) {
-    //         if (node.attributes.url === "") {
-    //             return;
-    //         }
-    //         if ($('#menu_tree_id').tree('isLeaf', node.target)) {
-    //             if (node.attributes.url.indexOf("#basepath#") != -1) {
-    //                 addTab(node.text, node.attributes.url
-    //                         .replace("#basepath#", basePath),
-    //                     "iframe" + node.id);
-    //             } else {
-    //                 addTab(node.text, pojectpath
-    //                     + node.attributes.url, "iframe"
-    //                     + node.id);
-    //             }
-    //         }
-    //     }
-    // });
+    $('#menu_tree_id').tree({
+        url: projectPath + "/sys/menu/user_tree_data",
+        method: 'post',
+        lines: true,
+        onClick: function (node) {
+            if (node.attributes.url === "") {
+                return;
+            }
+            if ($('#menu_tree_id').tree('isLeaf', node.target)) {
+                if (node.attributes.url.indexOf("#basepath#") !== -1) {
+                    addTab(node.text, node.attributes.url
+                            .replace("#basepath#", basePath),
+                        "iframe" + node.id);
+                } else {
+                    addTab(node.text, projectPath
+                        + node.attributes.url, "iframe"
+                        + node.id);
+                }
+            }
+        },
+        onLoadSuccess: function (row, data) {
+            $('#menu_tree_id').tree("collapseAll");
+        }
+    })
 });
 
 function addTab(subtitle, url, id) {
-    //add tab
-    mini.parse();
-    var tabs = mini.get("tabs");
-
-    var tab = {title: subtitle, url: url, showCloseButton: true, id: id};
-    //当tabs销毁时
-    tab.ondestroy = function (e) {
-        var tabs = e.sender;
-        var iframe = tabs.getTabIFrameEl(e.tab);
-
-        //获取子页面返回数据
-        var pageReturnData = iframe.contentWindow.getData ? iframe.contentWindow.getData() : "";
-
-        alert(e.tab.removeAction + " : " + pageReturnData);
-
-        //如果禁止销毁的时候，自动active一个新tab：e.autoActive = false;
+    var win = $("#" + id).attr("src");
+    if (/* !$('#tabs').tabs('exists',subtitle) */win == undefined) {
+        $('#tabs').tabs('add', {
+            title: subtitle,
+            content: createFrame(url, id),
+            closable: true,
+            width: $('#mainPanel').width() - 10,
+            height: $('#mainPanel').height() - 26
+        });
+    } else {
+        $('#tabs').tabs('select', subtitle);
     }
-    tabs.addTab(tab);
+    tabClose();
+}
 
-    //active tab
-    tabs.activeTab(tab);
+function createFrame(url, id) {
+    var s = '<iframe name="mainFrame" id="' + id
+        + '" scrolling="auto" frameborder="0"  src="' + url
+        + '" style="width:100%;height:100%;"></iframe>';
+    return s;
+}
+
+function tabClose() {
+    /* 双击关闭TAB选项卡 */
+    $('.tabs-inner').dblclick(function () {
+        var subtitle = $(this).children("span").text();
+        $('#tabs').tabs('close', subtitle);
+    });
+
+    //鼠标菜单右键
+    // $('.tabs-inner').bind('contextmenu', function (e) {
+    //     $('#mm').menu('show', {
+    //         left: e.pageX,
+    //         top: e.pageY
+    //     });
+    //
+    //     var subtitle = $(this).children("span").text();
+    //     $('#mm').data("currtab", subtitle);
+    //
+    //     return false;
+    // });
 }

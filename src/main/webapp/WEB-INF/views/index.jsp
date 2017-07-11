@@ -6,50 +6,32 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/WEB-INF/views/include/include.jsp" %>
-
 <html>
 <head>
     <title>${fns:getConfig('productName')}</title>
     <script src="${modules_rec}/sys/index.js"></script>
 </head>
-<body>
-<div class="mini-layout" style="width:100%;height:100%;">
-    <!-- 头部 -->
-    <%@ include file="include/head.jsp" %>
-
-    <!-- 底部 -->
-    <%@ include file="include/foot.jsp" %>
-
-    <!-- 菜单 -->
-    <%@ include file="include/menu.jsp" %>
-
-    <!-- 内容 -->
-    <div title="center" region="center" style="border:0;">
-        <div id="tabs" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;" plain="false">
-            <div title="首页">
-                ${user.username}
-            </div>
-        </div>
+<body class="easyui-layout" style="overflow-y: hidden" scroll="no">
+<!--上-->
+<div data-options="region:'north',border:false" style="overflow: hidden;height: 10%" class="header">
+</div>
+<!-- 左 -->
+<div data-options="region:'west',split:'true',title:'菜单'" style="width:200px;" id="west">
+    <div class="easyui-accordion" data-options="fit:'true',border:false">
+        <!--菜单导航内容 -->
+        <ul id="menu_tree_id" class="easyui-tree">
+        </ul>
     </div>
 </div>
-<script type="text/javascript">
-    mini.parse();
-    function onBeforeExpand(e) {
-        var tree = e.sender;
-        var nowNode = e.node;
-        var level = tree.getLevel(nowNode);
-
-        var root = tree.getRootNode();
-        tree.cascadeChild(root, function (node) {
-            if (tree.isExpandedNode(node)) {
-                var level2 = tree.getLevel(node);
-                if (node != nowNode && !tree.isAncestor(node, nowNode) && level == level2) {
-                    tree.collapseNode(node, true);
-                }
-            }
-        });
-    }
-</script>
+<!-- 中 -->
+<div id="mainPanel" data-options="region:'center'" style="overflow-y:hidden">
+    <div id="tabs" class="easyui-tabs" data-options="fit:true,border:false">
+    </div>
+</div>
+<!--下-->
+<div data-options="region:'south'" style="height: 3%;text-align: center">
+    <div class="footer">版权所有：${fns:getConfig('productName')} 技术支持：XXXXXXX 版本：${fns:getConfig('productVersion')}</div>
+</div>
 </body>
 </html>
 

@@ -48,7 +48,7 @@
         SELECT *
         FROM sys_menu
         <choose>
-            <when test="parentId == null">
+            <when test="_parameter == null">
                 WHERE parentId IS NULL
             </when>
             <otherwise>

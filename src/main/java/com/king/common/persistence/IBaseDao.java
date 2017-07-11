@@ -10,7 +10,7 @@ import java.util.List;
 public interface IBaseDao<T, ID extends Serializable> {
     T selectByPrimaryKey(ID id);
 
-    T save(T enyity);
+    T save(T entity);
 
     List<T> findAll();
 }

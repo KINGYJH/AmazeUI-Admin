@@ -13,12 +13,20 @@
 <meta http-equiv="Expires" content="0"/>
 <meta name="author" content="yjh"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<script src="${mini_rec}/boot.js" type="text/javascript"></script>
-<script src="${mini_rec}/core.js" type="text/javascript"></script>
-<script src="${mini_rec}/jquery.min.js" type="text/javascript"></script>
+
+<!--reset.min.css 根据实际情况引入，如果你有自己的初始化样式表可以不引入当前样式-->
+<link href="${easy_rec}/reset.min.css" rel="stylesheet" type="text/css">
+
+<link href="${easy_rec}/easyui_full.css" rel="stylesheet" type="text/css">
+<link href="${easy_rec}/icon.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="${easy_rec}/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="${easy_rec}/jquery.easyui-1.5.2.min.js"></script>
+<script type="text/javascript" src="${easy_rec}/insdep-extend.min.js"></script>
+
 <script type="text/javascript">
     var basePath = '${basePath}';
-    var pojectpath = '${ctx}';
-    var mini_rec = '${mini_rec}';
+    var projectPath = '${ctx}';
+    var easy_rec = '${easy_rec}';
     var modules_rec = '${modules_rec}';
 </script>
