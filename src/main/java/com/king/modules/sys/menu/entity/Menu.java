@@ -20,6 +20,8 @@ public class Menu extends BaseEntity<Menu> {
     private Integer sort;       //菜单排序
     private String isShow;      //菜单是否显示
 
+    private String state = "open"; // 用于datagrid判断
+
     public Menu() {
         super();
     }
@@ -109,5 +111,13 @@ public class Menu extends BaseEntity<Menu> {
 
     public void setIsShow(String isShow) {
         this.isShow = isShow;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

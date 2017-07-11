@@ -14,6 +14,8 @@
 <meta name="author" content="yjh"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
+<link rel="shortcut icon" href="${img}/favicon.jpg">
+
 <!--reset.min.css 根据实际情况引入，如果你有自己的初始化样式表可以不引入当前样式-->
 <link href="${easy_rec}/reset.min.css" rel="stylesheet" type="text/css">
 
@@ -26,7 +28,7 @@
 
 <script type="text/javascript">
     var basePath = '${basePath}';
-    var projectPath = '${ctx}';
+    var projectPath = '${projectPath}';
     var easy_rec = '${easy_rec}';
     var modules_rec = '${modules_rec}';
 </script>

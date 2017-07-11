@@ -17,8 +17,15 @@ public class MenuDaoImpl extends BaseDao<Menu, String> implements IMenuDao<Menu,
 
     private final String _SELECT_BY_PARENT_ID = ".selectByParentId";
 
+    private final String _IS_HAS_CHILD = ".isHasChild";
+
     @Override
     public List<Menu> findByParentId(String parentId) {
         return getSqlSession().selectList(getNameSpace() + _SELECT_BY_PARENT_ID, parentId);
+    }
+
+    @Override
+    public Integer hasChildCount(String id) {
+        return getSqlSession().selectOne(getNameSpace() + _IS_HAS_CHILD, id);
     }
 }

@@ -25,9 +25,15 @@ public class MenuController extends BaseController {
     @Autowired
     private IMenuService menuService;
 
-    @RequestMapping(value = "/page")
+    @RequestMapping(value = "/manager")
     public ModelAndView beginPage() {
         return new ModelAndView("/pages/sys/menu/MenuManager");
+    }
+
+    @RequestMapping(value = "/list")
+    @ResponseBody
+    public List<Menu> dataList(String parentId) {
+        return menuService.findByParentId(parentId);
     }
 
     @RequestMapping(value = "/user_tree_data", method = RequestMethod.POST)

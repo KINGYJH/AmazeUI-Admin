@@ -18,21 +18,47 @@
         <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
         <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
     </div>
-    <table class="easyui-datagrid" data-options="toolbar:'#tb'">
-        <thead>
-        <tr>
-            <th data-options="field:'itemid',width:80">Item ID</th>
-            <th data-options="field:'productid',width:100">Product</th>
-            <th data-options="field:'listprice',width:80,align:'right'">List Price</th>
-            <th data-options="field:'unitcost',width:80,align:'right'">Unit Cost</th>
-            <th data-options="field:'attr1',width:240">Attribute</th>
-            <th data-options="field:'status',width:60,align:'center'">Status</th>
-        </tr>
-        </thead>
+    <table id="dg_tree_menu" class="easyui-treegrid" data-options="toolbar:'#tb'">
     </table>
 </div>
 <script type="text/javascript">
-
+    $('#dg_tree_menu').treegrid({
+        url: '${projectPath}/sys/menu/list',
+        width: 'auto',
+        loadMsg: '请稍等...',
+        rownumbers: true,
+        idField: 'id',
+        treeField: 'name',
+        fitColumns: true,
+        columns: [[
+            {title: '菜单名称', field: 'name', width: 50, align: 'left'},
+            {title: '菜单链接', field: 'href', width: 50, align: 'center'},
+            {title: '菜单权限标识', field: 'permission', width: 50, align: 'center'},
+            {
+                title: '菜单图标', field: 'icon', width: 50, align: 'center',
+                formatter: function (value, row, index) {
+                    return typeof(value) === "undefined" ? '' : '<img src="' + value + '"/>';
+                }
+            },
+            {title: '菜单同级排序', field: 'sort', width: 50, align: 'center'},
+            {
+                title: '菜单是否显示', field: 'isShow', width: 50, align: 'center',
+                formatter: function (value, row, index) {
+                    return value === '0' ? '显示' : '不显示';
+                }
+            },
+        ]],
+        onLoadError: function () {
+            $.messager.alert("提示", "数据加载出错！", "error");
+        },
+        onBeforeExpand: function (node) {
+            jQuery('#dg_tree_menu').treegrid('options').url = "${projectPath}/sys/menu/list?parentId=" + node.id;
+            return true;
+        },
+        onLoadSuccess: function (row, data) {
+            console.log(data);
+        }
+    })
 </script>
 </body>
 </html>

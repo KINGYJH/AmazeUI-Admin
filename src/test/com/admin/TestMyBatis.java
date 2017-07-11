@@ -29,7 +29,7 @@ public class TestMyBatis {
 
     @Test
     public void test1() {
-        List<Menu> menu = menuService.findByParentId("menu_000001");
+        menuService.isHasChild("sys_menu_0000001");
         System.out.println("");
     }
 }

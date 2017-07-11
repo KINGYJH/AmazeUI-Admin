@@ -56,4 +56,10 @@
             </otherwise>
         </choose>
     </select>
+
+    <select id="isHasChild" resultType="java.lang.Integer" parameterType="String">
+        SELECT COUNT(1) AS rowCount
+        FROM sys_menu
+        WHERE parentId = #{id}
+    </select>
 </mapper>

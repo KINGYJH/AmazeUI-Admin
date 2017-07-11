@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,11 +35,43 @@ public class MenuServiceImpl implements IMenuService {
 
     @Override
     public List<Menu> findByParentId(String parentId) {
-        return menuDao.findByParentId(parentId);
+        List<Menu> allMenu = null;
+        List<Menu> resultMenu = new ArrayList<>();
+        if (null == parentId || parentId.isEmpty()) {
+            allMenu = menuDao.findAll();
+            for (Menu menu : allMenu) {
+                if (menu.getParentId() == null) {
+                    if (isHasChild(menu.getId())) {
+                        menu.setState("closed");
+                    }
+                    resultMenu.add(menu);
+                }
+            }
+        } else {
+            allMenu = menuDao.findByParentId(parentId);
+            for (Menu menu : allMenu) {
+                if (isHasChild(menu.getId())) {
+                    menu.setState("closed");
+                }
+                resultMenu.add(menu);
+            }
+        }
+        return resultMenu;
     }
 
     @Override
     public List<TreeNode> getTreeNode(String parentId) {
         return menuTreeUtil.getByParentId(parentId);
+    }
+
+    /**
+     * 判断是否包含子节点
+     *
+     * @param menuId 菜单id
+     * @return 如果数量大于0 返会true
+     */
+    @Override
+    public boolean isHasChild(String menuId) {
+        return menuDao.hasChildCount(menuId) > 0;
     }
 }

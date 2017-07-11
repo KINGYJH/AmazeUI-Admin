@@ -16,4 +16,6 @@ public interface IMenuService {
     List<Menu> findByParentId(String parentId);
 
     List<TreeNode> getTreeNode(String parentId);
+
+    boolean isHasChild(String menuId);
 }
