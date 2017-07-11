@@ -13,5 +13,12 @@
 <meta http-equiv="Expires" content="0"/>
 <meta name="author" content="yjh"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<script src="${mini_res}/boot.js" type="text/javascript"></script>
-<script src="${mini_res}/core.js" type="text/javascript"></script>
+<script src="${mini_rec}/boot.js" type="text/javascript"></script>
+<script src="${mini_rec}/core.js" type="text/javascript"></script>
+<script src="${mini_rec}/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var basePath = '${basePath}';
+    var pojectpath = '${ctx}';
+    var mini_rec = '${mini_rec}';
+    var modules_rec = '${modules_rec}';
+</script>

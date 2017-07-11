@@ -12,7 +12,9 @@
     <context:property-placeholder ignore-unresolvable="true" location="classpath*:/properties/sys.properties"/>
 
     <!-- 组件自动扫描 -->
-    <context:component-scan base-package="com.king.modules.sys.user.interfaces"/>
+    <context:component-scan base-package="com.king.modules">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <!-- 启动Springmvc注解驱动 -->
     <mvc:annotation-driven/>

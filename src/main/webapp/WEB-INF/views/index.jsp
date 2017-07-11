@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>${fns:getConfig('productName')}</title>
+    <script src="${modules_rec}/sys/index.js"></script>
 </head>
 <body>
 <div class="mini-layout" style="width:100%;height:100%;">
@@ -24,9 +25,9 @@
 
     <!-- 内容 -->
     <div title="center" region="center" style="border:0;">
-        <div id="tabs1" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;" plain="false">
+        <div id="tabs" class="mini-tabs" activeIndex="0" style="width:100%;height:100%;" plain="false">
             <div title="首页">
-                首页内容
+                ${user.username}
             </div>
         </div>
     </div>

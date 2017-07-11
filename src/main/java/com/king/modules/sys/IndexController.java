@@ -12,9 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
-    @RequestMapping(value = "/admin")
+    @RequestMapping(value = "${adminPath}")
     public ModelAndView index() {
-        System.out.println("进入Controller");
         return new ModelAndView("/index");
     }
 
