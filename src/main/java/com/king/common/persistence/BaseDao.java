@@ -3,6 +3,7 @@ package com.king.common.persistence;
 import com.king.common.annotation.DbInsertBefore;
 import com.king.common.annotation.DbUpdateBefore;
 import com.king.common.utils.GenericsUtils;
+import com.king.common.web.PageInfo;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,14 @@ public class BaseDao<T, ID extends Serializable> extends SqlSessionDaoSupport im
 
     private final String _SELECT_ALL = ".selectAll";
 
+    private final String _SELECT_BY_ENTITY = ".selectByEntity";
+
     private final String _UPDATE_BY_PRIMARY_KEY = ".updateByPrimaryKey";
 
     private final String _UPDATE_BY_PRIMARY_KEY_SELECTIVE = ".updateByPrimaryKeySelective";
 
     private final String _DELETE_BY_PRIMARY_KEY = ".deleteByPrimaryKey";
+
 
     /*GenericsUtils为工具类，请见下方代码
           泛型获得XXXEntity，将其转换为XXXEntityDao，具体操作替换掉Entity变成XXXDao，对应Mapper.xml中的namespace命名
@@ -106,5 +110,10 @@ public class BaseDao<T, ID extends Serializable> extends SqlSessionDaoSupport im
     @Override
     public List<T> findAll() {
         return getSqlSession().selectList(getNameSpace() + _SELECT_ALL);
+    }
+
+    @Override
+    public PageInfo<T> searchPage(PageInfo pageInfo, T entity) {
+        return null;
     }
 }

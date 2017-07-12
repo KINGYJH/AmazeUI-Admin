@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="DictionaryDao">
+    <resultMap id="dictionary" type="com.king.modules.sys.dictionary.entity.Dictionary">
+        <id column="id" property="id"/>
+        <result column="createUserId" property="createUserId"/>
+        <result column="createUserName" property="createUserName"/>
+        <result column="createDate" property="createDate"/>
+        <result column="updateUserId" property="updateUserId"/>
+        <result column="updateUserName" property="updateUserName"/>
+        <result column="updateDate" property="updateDate"/>
+
+        <result column="dataKey" property="dataKey"/>
+        <result column="dataValue" property="dataValue"/>
+        <result column="sort" property="sort"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.king.modules.sys.dictionary.entity.Dictionary">
+        INSERT INTO sys_dictionary (
+            id, createUserId, createUserName, createDate, dataKey, dataValue, sort
+        ) VALUE (
+            #{id}, #{createUserId}, #{createUserId}, #{createDate}, #{dataKey}, #{dataValue}, #{sort}
+        )
+    </insert>
+
+    <select id="selectByDataKey" resultMap="dictionary" parameterType="java.lang.String">
+        SELECT *
+        FROM sys_dictionary
+        WHERE dataKey = #{dataKey}
+    </select>
+</mapper>

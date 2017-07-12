@@ -26,7 +26,7 @@ public class MenuController extends BaseController {
     private IMenuService menuService;
 
     @RequestMapping(value = "/manager")
-    public ModelAndView beginPage() {
+    public ModelAndView manager() {
         return new ModelAndView("/pages/sys/menu/MenuManager");
     }
 
