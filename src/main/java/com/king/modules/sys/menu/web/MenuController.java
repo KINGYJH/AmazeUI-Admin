@@ -36,6 +36,11 @@ public class MenuController extends BaseController {
         return menuService.findByParentId(parentId);
     }
 
+    @RequestMapping(value = "/save_page")
+    public ModelAndView savePage(){
+        return new ModelAndView("/pages/sys/menu/MenuSave");
+    }
+
     @RequestMapping(value = "/user_tree_data", method = RequestMethod.POST)
     @ResponseBody
     public List<TreeNode> userTreeData(String parentId) {

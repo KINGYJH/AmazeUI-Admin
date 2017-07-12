@@ -1,0 +1,25 @@
+.my_table_form {
+    width: 100%;
+    line-height: 40px;
+}
+.my_table_form  tr {
+    margin-top: 10px;
+}
+
+.my_table_form .label {
+    text-align: right;
+    font-size: 14px;
+    padding-left: 3%;
+}
+
+.inputArea input {
+    min-width: 200px;
+    min-height: 25px;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.inputArea select {
+    min-width: 200px;
+    min-height: 25px;
+    /*border-radius: 5px 5px 5px 5px;*/
+}

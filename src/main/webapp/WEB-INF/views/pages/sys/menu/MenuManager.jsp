@@ -12,15 +12,13 @@
     <title>菜单管理</title>
 </head>
 <body>
-<div class="iframe-content">
-    <div id="tb" style="padding:2px 5px;">
-        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
-        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
-    </div>
-    <table id="dg_tree_menu" class="easyui-treegrid" data-options="toolbar:'#tb'">
-    </table>
+<div id="tb" style="padding:2px 5px;">
+    <a href="#" onclick="add()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
 </div>
+<table id="dg_tree_menu" class="easyui-treegrid" data-options="toolbar:'#tb'">
+</table>
 <script type="text/javascript">
     $('#dg_tree_menu').treegrid({
         url: '${projectPath}/sys/menu/list',
@@ -56,9 +54,46 @@
             return true;
         },
         onLoadSuccess: function (row, data) {
-            console.log(data);
         }
     })
+
+    //添加
+    function add() {
+        top.jQuery('<div/>').dialog({
+            href: '${projectPath}/sys/menu/save_page',
+            id: 'dl_menu_add',
+            title: '新增菜单',
+            width: 700,
+            height: 400,
+            modal: true,
+            shadow: false,
+            resizable: true,
+            buttons: [
+                {
+                    text: '保存',
+                    iconCls: "icon-ok",
+                    handler: function () {
+                        parent.submitForm();
+                    }
+                },
+                {
+                    text: '取消',
+                    iconCls: "icon-cancel",
+                    handler: function () {
+                        parent.jQuery('#dl_menu_add').dialog('close');
+                    }
+                }],
+            onClose: function () {
+                reloadTreegrId();
+                parent.jQuery(this).dialog('destroy');
+            }
+        })
+    }
+
+    //重新加载数据
+    function reloadTreegrId() {
+        $('#dg_tree_menu').treegrid('reload');
+    }
 </script>
 </body>
 </html>

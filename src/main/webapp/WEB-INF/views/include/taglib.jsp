@@ -13,6 +13,6 @@
 <%@ taglib prefix="fns" uri="/WEB-INF/views/tlds/fns.tld" %>
 <c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <c:set var="projectPath" value="${basePath}${fns:getAdminPath()}"/>
-<c:set var="easy_rec" value="${pageContext.request.contextPath}/resources/insdep-2.0.0"/>
+<c:set var="easy_rec" value="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.2"/>
 <c:set var="modules_rec" value="${pageContext.request.contextPath}/resources/modules"/>
-<c:set var="img" value="${pageContext.request.contextPath}/resources/img"/>
+<c:set var="img" value="${pageContext.request.contextPath}/resources/images"/>

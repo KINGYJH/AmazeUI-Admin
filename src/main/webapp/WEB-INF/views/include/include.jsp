@@ -3,7 +3,7 @@
   User: King
   Date: 2017/6/30
   Time: 20:05
-  To change this template use File | Settings | File Templates.
+  引入头部文件
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/WEB-INF/views/include/taglib.jsp" %>
@@ -16,19 +16,27 @@
 
 <link rel="shortcut icon" href="${img}/favicon.jpg">
 
-<!--reset.min.css 根据实际情况引入，如果你有自己的初始化样式表可以不引入当前样式-->
-<link href="${easy_rec}/reset.min.css" rel="stylesheet" type="text/css">
+<link href="${easy_rec}/themes/default/easyui.css" type="text/css" rel="stylesheet">
+<link href="${easy_rec}/themes/icon.css" type="text/css" rel="stylesheet">
 
-<link href="${easy_rec}/easyui_full.css" rel="stylesheet" type="text/css">
-<link href="${easy_rec}/icon.css" rel="stylesheet" type="text/css">
+<link href="${modules_rec}/override.css" type="text/css" rel="stylesheet">
 
-<script type="text/javascript" src="${easy_rec}/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="${easy_rec}/jquery.easyui-1.5.2.min.js"></script>
-<script type="text/javascript" src="${easy_rec}/insdep-extend.min.js"></script>
+
+<script type="text/javascript" src="${easy_rec}/jquery.min.js"></script>
+<script type="text/javascript" src="${easy_rec}/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${easy_rec}/locale/easyui-lang-zh_CN.js"></script>
 
 <script type="text/javascript">
     var basePath = '${basePath}';
     var projectPath = '${projectPath}';
     var easy_rec = '${easy_rec}';
     var modules_rec = '${modules_rec}';
+
+    //加载js
+    function loadScript(url) {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = url;
+        document.body.appendChild(script);
+    }
 </script>
