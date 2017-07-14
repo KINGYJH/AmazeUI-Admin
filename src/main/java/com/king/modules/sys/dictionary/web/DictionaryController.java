@@ -1,7 +1,7 @@
 package com.king.modules.sys.dictionary.web;
 
 import com.king.common.web.BaseController;
-import com.king.common.web.PageInfo;
+import com.king.common.web.Pagination;
 import com.king.modules.sys.dictionary.entity.Dictionary;
 import com.king.modules.sys.dictionary.service.IDictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,8 @@ public class DictionaryController extends BaseController {
 
     @RequestMapping(value = "/list")
     @ResponseBody
-    public PageInfo<Dictionary> dataList(Dictionary dictionary, HttpServletRequest request) {
-        return dictionaryService.search(new PageInfo<Dictionary>(request), dictionary);
+    public Pagination<Dictionary> dataList(Dictionary dictionary, HttpServletRequest request) {
+//        return dictionaryService.search(new Pagination<Dictionary>(request), dictionary);
+        return null;
     }
 }

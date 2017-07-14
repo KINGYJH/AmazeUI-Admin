@@ -1,6 +1,6 @@
 package com.king.modules.sys.dictionary.service;
 
-import com.king.common.web.PageInfo;
+import com.king.common.web.Pagination;
 import com.king.modules.sys.dictionary.entity.Dictionary;
 
 /**
@@ -8,5 +8,5 @@ import com.king.modules.sys.dictionary.entity.Dictionary;
  * @DateTime 2017/7/12 20:07
  */
 public interface IDictionaryService {
-    PageInfo<Dictionary> search(PageInfo pageInfo, Dictionary dictionary);
+    Pagination<Dictionary> search(Pagination pageInfo, Dictionary dictionary);
 }

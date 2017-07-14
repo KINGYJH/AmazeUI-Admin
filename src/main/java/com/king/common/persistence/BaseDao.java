@@ -3,7 +3,7 @@ package com.king.common.persistence;
 import com.king.common.annotation.DbInsertBefore;
 import com.king.common.annotation.DbUpdateBefore;
 import com.king.common.utils.GenericsUtils;
-import com.king.common.web.PageInfo;
+import com.king.common.web.Pagination;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +38,8 @@ public class BaseDao<T, ID extends Serializable> extends SqlSessionDaoSupport im
     private final String _UPDATE_BY_PRIMARY_KEY_SELECTIVE = ".updateByPrimaryKeySelective";
 
     private final String _DELETE_BY_PRIMARY_KEY = ".deleteByPrimaryKey";
+
+    private final String _SELECT_PAGINATION = ".selectPagination";
 
 
     /*GenericsUtils为工具类，请见下方代码
@@ -113,7 +115,13 @@ public class BaseDao<T, ID extends Serializable> extends SqlSessionDaoSupport im
     }
 
     @Override
-    public PageInfo<T> searchPage(PageInfo pageInfo, T entity) {
-        return null;
+    public Pagination<T> pagination(Pagination pagination) {
+        Integer total = findAll().size();
+
+        List<T> rows = getSqlSession().selectList(getNameSpace() + _SELECT_PAGINATION, pagination);
+
+        pagination.setTotal(total);
+        pagination.setRows(rows);
+        return pagination;
     }
 }

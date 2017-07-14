@@ -1,5 +1,6 @@
 package com.admin;
 
+import com.king.common.web.Pagination;
 import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.menu.service.IMenuService;
 import com.king.modules.sys.user.entity.User;
@@ -31,5 +32,21 @@ public class TestMyBatis {
     public void test1() {
         menuService.isHasChild("sys_menu_0000001");
         System.out.println("");
+    }
+
+    @Test
+    public void testPagination() {
+        Menu menu = new Menu();
+        menu.setName("菜单1");
+        Pagination<Menu> pagination = new Pagination<>();
+        pagination.setPageNumber(1);
+        pagination.setPageSize(20);
+        pagination.setDataStartNumber(0);
+        pagination.setOrderBy("'sort ASC'");
+        pagination.setQueryParams(menu);
+
+        pagination = menuService.pagination(pagination);
+
+        System.out.println("1");
     }
 }

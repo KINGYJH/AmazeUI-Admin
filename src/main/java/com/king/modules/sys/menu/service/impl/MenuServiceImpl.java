@@ -1,5 +1,6 @@
 package com.king.modules.sys.menu.service.impl;
 
+import com.king.common.web.Pagination;
 import com.king.common.web.TreeNode;
 import com.king.modules.sys.menu.dao.IMenuDao;
 import com.king.modules.sys.menu.entity.Menu;
@@ -27,6 +28,12 @@ public class MenuServiceImpl implements IMenuService {
 
     @Autowired
     private MenuTreeUtil menuTreeUtil;
+
+
+    @Override
+    public Pagination<Menu> pagination(Pagination pagination) {
+        return menuDao.pagination(pagination);
+    }
 
     @Override
     public List<Menu> findAll() {

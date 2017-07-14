@@ -1,6 +1,6 @@
 package com.king.common.persistence;
 
-import com.king.common.web.PageInfo;
+import com.king.common.web.Pagination;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,5 +16,5 @@ public interface IBaseDao<T, ID extends Serializable> {
 
     List<T> findAll();
 
-    PageInfo<T> searchPage(PageInfo pageInfo, T entity);
+    Pagination<T> pagination(Pagination pagination);
 }

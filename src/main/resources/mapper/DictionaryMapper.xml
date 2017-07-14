@@ -30,4 +30,16 @@
         FROM sys_dictionary
         WHERE dataKey = #{dataKey}
     </select>
+
+    <select id="selectPagination" parameterType="com.king.common.web.Pagination" resultMap="dictionary">
+        SELECT *
+        FROM sys_dictionary
+        WHERE 1 = 1
+        <if test="orderBy != null and orderBy != ''">
+            ORDER BY ${orderBy}
+        </if>
+        <if test="dataStartNumber !=null and pageSize != null">
+            LIMIT ${dataStartNumber},${pageSize}
+        </if>
+    </select>
 </mapper>

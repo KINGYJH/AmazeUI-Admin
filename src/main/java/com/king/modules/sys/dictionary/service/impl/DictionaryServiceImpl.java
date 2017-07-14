@@ -1,6 +1,6 @@
 package com.king.modules.sys.dictionary.service.impl;
 
-import com.king.common.web.PageInfo;
+import com.king.common.web.Pagination;
 import com.king.modules.sys.dictionary.dao.IDictionaryDao;
 import com.king.modules.sys.dictionary.entity.Dictionary;
 import com.king.modules.sys.dictionary.service.IDictionaryService;
@@ -21,7 +21,7 @@ public class DictionaryServiceImpl implements IDictionaryService {
     private IDictionaryDao<Dictionary, String> dictionaryDao;
 
     @Override
-    public PageInfo<Dictionary> search(PageInfo pageInfo, Dictionary dictionary) {
+    public Pagination<Dictionary> search(Pagination pageInfo, Dictionary dictionary) {
         return null;
     }
 }
