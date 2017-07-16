@@ -16,14 +16,16 @@ public class Pagination<T> {
     private Integer pageNumber;         //页码
     private Integer pageSize;           //页面记录最大数
     private Integer total;              //记录总数
-    private T queryParams;              //查询参数
+    private T queryEntity;              //查询实体
     private String orderBy;             //排序  多个用','分隔
+    private String whereBy;            //条件sql
+    private String groupBy;             //分组
 
     public Pagination() {
     }
 
-    public Pagination(HttpServletRequest request, T queryParams) {
-        this.queryParams = queryParams;
+    public Pagination(HttpServletRequest request, T queryEntity) {
+        this.queryEntity = queryEntity;
 
         Integer pageNumber = 1;
         Integer pageSize = 20;
@@ -91,12 +93,12 @@ public class Pagination<T> {
         this.total = total;
     }
 
-    public T getQueryParams() {
-        return queryParams;
+    public T getQueryEntity() {
+        return queryEntity;
     }
 
-    public void setQueryParams(T queryParams) {
-        this.queryParams = queryParams;
+    public void setQueryEntity(T queryEntity) {
+        this.queryEntity = queryEntity;
     }
 
     public String getOrderBy() {
@@ -105,5 +107,21 @@ public class Pagination<T> {
 
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
+    }
+
+    public String getWhereBy() {
+        return whereBy;
+    }
+
+    public void setWhereBy(String whereBy) {
+        this.whereBy = whereBy;
+    }
+
+    public String getGroupBy() {
+        return groupBy;
+    }
+
+    public void setGroupBy(String groupBy) {
+        this.groupBy = groupBy;
     }
 }

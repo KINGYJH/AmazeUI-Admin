@@ -1,5 +1,9 @@
 package com.admin;
 
+import com.king.common.persistence.search.Criterion;
+import com.king.common.persistence.search.CriterionEnum;
+import com.king.common.persistence.search.MatchMode;
+import com.king.common.persistence.search.Restrictions;
 import com.king.common.web.Pagination;
 import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.menu.service.IMenuService;
@@ -12,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,16 +42,30 @@ public class TestMyBatis {
     @Test
     public void testPagination() {
         Menu menu = new Menu();
-        menu.setName("菜单1");
+        menu.setName("and name like '%菜单%'");
         Pagination<Menu> pagination = new Pagination<>();
         pagination.setPageNumber(1);
         pagination.setPageSize(20);
         pagination.setDataStartNumber(0);
         pagination.setOrderBy("'sort ASC'");
-        pagination.setQueryParams(menu);
+        pagination.setQueryEntity(menu);
 
         pagination = menuService.pagination(pagination);
 
         System.out.println("1");
+    }
+
+    @Test
+    public void testCriterion() {
+        List<Criterion> criteria = new ArrayList<>();
+        criteria.add(Restrictions.eq("name", "菜单"));
+        criteria.add(Restrictions.like("name", "菜单", MatchMode.ALL));
+        criteria.add(Restrictions.gt("name", 2));
+        criteria.add(Restrictions.or(Restrictions.eq("sort", 4), Restrictions.gt("name", 6)));
+        StringBuilder sb = new StringBuilder();
+        for (Criterion criterion : criteria) {
+            sb.append(criterion.toSqlStr());
+        }
+        System.out.println(sb.toString());
     }
 }

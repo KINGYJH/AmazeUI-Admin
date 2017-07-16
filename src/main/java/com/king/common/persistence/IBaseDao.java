@@ -1,5 +1,6 @@
 package com.king.common.persistence;
 
+import com.king.common.persistence.search.Criterion;
 import com.king.common.web.Pagination;
 
 import java.io.Serializable;
@@ -16,5 +17,5 @@ public interface IBaseDao<T, ID extends Serializable> {
 
     List<T> findAll();
 
-    Pagination<T> pagination(Pagination pagination);
+    Pagination<T> pagination(Pagination pagination, List<Criterion> criterionList);
 }

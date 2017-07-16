@@ -68,13 +68,13 @@
         FROM sys_menu
         WHERE 1 = 1
         <if test="queryParams != null">
-            AND name LIKE CONCAT('%',#{queryParams.name},'%')
+            ${queryParams.name}
         </if>
         <if test="orderBy != null and orderBy != ''">
-            ORDER BY ${orderBy}
+            ORDER BY #{orderBy}
         </if>
         <if test="dataStartNumber !=null and pageSize != null">
-            LIMIT ${dataStartNumber},${pageSize}
+            LIMIT #{dataStartNumber},#{pageSize}
         </if>
     </select>
 </mapper>

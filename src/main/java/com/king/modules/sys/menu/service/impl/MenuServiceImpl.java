@@ -32,7 +32,7 @@ public class MenuServiceImpl implements IMenuService {
 
     @Override
     public Pagination<Menu> pagination(Pagination pagination) {
-        return menuDao.pagination(pagination);
+        return menuDao.pagination(pagination, null);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.king.common.persistence;
 
 import com.king.common.annotation.DbInsertBefore;
 import com.king.common.annotation.DbUpdateBefore;
+import com.king.common.persistence.search.Criterion;
 import com.king.common.utils.GenericsUtils;
 import com.king.common.web.Pagination;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -115,7 +116,7 @@ public class BaseDao<T, ID extends Serializable> extends SqlSessionDaoSupport im
     }
 
     @Override
-    public Pagination<T> pagination(Pagination pagination) {
+    public Pagination<T> pagination(Pagination pagination, List<Criterion> criterionList) {
         Integer total = findAll().size();
 
         List<T> rows = getSqlSession().selectList(getNameSpace() + _SELECT_PAGINATION, pagination);
