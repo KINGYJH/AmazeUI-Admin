@@ -2,8 +2,12 @@ package com.king.common.persistence;
 
 import com.king.common.annotation.DbInsertBefore;
 import com.king.common.annotation.DbUpdateBefore;
-import com.king.common.utils.GenericsUtils;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -13,9 +17,12 @@ import java.util.UUID;
  * on 2017/7/10 14:27.
  * 注释: 实体通用字段类
  */
+@MappedSuperclass
 public class BaseEntity<T> implements Serializable {
 
     private String id;              //id
+
+    private Integer version;        //数据版本号
 
     private String createUserId;    //创建者id
 
@@ -31,8 +38,6 @@ public class BaseEntity<T> implements Serializable {
 
     @DbInsertBefore
     public void insertBefore() {
-        Class clazz = (Class) GenericsUtils.getSuperClassGenricType(this.getClass());
-        String simpleName = clazz.getSimpleName();
         this.id = UUID.randomUUID().toString().replaceAll("-", "");
 
         //TODO 添加创建者信息
@@ -57,6 +62,7 @@ public class BaseEntity<T> implements Serializable {
         this.updateDate = updateDate;
     }
 
+    @Id
     public String getId() {
         return id;
     }
@@ -65,6 +71,15 @@ public class BaseEntity<T> implements Serializable {
         this.id = id;
     }
 
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    @Column(name = "create_user_id", length = 32)
     public String getCreateUserId() {
         return createUserId;
     }
@@ -73,6 +88,7 @@ public class BaseEntity<T> implements Serializable {
         this.createUserId = createUserId;
     }
 
+    @Column(name = "create_user_name", length = 32)
     public String getCreateUserName() {
         return createUserName;
     }
@@ -81,6 +97,7 @@ public class BaseEntity<T> implements Serializable {
         this.createUserName = createUserName;
     }
 
+    @Column(name = "create_date")
     public Date getCreateDate() {
         return createDate;
     }
@@ -89,6 +106,7 @@ public class BaseEntity<T> implements Serializable {
         this.createDate = createDate;
     }
 
+    @Column(name = "update_user_id", length = 32)
     public String getUpdateUserId() {
         return updateUserId;
     }
@@ -97,6 +115,7 @@ public class BaseEntity<T> implements Serializable {
         this.updateUserId = updateUserId;
     }
 
+    @Column(name = "update_user_name", length = 32)
     public String getUpdateUserName() {
         return updateUserName;
     }
@@ -105,6 +124,7 @@ public class BaseEntity<T> implements Serializable {
         this.updateUserName = updateUserName;
     }
 
+    @Column(name = "update_date")
     public Date getUpdateDate() {
         return updateDate;
     }

@@ -12,7 +12,4 @@ import java.util.List;
  * 注释:
  */
 public interface IMenuDao<T, ID extends Serializable> extends IBaseDao<T, ID> {
-    List<Menu> findByParentId(String parentId);
-
-    Integer hasChildCount(String id);
 }

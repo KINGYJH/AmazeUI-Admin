@@ -37,7 +37,7 @@ public class MenuController extends BaseController {
     }
 
     @RequestMapping(value = "/save_page")
-    public ModelAndView savePage(){
+    public ModelAndView savePage() {
         return new ModelAndView("/pages/sys/menu/MenuSave");
     }
 

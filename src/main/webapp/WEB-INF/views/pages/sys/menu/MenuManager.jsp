@@ -20,9 +20,13 @@
 <table id="dg_tree_menu" class="easyui-treegrid" data-options="toolbar:'#tb'">
 </table>
 <script type="text/javascript">
+
+    console.log($(window.parent.document).find("iframe").height());
+
     $('#dg_tree_menu').treegrid({
         url: '${projectPath}/sys/menu/list',
         width: 'auto',
+        height: 'auto',
         loadMsg: '请稍等...',
         rownumbers: true,
         idField: 'id',

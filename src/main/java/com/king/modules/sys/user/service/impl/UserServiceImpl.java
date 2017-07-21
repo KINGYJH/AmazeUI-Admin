@@ -19,9 +19,4 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserDao<User, String> userDao;
 
-    @Override
-    public User getByID(String id) {
-        return userDao.selectByPrimaryKey(id);
-    }
-
 }

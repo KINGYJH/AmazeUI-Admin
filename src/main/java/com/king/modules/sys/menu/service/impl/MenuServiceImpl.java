@@ -1,14 +1,18 @@
 package com.king.modules.sys.menu.service.impl;
 
+import com.king.common.utils.StringUtils;
 import com.king.common.web.Pagination;
 import com.king.common.web.TreeNode;
 import com.king.modules.sys.menu.dao.IMenuDao;
 import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.menu.service.IMenuService;
 import com.king.modules.sys.menu.util.MenuTreeUtil;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -19,8 +23,8 @@ import java.util.List;
  * on 2017/7/10 16:27.
  * 注释:
  */
-@Service
-@Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
+@Service("menuService")
+@Transactional(readOnly = true, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class MenuServiceImpl implements IMenuService {
 
     @Autowired
@@ -29,10 +33,11 @@ public class MenuServiceImpl implements IMenuService {
     @Autowired
     private MenuTreeUtil menuTreeUtil;
 
-
     @Override
-    public Pagination<Menu> pagination(Pagination pagination) {
-        return menuDao.pagination(pagination, null);
+    @Transactional(readOnly = false)
+    public Menu save(Menu menu) {
+        menuDao.saveOrUpdate(menu);
+        return menu;
     }
 
     @Override
@@ -41,44 +46,18 @@ public class MenuServiceImpl implements IMenuService {
     }
 
     @Override
-    public List<Menu> findByParentId(String parentId) {
-        List<Menu> allMenu = null;
-        List<Menu> resultMenu = new ArrayList<>();
-        if (null == parentId || parentId.isEmpty()) {
-            allMenu = menuDao.findAll();
-            for (Menu menu : allMenu) {
-                if (menu.getParentId() == null) {
-                    if (isHasChild(menu.getId())) {
-                        menu.setState("closed");
-                    }
-                    resultMenu.add(menu);
-                }
-            }
-        } else {
-            allMenu = menuDao.findByParentId(parentId);
-            for (Menu menu : allMenu) {
-                if (isHasChild(menu.getId())) {
-                    menu.setState("closed");
-                }
-                resultMenu.add(menu);
-            }
-        }
-        return resultMenu;
-    }
-
-    @Override
     public List<TreeNode> getTreeNode(String parentId) {
         return menuTreeUtil.getByParentId(parentId);
     }
 
-    /**
-     * 判断是否包含子节点
-     *
-     * @param menuId 菜单id
-     * @return 如果数量大于0 返会true
-     */
     @Override
-    public boolean isHasChild(String menuId) {
-        return menuDao.hasChildCount(menuId) > 0;
+    public List<Menu> findByParentId(String parentId) {
+        DetachedCriteria dc = menuDao.createDetachedCriteria();
+        if (StringUtils.isNotBlank(parentId)) {
+            dc.add(Restrictions.eq("parent.id", parentId));
+        } else {
+            dc.add(Restrictions.isNull("parent"));
+        }
+        return menuDao.find(dc);
     }
 }

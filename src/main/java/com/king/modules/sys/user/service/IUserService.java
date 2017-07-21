@@ -7,5 +7,4 @@ import com.king.modules.sys.user.entity.User;
  * @DateTime 2017/7/2 19:20
  */
 public interface IUserService {
-    User getByID(String id);
 }

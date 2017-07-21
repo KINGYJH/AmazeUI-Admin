@@ -1,7 +1,8 @@
 package com.king.common.persistence;
 
-import com.king.common.persistence.search.Criterion;
-import com.king.common.web.Pagination;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.transform.ResultTransformer;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,11 +12,34 @@ import java.util.List;
  * @DateTime 2017/7/2 19:59
  */
 public interface IBaseDao<T, ID extends Serializable> {
-    T selectByPrimaryKey(ID id);
 
-    T save(T entity);
+    T loadById(ID id);
 
+    T getById(ID id);
+
+    void save(T entity);
+
+    void saveOrUpdate(T entity);
+
+    void update(T entity);
+
+    void delete(T entity);
+
+    void flush();
+
+    DetachedCriteria createDetachedCriteria();
+
+    void clear();
+
+    void evict(Object obj);
+
+    void refresh(Object obj);
+
+    @SuppressWarnings("unchecked")
     List<T> findAll();
 
-    Pagination<T> pagination(Pagination pagination, List<Criterion> criterionList);
+    List<T> find(DetachedCriteria detachedCriteria);
+
+    @SuppressWarnings("unchecked")
+    List<T> find(DetachedCriteria detachedCriteria, ResultTransformer resultTransformer);
 }

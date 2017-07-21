@@ -9,7 +9,7 @@
     <description>Spring MVC Configuration</description>
 
     <!-- 加载配置属性文件 -->
-    <context:property-placeholder ignore-unresolvable="true" location="classpath*:/properties/sys.properties"/>
+    <context:property-placeholder ignore-unresolvable="true" location="classpath*:/sys.properties"/>
 
     <!-- 组件自动扫描 -->
     <context:component-scan base-package="com.king.modules">

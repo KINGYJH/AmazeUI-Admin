@@ -21,8 +21,16 @@
 
 <link href="${modules_rec}/override.css" type="text/css" rel="stylesheet">
 
-
+<!--[if !IE]> -->
 <script type="text/javascript" src="${easy_rec}/jquery.min.js"></script>
+<!-- <![endif]-->
+<!--[if lte IE 8]>
+<script type="text/javascript" src="${easy_rec}/jquery.min-1.11.js"></script>
+<![endif]-->
+<!--[if gt IE 8]>
+<script type="text/javascript" src="${easy_rec}/jquery.min.js"></script>
+<![endif]-->
+
 <script type="text/javascript" src="${easy_rec}/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${easy_rec}/locale/easyui-lang-zh_CN.js"></script>
 
@@ -38,5 +46,15 @@
         script.type = "text/javascript";
         script.src = url;
         document.body.appendChild(script);
+    }
+
+    //获取iframe高度
+    function getIframeHeight() {
+        return $(window.parent.document).find("iframe").height();
+    }
+
+    //获取iframe宽度
+    function getIframeWidth() {
+        return $(window.parent.document).find("iframe").width();
     }
 </script>

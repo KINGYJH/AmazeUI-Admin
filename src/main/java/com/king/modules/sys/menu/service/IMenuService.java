@@ -1,6 +1,5 @@
 package com.king.modules.sys.menu.service;
 
-import com.king.common.web.Pagination;
 import com.king.common.web.TreeNode;
 import com.king.modules.sys.menu.entity.Menu;
 
@@ -12,13 +11,11 @@ import java.util.List;
  * 注释:
  */
 public interface IMenuService {
-    Pagination<Menu> pagination(Pagination pagination);
+    Menu save(Menu menu);
 
     List<Menu> findAll();
 
-    List<Menu> findByParentId(String parentId);
-
     List<TreeNode> getTreeNode(String parentId);
 
-    boolean isHasChild(String menuId);
+    List<Menu> findByParentId(String parentId);
 }

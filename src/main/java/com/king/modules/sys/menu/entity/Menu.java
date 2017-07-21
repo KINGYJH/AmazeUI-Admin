@@ -1,7 +1,11 @@
 package com.king.modules.sys.menu.entity;
 
 import com.king.common.persistence.BaseEntity;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -9,10 +13,11 @@ import java.util.Date;
  * on 2017/7/10 14:27.
  * 注释: 菜单
  */
+@Entity
+@Table(name = "sys_menu")
 public class Menu extends BaseEntity<Menu> {
 
-    private String parentId;    //父级菜单id
-    private String parentIds;   //所有父级菜单id
+    private Menu parent;        //父级菜单
     private String name;        //菜单名称
     private String href;        //菜单连接
     private String permission;  //菜单权限标识
@@ -20,51 +25,25 @@ public class Menu extends BaseEntity<Menu> {
     private Integer sort;       //菜单排序
     private String isShow;      //菜单是否显示
 
-    private String state = "open"; // 用于datagrid判断
+    private String state = "closed"; // 用于datagrid判断
 
     public Menu() {
         super();
     }
 
-    public Menu(String parentId, String parentIds, String name, String href, String permission, String icon, Integer sort, String isShow) {
-        this.parentId = parentId;
-        this.parentIds = parentIds;
-        this.name = name;
-        this.href = href;
-        this.permission = permission;
-        this.icon = icon;
-        this.sort = sort;
-        this.isShow = isShow;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "parent_id")
+    @NotFound(action = NotFoundAction.IGNORE)
+    @NotNull
+    public Menu getParent() {
+        return parent;
     }
 
-    public Menu(String id, String createUserId, String createUserName, Date createDate, String updateUserId, String updateUserName, Date updateDate, String parentId, String parentIds, String name, String href, String permission, String icon, Integer sort, String isShow) {
-        super(id, createUserId, createUserName, createDate, updateUserId, updateUserName, updateDate);
-        this.parentId = parentId;
-        this.parentIds = parentIds;
-        this.name = name;
-        this.href = href;
-        this.permission = permission;
-        this.icon = icon;
-        this.sort = sort;
-        this.isShow = isShow;
+    public void setParent(Menu parent) {
+        this.parent = parent;
     }
 
-    public String getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getParentIds() {
-        return parentIds;
-    }
-
-    public void setParentIds(String parentIds) {
-        this.parentIds = parentIds;
-    }
-
+    @Column(name = "name", length = 125)
     public String getName() {
         return name;
     }
@@ -73,6 +52,7 @@ public class Menu extends BaseEntity<Menu> {
         this.name = name;
     }
 
+    @Column(name = "href", length = 125)
     public String getHref() {
         return href;
     }
@@ -81,6 +61,7 @@ public class Menu extends BaseEntity<Menu> {
         this.href = href;
     }
 
+    @Column(name = "permission")
     public String getPermission() {
         return permission;
     }
@@ -89,6 +70,7 @@ public class Menu extends BaseEntity<Menu> {
         this.permission = permission;
     }
 
+    @Column(name = "icon")
     public String getIcon() {
         return icon;
     }
@@ -97,6 +79,7 @@ public class Menu extends BaseEntity<Menu> {
         this.icon = icon;
     }
 
+    @Column(name = "sort")
     public Integer getSort() {
         return sort;
     }
@@ -105,6 +88,7 @@ public class Menu extends BaseEntity<Menu> {
         this.sort = sort;
     }
 
+    @Column(name = "is_show", length = 2)
     public String getIsShow() {
         return isShow;
     }
@@ -113,6 +97,7 @@ public class Menu extends BaseEntity<Menu> {
         this.isShow = isShow;
     }
 
+    @Transient
     public String getState() {
         return state;
     }

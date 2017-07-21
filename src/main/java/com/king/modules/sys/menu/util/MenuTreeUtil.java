@@ -22,18 +22,16 @@ public class MenuTreeUtil {
     @Autowired
     private IMenuService menuService;
 
-
     public MenuTreeUtil() {
     }
 
     /**
-     * 根据父级id获取数据
+     * 根据parentId获取数据
      *
      * @param parentId
      * @return
      */
     public List<TreeNode> getByParentId(String parentId) {
-        //TODO 用缓存获取
         List<Menu> menuList = menuService.findByParentId(parentId);
 
         List<TreeNode> treeNodes = null;
@@ -65,7 +63,7 @@ public class MenuTreeUtil {
         //属性
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("url", menu.getHref());
-        attributes.put("parentId", menu.getParentId());
+        attributes.put("parentId", null != menu.getParent() ? menu.getParent().getId() : "");
         treeNode.setAttributes(attributes);
 
         //递归添加子节点,直到menuList为空
@@ -79,5 +77,4 @@ public class MenuTreeUtil {
         treeNode.setChildren(treeNodes);
         return treeNode;
     }
-
 }
