@@ -12,7 +12,7 @@
     <context:property-placeholder ignore-unresolvable="true" location="classpath*:/sys.properties"/>
 
     <!-- 组件自动扫描 -->
-    <context:component-scan base-package="com.king.modules">
+    <context:component-scan base-package="com.king.modules.**.**.web,com.king.modules.sys.web">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 

@@ -31,7 +31,6 @@ public class DictionaryController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Pagination<Dictionary> dataList(Dictionary dictionary, HttpServletRequest request) {
-//        return dictionaryService.search(new Pagination<Dictionary>(request), dictionary);
-        return null;
+        return dictionaryService.pagination(new Pagination<>(request), dictionary);
     }
 }

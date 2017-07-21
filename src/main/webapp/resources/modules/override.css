@@ -9,21 +9,24 @@
 .my_table_form .label {
     text-align: right;
     font-size: 14px;
-    padding-left: 3%;
 }
 
 .inputArea input {
     min-width: 200px;
-    min-height: 25px;
+    min-height: 20px;
     border-radius: 5px 5px 5px 5px;
+    /*关键属性设置 需要把路径设置好*/
+    behavior: url(./PIE.htc);
 }
 
 .inputArea select {
     min-width: 200px;
-    min-height: 25px;
-    /*border-radius: 5px 5px 5px 5px;*/
+    min-height: 20px;
+    border-radius: 5px 5px 5px 5px;
+    /*关键属性设置 需要把路径设置好*/
+    behavior: url(./PIE.htc);
 }
 
 .width-full{
-    width: 95%;
+    width: 90%;
 }

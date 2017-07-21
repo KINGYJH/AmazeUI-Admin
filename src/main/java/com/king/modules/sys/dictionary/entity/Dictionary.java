@@ -2,6 +2,9 @@ package com.king.modules.sys.dictionary.entity;
 
 import com.king.common.persistence.BaseEntity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -9,29 +12,19 @@ import java.util.Date;
  * @DateTime 2017/7/12 19:54
  * 数据字典
  */
+@Entity
+@Table(name = "sys_dictionary")
 public class Dictionary extends BaseEntity<Dictionary> {
 
-    private String dataKey;
-    private String dataValue;
-    private Integer sort;
+    private String dataKey;     //键
+    private String dataValue;   //值
+    private Integer sort;       //排序
 
     public Dictionary() {
         super();
     }
 
-    public Dictionary(String dataKey, String value, Integer sort) {
-        this.dataKey = dataKey;
-        this.dataValue = dataValue;
-        this.sort = sort;
-    }
-
-    public Dictionary(String id, String createUserId, String createUserName, Date createDate, String updateUserId, String updateUserName, Date updateDate, String dataKey, String dataValue, Integer sort) {
-        super(id, createUserId, createUserName, createDate, updateUserId, updateUserName, updateDate);
-        this.dataKey = dataKey;
-        this.dataValue = dataValue;
-        this.sort = sort;
-    }
-
+    @Column(name = "data_key")
     public String getDataKey() {
         return dataKey;
     }
@@ -40,6 +33,7 @@ public class Dictionary extends BaseEntity<Dictionary> {
         this.dataKey = dataKey;
     }
 
+    @Column(name = "data_value")
     public String getDataValue() {
         return dataValue;
     }
@@ -48,6 +42,7 @@ public class Dictionary extends BaseEntity<Dictionary> {
         this.dataValue = dataValue;
     }
 
+    @Column(name = "sort")
     public Integer getSort() {
         return sort;
     }

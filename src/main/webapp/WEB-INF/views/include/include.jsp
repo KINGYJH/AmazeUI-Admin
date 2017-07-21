@@ -50,11 +50,29 @@
 
     //获取iframe高度
     function getIframeHeight() {
-        return $(window.parent.document).find("iframe").height();
+        return parent.$('#tabs').tabs('getSelected').panel('options').height;
     }
 
     //获取iframe宽度
     function getIframeWidth() {
-        return $(window.parent.document).find("iframe").width();
+        return parent.$('#tabs').tabs('getSelected').panel('options').width;
+    }
+
+    // 打开加载层
+    function loadTier() {
+        $.messager.progress({
+            title: '请稍后',
+            msg: '页面加载中......'
+        });
+    }
+
+    // 关闭加载层
+    function loadTierClose() {
+        $.messager.progress('close');
+    }
+
+    // 弹出信息窗口 title:标题 msgString:提示信息 msgType:信息类型 [error,info,question,warning]
+    function msgShow(title, msgString, msgType) {
+        $.messager.alert(title, msgString, msgType);
     }
 </script>

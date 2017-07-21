@@ -21,44 +21,44 @@
 </table>
 <script type="text/javascript">
 
-    console.log($(window.parent.document).find("iframe").height());
-
-    $('#dg_tree_menu').treegrid({
-        url: '${projectPath}/sys/menu/list',
-        width: 'auto',
-        height: 'auto',
-        loadMsg: '请稍等...',
-        rownumbers: true,
-        idField: 'id',
-        treeField: 'name',
-        fitColumns: true,
-        columns: [[
-            {title: '菜单名称', field: 'name', width: 50, align: 'left'},
-            {title: '菜单链接', field: 'href', width: 50, align: 'center'},
-            {title: '菜单权限标识', field: 'permission', width: 50, align: 'center'},
-            {
-                title: '菜单图标', field: 'icon', width: 50, align: 'center',
-                formatter: function (value, row, index) {
-                    return typeof(value) === "undefined" ? '' : '<img src="' + value + '"/>';
+    $(function () {
+        $('#dg_tree_menu').treegrid({
+            url: '${projectPath}/sys/menu/list',
+            width: 'auto',
+            height: getIframeHeight() * 0.96,
+            loadMsg: '请稍等...',
+            rownumbers: true,
+            idField: 'id',
+            treeField: 'name',
+            fitColumns: true,
+            columns: [[
+                {title: '菜单名称', field: 'name', width: 50, align: 'left'},
+                {title: '菜单链接', field: 'href', width: 50, align: 'center'},
+                {title: '菜单权限标识', field: 'permission', width: 50, align: 'center'},
+                {
+                    title: '菜单图标', field: 'icon', width: 50, align: 'center',
+                    formatter: function (value, row, index) {
+                        return typeof(value) === "undefined" ? '' : '<img src="' + value + '"/>';
+                    }
+                },
+                {title: '菜单同级排序', field: 'sort', width: 50, align: 'center'},
+                {
+                    title: '菜单是否显示', field: 'isShow', width: 50, align: 'center',
+                    formatter: function (value, row, index) {
+                        return value === '0' ? '显示' : '不显示';
+                    }
                 }
+            ]],
+            onLoadError: function () {
+                $.messager.alert("提示", "数据加载出错！", "error");
             },
-            {title: '菜单同级排序', field: 'sort', width: 50, align: 'center'},
-            {
-                title: '菜单是否显示', field: 'isShow', width: 50, align: 'center',
-                formatter: function (value, row, index) {
-                    return value === '0' ? '显示' : '不显示';
-                }
+            onBeforeExpand: function (node) {
+                jQuery('#dg_tree_menu').treegrid('options').url = "${projectPath}/sys/menu/list?parentId=" + node.id;
+                return true;
             },
-        ]],
-        onLoadError: function () {
-            $.messager.alert("提示", "数据加载出错！", "error");
-        },
-        onBeforeExpand: function (node) {
-            jQuery('#dg_tree_menu').treegrid('options').url = "${projectPath}/sys/menu/list?parentId=" + node.id;
-            return true;
-        },
-        onLoadSuccess: function (row, data) {
-        }
+            onLoadSuccess: function (row, data) {
+            }
+        })
     })
 
     //添加

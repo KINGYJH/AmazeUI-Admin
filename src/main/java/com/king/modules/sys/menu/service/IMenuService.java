@@ -11,11 +11,15 @@ import java.util.List;
  * 注释:
  */
 public interface IMenuService {
-    Menu save(Menu menu);
+    Menu getById(String id);
+
+    void save(Menu menu);
 
     List<Menu> findAll();
 
     List<TreeNode> getTreeNode(String parentId);
 
     List<Menu> findByParentId(String parentId);
+
+    boolean isHasChild(String menuId);
 }

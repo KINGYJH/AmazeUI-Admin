@@ -1,5 +1,6 @@
 package com.king.common.persistence;
 
+import com.king.common.web.Pagination;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.transform.ResultTransformer;
@@ -42,4 +43,11 @@ public interface IBaseDao<T, ID extends Serializable> {
 
     @SuppressWarnings("unchecked")
     List<T> find(DetachedCriteria detachedCriteria, ResultTransformer resultTransformer);
+
+    Pagination<T> pagination(Pagination<T> page);
+
+    Pagination<T> pagination(Pagination<T> page, DetachedCriteria detachedCriteria);
+
+    @SuppressWarnings("unchecked")
+    Pagination<T> pagination(Pagination<T> page, DetachedCriteria detachedCriteria, ResultTransformer resultTransformer);
 }

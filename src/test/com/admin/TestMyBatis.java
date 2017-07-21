@@ -3,6 +3,7 @@ package com.admin;
 import com.king.common.web.TreeNode;
 import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.menu.service.IMenuService;
+import com.king.modules.sys.sequence.util.SequenceUtil;
 import com.king.modules.sys.user.service.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,15 +30,9 @@ public class TestMyBatis {
     @Test
     public void testSave() {
         Menu menu = new Menu();
-        menu.setId("001");
         menu.setName("123");
         menu.setPermission("123");
-        Menu menu1 = new Menu();
-        menu1.setId("002");
-        menu1.setName("456");
-        menu1.setPermission("456");
-        menu1.setParent(menu);
-        menuService.save(menu1);
+        menuService.save(menu);
     }
 
     @Test
@@ -47,8 +42,14 @@ public class TestMyBatis {
     }
 
     @Test
-    public void testTreeNodeMenu(){
+    public void testTreeNodeMenu() {
         List<TreeNode> list = menuService.getTreeNode(null);
         System.out.println("");
+    }
+
+    @Test
+    public void testSequenceId() {
+        String id = SequenceUtil.getNextId("sys_sequence");
+        System.out.println(id);
     }
 }

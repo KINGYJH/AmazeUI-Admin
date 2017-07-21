@@ -8,6 +8,7 @@ import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.menu.service.IMenuService;
 import com.king.modules.sys.menu.util.MenuTreeUtil;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,10 +35,14 @@ public class MenuServiceImpl implements IMenuService {
     private MenuTreeUtil menuTreeUtil;
 
     @Override
-    @Transactional(readOnly = false)
-    public Menu save(Menu menu) {
-        menuDao.saveOrUpdate(menu);
-        return menu;
+    public Menu getById(String id) {
+        return menuDao.getById(id);
+    }
+
+    @Override
+    @Transactional()
+    public void save(Menu menu) {
+        menuDao.save(menu);
     }
 
     @Override
@@ -58,6 +63,28 @@ public class MenuServiceImpl implements IMenuService {
         } else {
             dc.add(Restrictions.isNull("parent"));
         }
-        return menuDao.find(dc);
+        dc.addOrder(Order.asc("sort"));
+        List<Menu> listData = menuDao.find(dc);
+        for (Menu menu : listData) {
+            if (isHasChild(menu.getId())) {
+                menu.setState("closed");
+            } else {
+                menu.setState("open");
+            }
+        }
+        return listData;
+    }
+
+    /**
+     * 判断是否包含子节点
+     *
+     * @param menuId 菜单id
+     * @return 如果数量大于0 返会true
+     */
+    @Override
+    public boolean isHasChild(String menuId) {
+        DetachedCriteria dc = menuDao.createDetachedCriteria();
+        dc.add(Restrictions.eq("parent.id", menuId));
+        return menuDao.find(dc).size() > 0;
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author by yjh
  * @DateTime 2017/7/2 19:21
  */
-@Service
+@Service("userService")
 @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
 public class UserServiceImpl implements IUserService {
 

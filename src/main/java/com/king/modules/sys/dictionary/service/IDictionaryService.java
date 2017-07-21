@@ -8,5 +8,5 @@ import com.king.modules.sys.dictionary.entity.Dictionary;
  * @DateTime 2017/7/12 20:07
  */
 public interface IDictionaryService {
-    Pagination<Dictionary> search(Pagination pageInfo, Dictionary dictionary);
+    Pagination<Dictionary> pagination(Pagination<Dictionary> pagination, Dictionary dictionary);
 }

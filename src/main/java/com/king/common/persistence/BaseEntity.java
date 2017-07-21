@@ -2,13 +2,14 @@ package com.king.common.persistence;
 
 import com.king.common.annotation.DbInsertBefore;
 import com.king.common.annotation.DbUpdateBefore;
+import com.king.common.utils.StringUtils;
+import com.king.modules.sys.sequence.util.SequenceUtil;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.ParameterizedType;
 import java.util.Date;
 import java.util.UUID;
 
@@ -38,7 +39,17 @@ public class BaseEntity<T> implements Serializable {
 
     @DbInsertBefore
     public void insertBefore() {
-        this.id = UUID.randomUUID().toString().replaceAll("-", "");
+        String tableName = "";
+        Class<T> tClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+
+        Table tb = tClass.getAnnotation(Table.class);
+        if (null != tb) {
+            tableName = tb.name();
+            System.out.println("表名为：" + tableName);
+        }
+
+        String seq_id = SequenceUtil.getNextId(tableName);
+        this.id = seq_id;
 
         //TODO 添加创建者信息
     }
@@ -71,6 +82,7 @@ public class BaseEntity<T> implements Serializable {
         this.id = id;
     }
 
+    @Version
     public Integer getVersion() {
         return version;
     }

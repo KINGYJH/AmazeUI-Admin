@@ -1,10 +1,10 @@
-package com.king.modules.sys.menu.web;
+package com.king.modules.sys.sequence.web;
 
 import com.king.common.web.BaseController;
 import com.king.common.web.JSONMessage;
-import com.king.common.web.TreeNode;
-import com.king.modules.sys.menu.entity.Menu;
-import com.king.modules.sys.menu.service.IMenuService;
+import com.king.common.web.Pagination;
+import com.king.modules.sys.sequence.entity.Sequence;
+import com.king.modules.sys.sequence.service.ISequenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,42 +12,41 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by YJH
- * on 2017/7/10 15:41.
- * 注释:
+ * @author by yjh
+ * @DateTime 2017/7/21 20:37
  */
 @Controller
-@RequestMapping("${adminPath}/sys/menu")
-public class MenuController extends BaseController {
+@RequestMapping(value = "${adminPath}/sys/sequence")
+public class SequenceController extends BaseController {
 
     @Autowired
-    private IMenuService menuService;
+    private ISequenceService sequenceService;
 
     @RequestMapping(value = "/manager")
     public ModelAndView manager() {
-        return new ModelAndView("/pages/sys/menu/MenuManager");
+        return new ModelAndView("/pages/sys/sequence/SequenceManager");
     }
 
     @RequestMapping(value = "/list")
     @ResponseBody
-    public List<Menu> dataList(String parentId) {
-        return menuService.findByParentId(parentId);
+    public Pagination<Sequence> dataList(Sequence sequence, HttpServletRequest request) {
+        return sequenceService.pagination(new Pagination<>(request), sequence);
     }
 
     @RequestMapping(value = "/save_page")
     public ModelAndView savePage() {
-        return new ModelAndView("/pages/sys/menu/MenuSave");
+        return new ModelAndView("/pages/sys/sequence/SequenceSave");
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public JSONMessage save(Menu menu) {
+    public JSONMessage save(Sequence sequence) {
         JSONMessage msg = new JSONMessage();
         try {
-            menuService.save(menu);
+            sequenceService.save(sequence);
             msg.setMsg("添加成功!");
             msg.setStatus(JSONMessage.Status.SUCCESS);
         } catch (Exception e) {
@@ -56,11 +55,4 @@ public class MenuController extends BaseController {
         }
         return msg;
     }
-
-    @RequestMapping(value = "/user_tree_data", method = RequestMethod.POST)
-    @ResponseBody
-    public List<TreeNode> userTreeData(String parentId) {
-        return menuService.getTreeNode(parentId);
-    }
-
 }

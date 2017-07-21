@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * @author by yjh
  * @DateTime 2017/7/12 20:09
  */
-@Repository
+@Repository("dictionaryDao")
 public class DictionaryDaoImpl extends BaseDao<Dictionary, String> implements IDictionaryDao<Dictionary, String> {
 }

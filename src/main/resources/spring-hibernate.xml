@@ -70,8 +70,6 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <context:annotation-config />
-
     <tx:annotation-driven/>
 
 </beans>

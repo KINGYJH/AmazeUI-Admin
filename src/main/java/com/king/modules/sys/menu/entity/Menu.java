@@ -25,7 +25,7 @@ public class Menu extends BaseEntity<Menu> {
     private Integer sort;       //菜单排序
     private String isShow;      //菜单是否显示
 
-    private String state = "closed"; // 用于datagrid判断
+    private String state = "open"; // 用于datagrid判断
 
     public Menu() {
         super();
@@ -34,7 +34,6 @@ public class Menu extends BaseEntity<Menu> {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "parent_id")
     @NotFound(action = NotFoundAction.IGNORE)
-    @NotNull
     public Menu getParent() {
         return parent;
     }

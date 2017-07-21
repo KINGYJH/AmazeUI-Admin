@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * @author by yjh
  * @DateTime 2017/7/2 19:20
  */
-@Repository
+@Repository("userDao")
 public class UserDaoImpl extends BaseDao<User, String> implements IUserDao<User, String> {
 
 }

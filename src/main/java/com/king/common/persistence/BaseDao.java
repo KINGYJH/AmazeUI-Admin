@@ -2,19 +2,25 @@ package com.king.common.persistence;
 
 import com.king.common.annotation.DbInsertBefore;
 import com.king.common.annotation.DbUpdateBefore;
+import com.king.common.web.Pagination;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.internal.CriteriaImpl;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Id;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -90,7 +96,7 @@ public abstract class BaseDao<T, ID extends Serializable> implements IBaseDao<T,
             // 获取实体编号
             Object id = null;
             for (Method method : entity.getClass().getMethods()) {
-                DbInsertBefore idAnn = method.getAnnotation(DbInsertBefore.class);
+                Id idAnn = method.getAnnotation(Id.class);
                 if (idAnn != null) {
                     id = method.invoke(entity);
                     break;
@@ -141,7 +147,7 @@ public abstract class BaseDao<T, ID extends Serializable> implements IBaseDao<T,
     @Override
     @SuppressWarnings("unchecked")
     public List<T> findAll() {
-        return getSession().createCriteria(getPersistentClass()).list();
+        return find(createDetachedCriteria());
     }
 
     /**
@@ -168,5 +174,58 @@ public abstract class BaseDao<T, ID extends Serializable> implements IBaseDao<T,
         Criteria criteria = detachedCriteria.getExecutableCriteria(getSession());
         criteria.setResultTransformer(resultTransformer);
         return criteria.list();
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param page
+     * @return
+     */
+    @Override
+    public Pagination<T> pagination(Pagination<T> page) {
+        return pagination(page, createDetachedCriteria());
+    }
+
+
+    /**
+     * 使用检索标准对象分页查询
+     *
+     * @param page
+     * @param detachedCriteria
+     * @return
+     */
+    @Override
+    public Pagination<T> pagination(Pagination<T> page, DetachedCriteria detachedCriteria) {
+        return pagination(page, detachedCriteria, Criteria.DISTINCT_ROOT_ENTITY);
+    }
+
+    /**
+     * 使用检索标准对象分页查询
+     *
+     * @param page
+     * @param detachedCriteria
+     * @param resultTransformer
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public Pagination<T> pagination(Pagination<T> page, DetachedCriteria detachedCriteria, ResultTransformer resultTransformer) {
+
+        Criteria criteria = detachedCriteria.getExecutableCriteria(getSession());
+        criteria.setResultTransformer(resultTransformer);
+
+        // set page
+        int firstResult = (page.getPageNumber() - 1) * page.getPageSize();
+        criteria.setFirstResult(firstResult).setMaxResults(page.getPageSize());
+
+        //set data
+        page.setRows(criteria.list());
+
+        // set total
+        Criteria criteriaCount = detachedCriteria.getExecutableCriteria(getSession()).setProjection(Projections.rowCount());
+        int total = ((Long) criteriaCount.uniqueResult()).intValue();
+        page.setTotal(total);
+        return page;
     }
 }

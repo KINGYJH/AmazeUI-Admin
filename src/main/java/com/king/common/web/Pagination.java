@@ -1,6 +1,7 @@
 package com.king.common.web;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,24 +10,17 @@ import java.util.List;
  * <p>
  * 分页信息
  */
-public class Pagination<T> {
+public class Pagination<T> implements Serializable {
 
     private List<T> rows;               //数据
-    private Integer dataStartNumber;    //数据库数据开始数
     private Integer pageNumber;         //页码
     private Integer pageSize;           //页面记录最大数
     private Integer total;              //记录总数
-    private T queryEntity;              //查询实体
-    private String orderBy;             //排序  多个用','分隔
-    private String whereBy;            //条件sql
-    private String groupBy;             //分组
 
     public Pagination() {
     }
 
-    public Pagination(HttpServletRequest request, T queryEntity) {
-        this.queryEntity = queryEntity;
-
+    public Pagination(HttpServletRequest request) {
         Integer pageNumber = 1;
         Integer pageSize = 20;
 
@@ -49,8 +43,6 @@ public class Pagination<T> {
         } else {
             this.pageSize = pageSize;
         }
-        //计算开始的记录和结束的记录
-        this.dataStartNumber = (this.pageNumber - 1) * this.pageSize;
     }
 
     public List<T> getRows() {
@@ -59,14 +51,6 @@ public class Pagination<T> {
 
     public void setRows(List<T> rows) {
         this.rows = rows;
-    }
-
-    public Integer getDataStartNumber() {
-        return dataStartNumber;
-    }
-
-    public void setDataStartNumber(Integer dataStartNumber) {
-        this.dataStartNumber = dataStartNumber;
     }
 
     public Integer getPageNumber() {
@@ -91,37 +75,5 @@ public class Pagination<T> {
 
     public void setTotal(Integer total) {
         this.total = total;
-    }
-
-    public T getQueryEntity() {
-        return queryEntity;
-    }
-
-    public void setQueryEntity(T queryEntity) {
-        this.queryEntity = queryEntity;
-    }
-
-    public String getOrderBy() {
-        return orderBy;
-    }
-
-    public void setOrderBy(String orderBy) {
-        this.orderBy = orderBy;
-    }
-
-    public String getWhereBy() {
-        return whereBy;
-    }
-
-    public void setWhereBy(String whereBy) {
-        this.whereBy = whereBy;
-    }
-
-    public String getGroupBy() {
-        return groupBy;
-    }
-
-    public void setGroupBy(String groupBy) {
-        this.groupBy = groupBy;
     }
 }
