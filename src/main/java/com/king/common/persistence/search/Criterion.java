@@ -1,7 +1,6 @@
 package com.king.common.persistence.search;
 
 import com.king.common.exception.ParameterException;
-import com.king.common.utils.StringUtils;
 
 /**
  * Created by YJH
