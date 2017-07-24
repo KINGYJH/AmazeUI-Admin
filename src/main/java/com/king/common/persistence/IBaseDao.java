@@ -18,11 +18,7 @@ public interface IBaseDao<T, ID extends Serializable> {
 
     T getById(ID id);
 
-    void save(T entity);
-
     void saveOrUpdate(T entity);
-
-    void update(T entity);
 
     void delete(T entity);
 

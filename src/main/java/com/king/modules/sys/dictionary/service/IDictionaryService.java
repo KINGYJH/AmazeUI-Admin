@@ -9,4 +9,6 @@ import com.king.modules.sys.dictionary.entity.Dictionary;
  */
 public interface IDictionaryService {
     Pagination<Dictionary> pagination(Pagination<Dictionary> pagination, Dictionary dictionary);
+
+    void save(Dictionary dictionary);
 }

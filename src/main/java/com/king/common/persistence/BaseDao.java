@@ -91,7 +91,7 @@ public abstract class BaseDao<T, ID extends Serializable> implements IBaseDao<T,
     }
 
     @Override
-    public void save(T entity) {
+    public void saveOrUpdate(T entity) {
         try {
             // 获取实体编号
             Object id = null;
@@ -126,16 +126,6 @@ public abstract class BaseDao<T, ID extends Serializable> implements IBaseDao<T,
             e.printStackTrace();
         }
 
-        getSession().saveOrUpdate(entity);
-    }
-
-    @Override
-    public void update(T entity) {
-        getSession().update(entity);
-    }
-
-    @Override
-    public void saveOrUpdate(T entity) {
         getSession().saveOrUpdate(entity);
     }
 

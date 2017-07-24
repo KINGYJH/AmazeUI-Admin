@@ -67,7 +67,7 @@
                     loadTierClose();
                     var obj = jQuery.parseJSON(data);
                     parent.msgShow('系统提示', obj.msg, 'info');
-                    if (obj.status === "1") {
+                    if (obj.status === "SUCCESS") {
                         parent.jQuery('#dl_menu_add').dialog('close');
                     }
                 }

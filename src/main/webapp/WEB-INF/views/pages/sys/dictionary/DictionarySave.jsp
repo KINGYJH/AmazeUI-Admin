@@ -3,41 +3,31 @@
   User: YJH
   Date: 2017/7/12
   Time: 9:52
-  序列添加
+  数据字典添加
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/WEB-INF/views/include/include.jsp" %>
 <html>
 <head>
-    <title>序列添加</title>
+    <title>数据字典添加</title>
 </head>
 <body>
-<form id="sequence_save" method="post" data-options="novalidate:true">
+<form id="dictionary_save" method="post" data-options="novalidate:true">
     <table class="my_table_form">
         <tr>
-            <td class="label">表名：</td>
+            <td class="label">键：</td>
             <td class="inputArea">
-                <input name="tableName" class="easyui-validatebox" required/>
+                <input name="dataKey" class="easyui-validatebox" required/>
             </td>
-            <td class="label">长度：</td>
+            <td class="label">值：</td>
             <td class="inputArea">
-                <input name="length" class="easyui-validatebox" required validType="Number"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="label">主键名称：</td>
-            <td class="inputArea">
-                <input name="pkName" class="easyui-validatebox" required/>
-            </td>
-            <td class="label">前缀：</td>
-            <td class="inputArea">
-                <input name="prefix" class="easyui-validatebox" required/>
+                <input name="dataValue" class="easyui-validatebox" required/>
             </td>
         </tr>
         <tr>
-            <td class="label">描述：</td>
-            <td class="inputArea" colspan="3">
-                <input name="describes" class="easyui-validatebox width-full"/>
+            <td class="label">排序：</td>
+            <td class="inputArea">
+                <input name="sort" value="0" class="easyui-validatebox" validType="Number"/>
             </td>
         </tr>
     </table>
@@ -46,10 +36,10 @@
     loadScript("${modules_rec}/sys/validatebox-extend.js");
 
     function submitForm() {
-        if (jQuery('#sequence_save').form('validate')) {
+        if (jQuery('#dictionary_save').form('validate')) {
             loadTier();
-            $('#sequence_save').form('submit', {
-                url: '${projectPath}/sys/sequence/save',
+            $('#dictionary_save').form('submit', {
+                url: '${projectPath}/sys/dictionary/save',
                 onLoadError: function () {
                     loadTierClose();
                     msgShow('系统提示', "系统出现错误请重试", 'info');
@@ -57,8 +47,9 @@
                     loadTierClose();
                     var obj = jQuery.parseJSON(data);
                     parent.msgShow('系统提示', obj.msg, 'info');
+                    console.log(data);
                     if (obj.status === "SUCCESS") {
-                        parent.jQuery('#dl_sequence_add').dialog('close');
+                        parent.jQuery('#dl_dictionary_add').dialog('close');
                     }
                 }
             })

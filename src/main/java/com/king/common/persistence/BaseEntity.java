@@ -48,15 +48,17 @@ public class BaseEntity<T> implements Serializable {
             System.out.println("表名为：" + tableName);
         }
 
-        String seq_id = SequenceUtil.getNextId(tableName);
-        this.id = seq_id;
+        this.id = SequenceUtil.getNextId(tableName);
 
         //TODO 添加创建者信息
+        this.createDate = new Date();
     }
 
     @DbUpdateBefore
     public void updateBefore() {
         //TODO 添加更新者信息
+
+        this.updateDate = new Date();
     }
 
     public BaseEntity() {

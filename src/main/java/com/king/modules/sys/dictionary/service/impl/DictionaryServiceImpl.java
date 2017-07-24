@@ -30,4 +30,10 @@ public class DictionaryServiceImpl implements IDictionaryService {
         dc.addOrder(Order.asc("sort"));
         return dictionaryDao.pagination(pagination, dc);
     }
+
+    @Override
+    @Transactional()
+    public void save(Dictionary dictionary) {
+        dictionaryDao.saveOrUpdate(dictionary);
+    }
 }

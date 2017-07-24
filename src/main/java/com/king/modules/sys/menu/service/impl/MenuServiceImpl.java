@@ -42,7 +42,7 @@ public class MenuServiceImpl implements IMenuService {
     @Override
     @Transactional()
     public void save(Menu menu) {
-        menuDao.save(menu);
+        menuDao.saveOrUpdate(menu);
     }
 
     @Override
