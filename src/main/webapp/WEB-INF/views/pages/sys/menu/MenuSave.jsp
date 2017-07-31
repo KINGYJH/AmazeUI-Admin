@@ -27,7 +27,7 @@
         <tr>
             <td class="label">上级菜单：</td>
             <td class="inputArea">
-                <input name="name" class="easyui-validatebox"/>
+                <tags:menu_comboTree id="parent" name="parent.id" checkbox="false" isNull="false"/>
             </td>
             <td class="label">排序：</td>
             <td class="inputArea">
@@ -41,12 +41,12 @@
             </td>
             <td class="label">是否显示：</td>
             <td class="inputArea">
-                <input name="isShow" class="easyui-validatebox" required validType="Number"/>
+                <tags:dic_comboBox id="isShow" name="isShow" dataKey="IS_SHOW" isNull="true"/>
             </td>
         </tr>
         <tr>
             <td class="label">菜单链接：</td>
-            <td class="inputArea" colspan="3">
+            <td class="inputArea" colspan="2">
                 <input name="href" class="easyui-validatebox width-full"/>
             </td>
         </tr>
@@ -65,7 +65,7 @@
                     msgShow('系统提示', "系统出现错误请重试", 'info');
                 }, success: function (data) {
                     loadTierClose();
-                    var obj = jQuery.parseJSON(data);
+                    var obj = toJSON(data);
                     parent.msgShow('系统提示', obj.msg, 'info');
                     if (obj.status === "SUCCESS") {
                         parent.jQuery('#dl_menu_add').dialog('close');

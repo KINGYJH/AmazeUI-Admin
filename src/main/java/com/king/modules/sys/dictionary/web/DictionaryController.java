@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author by yjh
@@ -83,6 +84,40 @@ public class DictionaryController extends BaseController {
         } catch (Exception e) {
             jsonMessage.setStatus(JSONMessage.Status.FAIL);
             jsonMessage.setMsg("系统错误，请稍后再试");
+        }
+        return jsonMessage;
+    }
+
+    @RequestMapping(value = "/get_by_dataKey")
+    @ResponseBody
+    public JSONMessage getByDataKey(String dataKey) {
+        JSONMessage jsonMessage = new JSONMessage();
+        try {
+            List<Dictionary> data = dictionaryService.getByDataKey(dataKey);
+            jsonMessage.setData(data);
+            jsonMessage.setMsg("获取数据成功");
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+        } catch (Exception e) {
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setMsg(e.getMessage());
+        }
+        return jsonMessage;
+    }
+
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONMessage delete(Dictionary dictionary) {
+        JSONMessage jsonMessage = new JSONMessage();
+        try {
+            dictionaryService.del(dictionary);
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+            jsonMessage.setMsg("删除成功");
+        } catch (NoFoundException | ConcurrencyException e) {
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setMsg(e.getMessage());
+        } catch (Exception e) {
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setMsg("系统异常,请稍后再试");
         }
         return jsonMessage;
     }

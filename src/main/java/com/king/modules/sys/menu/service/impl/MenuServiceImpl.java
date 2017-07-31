@@ -1,5 +1,6 @@
 package com.king.modules.sys.menu.service.impl;
 
+import com.king.common.exception.NoFoundException;
 import com.king.common.utils.StringUtils;
 import com.king.common.web.Pagination;
 import com.king.common.web.TreeNode;
@@ -36,13 +37,19 @@ public class MenuServiceImpl implements IMenuService {
 
     @Override
     public Menu getById(String id) {
-        return menuDao.getById(id);
+        Menu menu = menuDao.getById(id);
+        if (null == menu) {
+            throw new NoFoundException("id为[" + id + "]的数据未找到");
+        }
+        return menu;
     }
 
     @Override
     @Transactional()
     public void save(Menu menu) {
-        menuDao.saveOrUpdate(menu);
+        Menu parent = this.getById(menu.getParent().getId());
+        menu.setParent(parent);
+        menuDao.save(menu);
     }
 
     @Override

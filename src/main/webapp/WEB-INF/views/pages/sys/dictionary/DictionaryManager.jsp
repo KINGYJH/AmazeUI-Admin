@@ -15,7 +15,7 @@
 <div id="tb" style="padding:2px 5px;">
     <a href="#" onclick="add()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
     <a href="#" onclick="edit()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+    <a href="#" onclick="del()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
 </div>
 <table id="dg_dictionary" class="easyui-datagrid" data-options="toolbar:'#tb'">
 </table>
@@ -115,6 +115,42 @@
                     parent.jQuery(this).dialog('destroy');
                 }
             })
+        } else {
+            msgShow("系统提示", "请选择一条数据", "info");
+        }
+    }
+
+    /**
+     * 删除
+     */
+    function del() {
+        var row = $('#dg_dictionary').datagrid('getSelected');
+        if (row) {
+            var id = row.id;
+            var version = row.version;
+            $.messager.confirm('系统提示', '你确定删除此数据吗(删除后将不可恢复)?', function (r) {
+                if (r) {
+                    loadTierClose();
+                    $.ajax({
+                        url: '${projectPath}/sys/dictionary/del',
+                        dataType: 'json',
+                        data: {id: id, version: version},
+                        type: 'post',
+                        success: function (data) {
+                            loadTierClose();
+                            var obj = toJSON(data);
+                            msgShow('系统提示', obj.msg, 'info');
+                            if (obj.status === "SUCCESS") {
+                                reloadDatagrId();
+                            }
+                        },
+                        error: function () {
+                            msgShow('系统提示', '系统错误', 'error');
+                            loadTierClose();
+                        }
+                    })
+                }
+            });
         } else {
             msgShow("系统提示", "请选择一条数据", "info");
         }

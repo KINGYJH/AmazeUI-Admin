@@ -17,7 +17,6 @@ import java.util.Date;
 public class Dictionary extends BaseEntity<Dictionary> {
 
     private String dataKey;     //键
-    private String dataCode;    //编码
     private String dataValue;   //值
     private Integer sort;       //排序
 
@@ -32,15 +31,6 @@ public class Dictionary extends BaseEntity<Dictionary> {
 
     public void setDataKey(String dataKey) {
         this.dataKey = dataKey;
-    }
-
-    @Column(name = "data_code")
-    public String getDataCode() {
-        return dataCode;
-    }
-
-    public void setDataCode(String dataCode) {
-        this.dataCode = dataCode;
     }
 
     @Column(name = "data_value")

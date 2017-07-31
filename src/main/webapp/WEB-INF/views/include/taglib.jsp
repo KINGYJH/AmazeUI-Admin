@@ -10,8 +10,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fns" uri="/WEB-INF/views/tlds/fns.tld" %>
-<%--<%@ taglib prefix="tags" tagdir="/WEB-INF/views/tags" %>--%>
+<%@ taglib prefix="fns" uri="/WEB-INF/tlds/fns.tld" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <c:set var="projectPath" value="${basePath}${fns:getAdminPath()}"/>
 <c:set var="easy_rec" value="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.2"/>

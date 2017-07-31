@@ -91,42 +91,37 @@ public abstract class BaseDao<T, ID extends Serializable> implements IBaseDao<T,
     }
 
     @Override
-    public void saveOrUpdate(T entity) {
+    public void save(T entity) {
         try {
-            // 获取实体编号
-            Object id = null;
             for (Method method : entity.getClass().getMethods()) {
-                Id idAnn = method.getAnnotation(Id.class);
-                if (idAnn != null) {
-                    id = method.invoke(entity);
+                DbInsertBefore insertBefore = method.getAnnotation(DbInsertBefore.class);
+                if (insertBefore != null) {
+                    method.invoke(entity);
                     break;
-                }
-            }
-
-            // 插入前执行方法
-            if (null == id || "".equals(id)) {
-                for (Method method : entity.getClass().getMethods()) {
-                    DbInsertBefore insertBefore = method.getAnnotation(DbInsertBefore.class);
-                    if (insertBefore != null) {
-                        method.invoke(entity);
-                        break;
-                    }
-                }
-            } else {
-                // 更新前执行方法
-                for (Method method : entity.getClass().getMethods()) {
-                    DbUpdateBefore updateBefore = method.getAnnotation(DbUpdateBefore.class);
-                    if (updateBefore != null) {
-                        method.invoke(entity);
-                        break;
-                    }
                 }
             }
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
 
-        getSession().saveOrUpdate(entity);
+        getSession().save(entity);
+    }
+
+    @Override
+    public void update(T entity) {
+        try {
+            // 更新前执行方法
+            for (Method method : entity.getClass().getMethods()) {
+                DbUpdateBefore updateBefore = method.getAnnotation(DbUpdateBefore.class);
+                if (updateBefore != null) {
+                    method.invoke(entity);
+                    break;
+                }
+            }
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        getSession().update(entity);
     }
 
     @Override

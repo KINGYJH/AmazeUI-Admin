@@ -35,7 +35,7 @@ public class SequenceServiceImpl implements ISequenceService {
     @Override
     @Transactional()
     public void save(Sequence sequence) {
-        sequenceDao.saveOrUpdate(sequence);
+        sequenceDao.save(sequence);
     }
 
     @Override
@@ -48,6 +48,6 @@ public class SequenceServiceImpl implements ISequenceService {
     public void updateValue(String id, Integer number) {
         Sequence sequence = getById(id);
         sequence.setNewValue(number);
-        sequenceDao.saveOrUpdate(sequence);
+        sequenceDao.update(sequence);
     }
 }

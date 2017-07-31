@@ -75,4 +75,12 @@
     function msgShow(title, msgString, msgType) {
         $.messager.alert(title, msgString, msgType);
     }
+
+    function toJSON(data) {
+        if (typeof(data) === 'string') {
+            return jQuery.parseJSON(data);
+        } else {
+            return data;
+        }
+    }
 </script>

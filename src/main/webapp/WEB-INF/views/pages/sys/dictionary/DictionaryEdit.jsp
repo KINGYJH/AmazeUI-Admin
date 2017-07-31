@@ -17,13 +17,13 @@
 </c:if>
 <c:if test="${data != null}">
     <form id="dictionary_edit" method="post" data-options="novalidate:true">
-        <input type="hidden" value="${data.id}">
-        <input type="hidden" value="${data.version}"/>
+        <input name="id" type="hidden" value="${data.id}">
+        <input name="version" type="hidden" value="${data.version}"/>
         <table class="my_table_form">
             <tr>
                 <td class="label">键：</td>
                 <td class="inputArea">
-                    <input name="dataKey" value="${data.dataKey}" class="easyui-validatebox" required/>
+                    <input name="dataKey" readonly value="${data.dataKey}" class="easyui-validatebox" required/>
                 </td>
                 <td class="label">值：</td>
                 <td class="inputArea">
@@ -52,9 +52,8 @@
                     msgShow('系统提示', "系统出现错误请重试", 'info');
                 }, success: function (data) {
                     loadTierClose();
-                    var obj = jQuery.parseJSON(data);
+                    var obj = toJSON(data);
                     parent.msgShow('系统提示', obj.msg, 'info');
-                    console.log(data);
                     if (obj.status === "SUCCESS") {
                         parent.jQuery('#dl_dictionary_edit').dialog('close');
                     }

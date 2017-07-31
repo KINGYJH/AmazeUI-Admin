@@ -63,4 +63,19 @@ public class MenuController extends BaseController {
         return menuService.getTreeNode(parentId);
     }
 
+    @RequestMapping(value = "/get_all_treeData", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONMessage getAllTreeData() {
+        JSONMessage jsonMessage = new JSONMessage();
+        try {
+            List<TreeNode> data = menuService.getTreeNode("");
+            jsonMessage.setMsg("获取数据成功");
+            jsonMessage.setData(data);
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+        } catch (Exception e) {
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setMsg("获取数据失败");
+        }
+        return jsonMessage;
+    }
 }

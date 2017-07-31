@@ -7,10 +7,13 @@ import com.king.modules.sys.dictionary.entity.Dictionary;
 import com.king.modules.sys.dictionary.service.IDictionaryService;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author by yjh
@@ -35,7 +38,7 @@ public class DictionaryServiceImpl implements IDictionaryService {
     @Override
     @Transactional()
     public void save(Dictionary dictionary) {
-        dictionaryDao.saveOrUpdate(dictionary);
+        dictionaryDao.save(dictionary);
     }
 
     @Override
@@ -50,13 +53,28 @@ public class DictionaryServiceImpl implements IDictionaryService {
     @Override
     @Transactional()
     public void edit(Dictionary dictionary) {
-        Dictionary oldDictionary = getById(dictionary.getId());
-        oldDictionary.fainWhenConcurrencyViolation(dictionary.getVersion());
+        Dictionary editDictionary = getById(dictionary.getId());
+        editDictionary.fainWhenConcurrencyViolation(dictionary.getVersion());
 
-        dictionaryDao.saveOrUpdate(dictionary);
+        editDictionary.setDataValue(dictionary.getDataValue());
+        editDictionary.setSort(dictionary.getSort());
+        dictionaryDao.update(editDictionary);
     }
 
-    public void checkDataCode(String dataCode,String dataKey){
+    @Override
+    public List<Dictionary> getByDataKey(String dataKey) {
+        DetachedCriteria dc = dictionaryDao.createDetachedCriteria();
+        dc.add(Restrictions.eq("dataKey", dataKey));
+        dc.addOrder(Order.asc("sort"));
+        return dictionaryDao.find(dc);
+    }
 
+    @Override
+    @Transactional()
+    public void del(Dictionary dictionary) {
+        Dictionary delDictionary = getById(dictionary.getId());
+        delDictionary.fainWhenConcurrencyViolation(dictionary.getVersion());
+
+        dictionaryDao.delete(delDictionary);
     }
 }
