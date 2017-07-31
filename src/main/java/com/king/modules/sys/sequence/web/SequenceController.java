@@ -1,5 +1,7 @@
 package com.king.modules.sys.sequence.web;
 
+import com.king.common.exception.ConcurrencyException;
+import com.king.common.exception.NoFoundException;
 import com.king.common.web.BaseController;
 import com.king.common.web.JSONMessage;
 import com.king.common.web.Pagination;
@@ -7,6 +9,7 @@ import com.king.modules.sys.sequence.entity.Sequence;
 import com.king.modules.sys.sequence.service.ISequenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,4 +58,51 @@ public class SequenceController extends BaseController {
         }
         return msg;
     }
+
+    @RequestMapping(value = "/edit_page")
+    public ModelAndView editPage(String id, Model model) {
+        try {
+            model.addAttribute("data", sequenceService.getById(id));
+        } catch (NoFoundException e) {
+            model.addAttribute("alertMessage", e.getMessage());
+        }
+        return new ModelAndView("/pages/sys/sequence/SequenceEdit");
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONMessage edit(Sequence sequence) {
+        JSONMessage jsonMessage = new JSONMessage();
+        try {
+            sequenceService.edit(sequence);
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+            jsonMessage.setMsg("修改成功");
+        } catch (NoFoundException | ConcurrencyException e) {
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setMsg(e.getMessage());
+        } catch (Exception e) {
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setMsg("系统错误,请稍后再试");
+        }
+        return jsonMessage;
+    }
+
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONMessage del(Sequence sequence) {
+        JSONMessage jsonMessage = new JSONMessage();
+        try {
+            sequenceService.del(sequence);
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+            jsonMessage.setMsg("删除成功");
+        } catch (NoFoundException | ConcurrencyException e) {
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setMsg(e.getMessage());
+        } catch (Exception e) {
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setMsg("系统错误,请稍后再试");
+        }
+        return jsonMessage;
+    }
+
 }

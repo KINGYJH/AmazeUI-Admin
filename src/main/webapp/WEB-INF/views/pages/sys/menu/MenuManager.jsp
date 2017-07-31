@@ -96,6 +96,7 @@
 
     //重新加载数据
     function reloadTreegrId() {
+        jQuery('#dg_tree_menu').treegrid('options').url = '${projectPath}/sys/menu/list';
         $('#dg_tree_menu').treegrid('reload');
     }
 </script>

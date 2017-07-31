@@ -1,5 +1,6 @@
 package com.king.modules.sys.sequence.service.impl;
 
+import com.king.common.exception.NoFoundException;
 import com.king.common.web.Pagination;
 import com.king.modules.sys.sequence.dao.ISequenceDao;
 import com.king.modules.sys.sequence.entity.Sequence;
@@ -29,7 +30,11 @@ public class SequenceServiceImpl implements ISequenceService {
 
     @Override
     public Sequence getById(String id) {
-        return sequenceDao.getById(id);
+        Sequence sequence = sequenceDao.getById(id);
+        if (null == sequence) {
+            throw new NoFoundException("id为[" + id + "]的数据未找到");
+        }
+        return sequence;
     }
 
     @Override
@@ -49,5 +54,28 @@ public class SequenceServiceImpl implements ISequenceService {
         Sequence sequence = getById(id);
         sequence.setNewValue(number);
         sequenceDao.update(sequence);
+    }
+
+    @Override
+    @Transactional
+    public void edit(Sequence sequence) {
+        Sequence editSequence = getById(sequence.getId());
+        editSequence.fainWhenConcurrencyViolation(sequence.getVersion());
+
+        editSequence.setTableName(sequence.getTableName());
+        editSequence.setLength(sequence.getLength());
+        editSequence.setPkName(sequence.getPkName());
+        editSequence.setPrefix(sequence.getPrefix());
+        editSequence.setDescribes(sequence.getDescribes());
+        sequenceDao.update(editSequence);
+    }
+
+    @Override
+    @Transactional
+    public void del(Sequence sequence) {
+        Sequence delSequence = getById(sequence.getId());
+        delSequence.fainWhenConcurrencyViolation(sequence.getVersion());
+
+        sequenceDao.delete(delSequence);
     }
 }

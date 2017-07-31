@@ -15,4 +15,8 @@ public interface ISequenceService {
     Sequence findByTableName(String tableName);
 
     void updateValue(String id, Integer number);
+
+    void edit(Sequence sequence);
+
+    void del(Sequence sequence);
 }
