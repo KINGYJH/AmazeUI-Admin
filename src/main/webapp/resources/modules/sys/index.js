@@ -1,4 +1,13 @@
 $(function () {
+    $('#tabs').tabs('add', {
+        title: "首页",
+        content: createFrame(projectPath + "/sys/home_view/index", "home"),
+        width: $('#mainPanel').width() - 10,
+        height: $('#mainPanel').height() - 26
+    });
+});
+
+$(function () {
     $('#menu_tree_id').tree({
         url: projectPath + "/sys/menu/user_tree_data",
         method: 'post',

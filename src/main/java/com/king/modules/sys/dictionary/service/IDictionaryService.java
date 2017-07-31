@@ -11,4 +11,8 @@ public interface IDictionaryService {
     Pagination<Dictionary> pagination(Pagination<Dictionary> pagination, Dictionary dictionary);
 
     void save(Dictionary dictionary);
+
+    Dictionary getById(String id);
+
+    void edit(Dictionary dictionary);
 }

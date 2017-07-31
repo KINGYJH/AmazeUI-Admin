@@ -1,6 +1,8 @@
 package com.admin;
 
 import com.king.common.web.TreeNode;
+import com.king.modules.sys.home.entity.HomeViewList;
+import com.king.modules.sys.home.service.IHomeService;
 import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.menu.service.IMenuService;
 import com.king.modules.sys.sequence.util.SequenceUtil;
@@ -19,13 +21,16 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类
 @ContextConfiguration(locations = {"classpath:spring-test.xml"})
-public class TestMyBatis {
+public class SpringTest {
 
     @Resource
     private IUserService userService = null;
 
     @Resource
     private IMenuService menuService = null;
+
+    @Resource
+    private IHomeService homeService = null;
 
     @Test
     public void testSave() {
@@ -51,5 +56,11 @@ public class TestMyBatis {
     public void testSequenceId() {
         String id = SequenceUtil.getNextId("sys_sequence");
         System.out.println(id);
+    }
+
+    @Test
+    public void testGetAllView() {
+        HomeViewList homeView = homeService.getAllView();
+        System.out.println("");
     }
 }

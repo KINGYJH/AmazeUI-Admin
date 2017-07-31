@@ -1,5 +1,6 @@
 package com.king.modules.sys.dictionary.service.impl;
 
+import com.king.common.exception.NoFoundException;
 import com.king.common.web.Pagination;
 import com.king.modules.sys.dictionary.dao.IDictionaryDao;
 import com.king.modules.sys.dictionary.entity.Dictionary;
@@ -35,5 +36,27 @@ public class DictionaryServiceImpl implements IDictionaryService {
     @Transactional()
     public void save(Dictionary dictionary) {
         dictionaryDao.saveOrUpdate(dictionary);
+    }
+
+    @Override
+    public Dictionary getById(String id) {
+        Dictionary dictionary = dictionaryDao.getById(id);
+        if (null == dictionary) {
+            throw new NoFoundException("id为[" + id + "]的数据未找到");
+        }
+        return dictionary;
+    }
+
+    @Override
+    @Transactional()
+    public void edit(Dictionary dictionary) {
+        Dictionary oldDictionary = getById(dictionary.getId());
+        oldDictionary.fainWhenConcurrencyViolation(dictionary.getVersion());
+
+        dictionaryDao.saveOrUpdate(dictionary);
+    }
+
+    public void checkDataCode(String dataCode,String dataKey){
+
     }
 }

@@ -14,7 +14,7 @@
 <body>
 <div id="tb" style="padding:2px 5px;">
     <a href="#" onclick="add()" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
+    <a href="#" onclick="edit()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
 </div>
 <table id="dg_dictionary" class="easyui-datagrid" data-options="toolbar:'#tb'">
@@ -52,7 +52,7 @@
         top.jQuery('<div/>').dialog({
             href: '${projectPath}/sys/dictionary/save_page',
             id: 'dl_dictionary_add',
-            title: '新增菜单',
+            title: '数据字典添加',
             width: 700,
             height: 300,
             modal: true,
@@ -78,6 +78,46 @@
                 parent.jQuery(this).dialog('destroy');
             }
         })
+    }
+
+    /**
+     *修改
+     */
+    function edit() {
+        var row = $('#dg_dictionary').datagrid('getSelected');
+        if (row) {
+            top.jQuery('<div/>').dialog({
+                href: '${projectPath}/sys/dictionary/edit_page?id=' + row.id,
+                id: 'dl_dictionary_edit',
+                title: '数据字典修改',
+                width: 700,
+                height: 300,
+                modal: true,
+                shadow: false,
+                resizable: true,
+                buttons: [
+                    {
+                        text: '保存',
+                        iconCls: "icon-ok",
+                        handler: function () {
+                            parent.submitForm();
+                        }
+                    },
+                    {
+                        text: '取消',
+                        iconCls: "icon-cancel",
+                        handler: function () {
+                            parent.jQuery('#dl_dictionary_edit').dialog('close');
+                        }
+                    }],
+                onClose: function () {
+                    reloadDatagrId();
+                    parent.jQuery(this).dialog('destroy');
+                }
+            })
+        } else {
+            msgShow("系统提示", "请选择一条数据", "info");
+        }
     }
 
     //重新加载数据

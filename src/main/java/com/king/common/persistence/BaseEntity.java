@@ -2,6 +2,7 @@ package com.king.common.persistence;
 
 import com.king.common.annotation.DbInsertBefore;
 import com.king.common.annotation.DbUpdateBefore;
+import com.king.common.exception.ConcurrencyException;
 import com.king.common.utils.StringUtils;
 import com.king.modules.sys.sequence.util.SequenceUtil;
 import org.hibernate.annotations.GenericGenerator;
@@ -145,5 +146,11 @@ public class BaseEntity<T> implements Serializable {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public void fainWhenConcurrencyViolation(Integer version) {
+        if (!version.equals(this.getVersion())) {
+            throw new ConcurrencyException("记录在提交之前已发生改变[id=" + this.getId() + "],请重新提交.");
+        }
     }
 }

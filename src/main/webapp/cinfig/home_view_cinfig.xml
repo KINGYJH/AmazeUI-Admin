@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 最后一个元素不需要设置高宽度 -->
+<cols>
+    <col width="30%">
+        <row height="30%" url="http://www.baidu.com" title="百度_1"/>
+        <row url="http://www.hao123.com" title="hao123_1"/>
+    </col>
+    <col width="40%">
+        <row height="50%" url="http://www.baidu.com" title="百度_2"/>
+        <row url="http://www.hao123.com" title="hao123_2"/>
+    </col>
+    <col width="40%">
+        <row height="50%" url="http://www.baidu.com" title="百度_2"/>
+        <row url="http://www.hao123.com" title="hao123_2"/>
+    </col>
+</cols>
