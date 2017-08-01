@@ -1,11 +1,14 @@
 package com.king.modules.sys.sequence.service.impl;
 
+import com.king.common.exception.ExistException;
 import com.king.common.exception.NoFoundException;
+import com.king.common.utils.DataBaseUtil;
 import com.king.common.web.Pagination;
 import com.king.modules.sys.sequence.dao.ISequenceDao;
 import com.king.modules.sys.sequence.entity.Sequence;
 import com.king.modules.sys.sequence.service.ISequenceService;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -40,6 +43,14 @@ public class SequenceServiceImpl implements ISequenceService {
     @Override
     @Transactional()
     public void save(Sequence sequence) {
+        if (!DataBaseUtil.tableIsExist(sequence.getTableName())) {
+            throw new NoFoundException("[" + sequence.getTableName() + "]表不存在");
+        }
+
+        if (checkIsExist(sequence.getTableName())) {
+            throw new ExistException("表名为[" + sequence.getTableName() + "]数据已存在");
+        }
+
         sequenceDao.save(sequence);
     }
 
@@ -77,5 +88,18 @@ public class SequenceServiceImpl implements ISequenceService {
         delSequence.fainWhenConcurrencyViolation(sequence.getVersion());
 
         sequenceDao.delete(delSequence);
+    }
+
+    /**
+     * 判断tableName数据是否存在
+     *
+     * @param tableName 表名
+     * @return true存在false反之
+     */
+    @Override
+    public boolean checkIsExist(String tableName) {
+        DetachedCriteria dc = sequenceDao.createDetachedCriteria();
+        dc.add(Restrictions.eq("tableName", tableName));
+        return !sequenceDao.find(dc).isEmpty();
     }
 }

@@ -1,5 +1,6 @@
 package com.king.modules.sys.menu.service.impl;
 
+import com.king.common.exception.DataErrorException;
 import com.king.common.exception.NoFoundException;
 import com.king.common.utils.StringUtils;
 import com.king.common.web.Pagination;
@@ -93,5 +94,30 @@ public class MenuServiceImpl implements IMenuService {
         DetachedCriteria dc = menuDao.createDetachedCriteria();
         dc.add(Restrictions.eq("parent.id", menuId));
         return menuDao.find(dc).size() > 0;
+    }
+
+    @Override
+    @Transactional()
+    public void edit(Menu menu) {
+        Menu editMenu = getById(menu.getId());
+        editMenu.fainWhenConcurrencyViolation(menu.getVersion());
+
+        if (menu.getId().equals(menu.getParent().getId())) {
+            throw new DataErrorException("自己不能为自己的父节点");
+        }
+
+        if (StringUtils.isNotBlank(menu.getParent().getId())) {
+            Menu parent = getById(menu.getParent().getId());
+            editMenu.setParent(parent);
+        }
+
+        editMenu.setName(menu.getName());
+        editMenu.setPermission(menu.getPermission());
+        editMenu.setSort(menu.getSort());
+        editMenu.setIcon(menu.getIcon());
+        editMenu.setIsShow(menu.getIsShow());
+        editMenu.setHref(menu.getHref());
+
+        menuDao.update(editMenu);
     }
 }

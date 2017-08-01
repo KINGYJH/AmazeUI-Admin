@@ -1,4 +1,4 @@
-package com.king.modules.sys.sequence.web;
+package com.king.modules.sys.role.web;
 
 import com.king.common.exception.ConcurrencyException;
 import com.king.common.exception.ExistException;
@@ -6,8 +6,8 @@ import com.king.common.exception.NoFoundException;
 import com.king.common.web.BaseController;
 import com.king.common.web.JSONMessage;
 import com.king.common.web.Pagination;
-import com.king.modules.sys.sequence.entity.Sequence;
-import com.king.modules.sys.sequence.service.ISequenceService;
+import com.king.modules.sys.role.entity.Role;
+import com.king.modules.sys.role.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,94 +19,94 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author by yjh
- * @DateTime 2017/7/21 20:37
+ * Created by YJH
+ * on 2017/8/1 16:40.
+ * 注释:
  */
 @Controller
-@RequestMapping(value = "${adminPath}/sys/sequence")
-public class SequenceController extends BaseController {
+@RequestMapping(value = "${adminPath}/sys/role")
+public class RoleController extends BaseController {
 
     @Autowired
-    private ISequenceService sequenceService;
+    private IRoleService roleService;
 
     @RequestMapping(value = "/manager")
     public ModelAndView manager() {
-        return new ModelAndView("/pages/sys/sequence/SequenceManager");
+        return new ModelAndView("/pages/sys/role/RoleManager");
     }
 
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Pagination<Sequence> dataList(Sequence sequence, HttpServletRequest request) {
-        return sequenceService.pagination(new Pagination<>(request), sequence);
+    public Pagination<Role> dataList(Role role, HttpServletRequest request) {
+        return roleService.pagination(new Pagination<>(request), role);
     }
 
     @RequestMapping(value = "/save_page")
     public ModelAndView savePage() {
-        return new ModelAndView("/pages/sys/sequence/SequenceSave");
+        return new ModelAndView("/pages/sys/role/RoleSave");
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public JSONMessage save(Sequence sequence) {
-        JSONMessage msg = new JSONMessage();
+    public JSONMessage save(Role role) {
+        JSONMessage jsonMessage = new JSONMessage();
         try {
-            sequenceService.save(sequence);
-            msg.setMsg("添加成功!");
-            msg.setStatus(JSONMessage.Status.SUCCESS);
-        } catch (ExistException | NoFoundException e) {
-            msg.setMsg(e.getMessage());
-            msg.setStatus(JSONMessage.Status.FAIL);
+            roleService.save(role);
+            jsonMessage.setMsg("添加成功");
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+        } catch (NoFoundException | ExistException e) {
+            jsonMessage.setMsg(e.getMessage());
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
         } catch (Exception e) {
-            msg.setMsg("系统错误,请稍后在试!");
-            msg.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setMsg("系统错误,请稍后再试");
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
         }
-        return msg;
+        return jsonMessage;
     }
 
     @RequestMapping(value = "/edit_page")
     public ModelAndView editPage(String id, Model model) {
         try {
-            model.addAttribute("data", sequenceService.getById(id));
+            model.addAttribute("data", roleService.getById(id));
         } catch (NoFoundException e) {
             model.addAttribute("alertMessage", e.getMessage());
         }
-        return new ModelAndView("/pages/sys/sequence/SequenceEdit");
+        return new ModelAndView("/pages/sys/role/RoleEdit");
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
-    public JSONMessage edit(Sequence sequence) {
+    public JSONMessage edit(Role role) {
         JSONMessage jsonMessage = new JSONMessage();
         try {
-            sequenceService.edit(sequence);
-            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+            roleService.edit(role);
             jsonMessage.setMsg("修改成功");
-        } catch (NoFoundException | ConcurrencyException e) {
-            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+        } catch (ConcurrencyException | NoFoundException | ExistException e) {
             jsonMessage.setMsg(e.getMessage());
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
         } catch (Exception e) {
-            jsonMessage.setStatus(JSONMessage.Status.FAIL);
             jsonMessage.setMsg("系统错误,请稍后再试");
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
         }
         return jsonMessage;
     }
 
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
-    public JSONMessage del(Sequence sequence) {
+    public JSONMessage del(Role role) {
         JSONMessage jsonMessage = new JSONMessage();
         try {
-            sequenceService.del(sequence);
-            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+            roleService.del(role);
             jsonMessage.setMsg("删除成功");
-        } catch (NoFoundException | ConcurrencyException e) {
-            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+        } catch (ConcurrencyException | NoFoundException e) {
             jsonMessage.setMsg(e.getMessage());
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
         } catch (Exception e) {
-            jsonMessage.setStatus(JSONMessage.Status.FAIL);
             jsonMessage.setMsg("系统错误,请稍后再试");
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
         }
         return jsonMessage;
     }
-
 }

@@ -4,7 +4,8 @@
 <%@ attribute name="checkbox" type="java.lang.Boolean" required="true" description="是否多选" %>
 <%@ attribute name="isNull" type="java.lang.Boolean" required="true" description="是否可以为空（isNull）" %>
 <%@ attribute name="width" type="java.lang.String" required="false" description="宽度" %>
-<input id="${id}_id" name="${name}" type="hidden"/>
+<%@ attribute name="value" type="java.lang.String" required="false" description="默认值" %>
+<input id="${id}_id" name="${name}" value="${value}" type="hidden"/>
 <input id="${id}" style="width: ${width}"/>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -18,6 +19,14 @@
                 $("#${id}_id").val(node.id);
             },
             onLoadSuccess: function () {
+                if (${value != null}) {
+                    var tree = $('#${id}').combotree('tree');
+                    var node = $(tree).tree('find', "${value}");
+                    if (null !== node) {
+                        $(tree).tree('select', node.target);
+                        $('#${id}').combotree('setValue', node.text);
+                    }
+                }
             },
             loadFilter: function (data) {
                 if (data.status === "SUCCESS") {

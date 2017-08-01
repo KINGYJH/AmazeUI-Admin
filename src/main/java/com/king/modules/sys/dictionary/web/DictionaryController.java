@@ -1,6 +1,7 @@
 package com.king.modules.sys.dictionary.web;
 
 import com.king.common.exception.ConcurrencyException;
+import com.king.common.exception.ExistException;
 import com.king.common.exception.NoFoundException;
 import com.king.common.web.BaseController;
 import com.king.common.web.JSONMessage;
@@ -53,6 +54,9 @@ public class DictionaryController extends BaseController {
             dictionaryService.save(dictionary);
             msg.setMsg("添加成功!");
             msg.setStatus(JSONMessage.Status.SUCCESS);
+        } catch (ExistException e) {
+            msg.setMsg(e.getMessage());
+            msg.setStatus(JSONMessage.Status.FAIL);
         } catch (Exception e) {
             msg.setMsg("系统错误,请稍后在试!");
             msg.setStatus(JSONMessage.Status.FAIL);
@@ -78,7 +82,7 @@ public class DictionaryController extends BaseController {
             dictionaryService.edit(dictionary);
             jsonMessage.setMsg("修改成功");
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
-        } catch (ConcurrencyException | NoFoundException e) {
+        } catch (ExistException | ConcurrencyException | NoFoundException e) {
             jsonMessage.setStatus(JSONMessage.Status.FAIL);
             jsonMessage.setMsg(e.getMessage());
         } catch (Exception e) {

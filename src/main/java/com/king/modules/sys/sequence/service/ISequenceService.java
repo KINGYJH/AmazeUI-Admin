@@ -19,4 +19,6 @@ public interface ISequenceService {
     void edit(Sequence sequence);
 
     void del(Sequence sequence);
+
+    boolean checkIsExist(String tableName);
 }

@@ -4,7 +4,8 @@
 <%@ attribute name="name" type="java.lang.String" required="true" description="隐藏域标签名称（name）" %>
 <%@ attribute name="dataKey" type="java.lang.String" required="true" description="数据字典Key（dataKey）" %>
 <%@ attribute name="isNull" type="java.lang.Boolean" required="true" description="是否可以为空（isNull）" %>
-<input id="${id}_id" name="${name}" type="hidden"/>
+<%@ attribute name="value" type="java.lang.String" required="false" description="默认值" %>
+<input id="${id}_id" name="${name}" value="${value}" type="hidden"/>
 <input id="${id}"/>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -15,9 +16,18 @@
             editable: false,
             required: ${isNull},
             onSelect: function (node) {
-                $("#${id}_id").val(node.valueField);
+                console.log(node.id);
+                $("#${id}_id").val(node.id);
             },
-            onLoadSuccess: function () {
+            onLoadSuccess: function (data) {
+                if (${value != null}) {
+                    var value = '${value}';
+                    for (var i = 0; i < data.data.length; i++) {
+                        if (value === data.data[i].id) {
+                            $('#${id}').combobox('setValue', data.data[i].dataValue);
+                        }
+                    }
+                }
             },
             loadFilter: function (data) {
                 if (data.status === "SUCCESS") {

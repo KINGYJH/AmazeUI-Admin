@@ -1,5 +1,8 @@
 package com.king.modules.sys.menu.web;
 
+import com.king.common.exception.ConcurrencyException;
+import com.king.common.exception.DataErrorException;
+import com.king.common.exception.NoFoundException;
 import com.king.common.web.BaseController;
 import com.king.common.web.JSONMessage;
 import com.king.common.web.TreeNode;
@@ -7,6 +10,7 @@ import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.menu.service.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,16 +49,44 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public JSONMessage save(Menu menu) {
-        JSONMessage msg = new JSONMessage();
+        JSONMessage jsonMessage = new JSONMessage();
         try {
             menuService.save(menu);
-            msg.setMsg("添加成功!");
-            msg.setStatus(JSONMessage.Status.SUCCESS);
+            jsonMessage.setMsg("添加成功!");
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
         } catch (Exception e) {
-            msg.setMsg("系统错误,请稍后在试!");
-            msg.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setMsg("系统错误,请稍后在试!");
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
         }
-        return msg;
+        return jsonMessage;
+    }
+
+    @RequestMapping(value = "/edit_page")
+    public ModelAndView editPage(String id, Model model) {
+        try {
+            model.addAttribute("data", menuService.getById(id));
+        } catch (NoFoundException e) {
+            model.addAttribute("alertMessage", e.getMessage());
+        }
+        return new ModelAndView("/pages/sys/menu/MenuEdit");
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONMessage edit(Menu menu) {
+        JSONMessage jsonMessage = new JSONMessage();
+        try {
+            menuService.edit(menu);
+            jsonMessage.setMsg("修改成功!");
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+        } catch (NoFoundException | DataErrorException | ConcurrencyException e) {
+            jsonMessage.setMsg(e.getMessage());
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+        } catch (Exception e) {
+            jsonMessage.setMsg("系统错误,请稍后在试!");
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+        }
+        return jsonMessage;
     }
 
     @RequestMapping(value = "/user_tree_data", method = RequestMethod.POST)

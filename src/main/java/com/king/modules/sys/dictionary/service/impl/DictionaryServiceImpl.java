@@ -1,5 +1,6 @@
 package com.king.modules.sys.dictionary.service.impl;
 
+import com.king.common.exception.ExistException;
 import com.king.common.exception.NoFoundException;
 import com.king.common.web.Pagination;
 import com.king.modules.sys.dictionary.dao.IDictionaryDao;
@@ -38,6 +39,10 @@ public class DictionaryServiceImpl implements IDictionaryService {
     @Override
     @Transactional()
     public void save(Dictionary dictionary) {
+        if (checkIsExist(dictionary.getDataKey(), dictionary.getDataValue())) {
+            throw new ExistException("dataKey[" + dictionary.getDataKey() + "],dataValue[" + dictionary.getDataValue() + "]的数据已存在");
+        }
+
         dictionaryDao.save(dictionary);
     }
 
@@ -55,6 +60,12 @@ public class DictionaryServiceImpl implements IDictionaryService {
     public void edit(Dictionary dictionary) {
         Dictionary editDictionary = getById(dictionary.getId());
         editDictionary.fainWhenConcurrencyViolation(dictionary.getVersion());
+
+        if (!dictionary.getDataValue().equals(editDictionary.getDataValue())) {
+            if (checkIsExist(dictionary.getDataKey(), dictionary.getDataValue())) {
+                throw new ExistException("dataKey[" + dictionary.getDataKey() + "],dataValue[" + dictionary.getDataValue() + "]的数据已存在");
+            }
+        }
 
         editDictionary.setDataValue(dictionary.getDataValue());
         editDictionary.setSort(dictionary.getSort());
@@ -76,5 +87,20 @@ public class DictionaryServiceImpl implements IDictionaryService {
         delDictionary.fainWhenConcurrencyViolation(dictionary.getVersion());
 
         dictionaryDao.delete(delDictionary);
+    }
+
+    /**
+     * 判断数据是否存在
+     *
+     * @param dataKey   key
+     * @param dataValue value
+     * @return true存在false反之
+     */
+    @Override
+    public boolean checkIsExist(String dataKey, String dataValue) {
+        DetachedCriteria dc = dictionaryDao.createDetachedCriteria();
+        dc.add(Restrictions.eq("dataKey", dataValue));
+        dc.add(Restrictions.eq("dataValue", dataValue));
+        return !dictionaryDao.find(dc).isEmpty();
     }
 }

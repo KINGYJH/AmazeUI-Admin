@@ -1,5 +1,6 @@
 package com.admin;
 
+import com.king.common.utils.DataBaseUtil;
 import com.king.common.web.TreeNode;
 import com.king.modules.sys.home.entity.HomeViewList;
 import com.king.modules.sys.home.service.IHomeService;
@@ -9,11 +10,15 @@ import com.king.modules.sys.sequence.util.SequenceUtil;
 import com.king.modules.sys.user.service.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlRowSetResultSetExtractor;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author by yjh
@@ -31,6 +36,9 @@ public class SpringTest {
 
     @Resource
     private IHomeService homeService = null;
+
+    @Resource
+    private JdbcTemplate jdbcTemplate = null;
 
     @Test
     public void testSave() {
@@ -62,5 +70,16 @@ public class SpringTest {
     public void testGetAllView() {
         HomeViewList homeView = homeService.getAllView();
         System.out.println("");
+    }
+
+    @Test
+    public void testTableIsExist() {
+        String tableName = "sys_menu1";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet("SELECT COUNT(*) FROM information_schema.TABLES where TABLE_SCHEMA = 'admin' AND TABLE_NAME = '" + tableName + "'");
+        if(rowSet.next()){
+            System.out.println(rowSet.getInt(1));
+        }else {
+            System.out.println("不存在");
+        }
     }
 }

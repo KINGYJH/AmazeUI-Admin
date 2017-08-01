@@ -56,6 +56,10 @@
                     parent.msgShow('系统提示', obj.msg, 'info');
                     if (obj.status === "SUCCESS") {
                         parent.jQuery('#dl_dictionary_edit').dialog('close');
+                    } else {
+                        if (obj.msg.indexOf("重新提交")) {
+                            parent.jQuery('#dl_dictionary_edit').dialog('close');
+                        }
                     }
                 }
             })

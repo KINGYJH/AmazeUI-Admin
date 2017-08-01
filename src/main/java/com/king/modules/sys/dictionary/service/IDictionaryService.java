@@ -21,4 +21,6 @@ public interface IDictionaryService {
     List<Dictionary> getByDataKey(String dataKey);
 
     void del(Dictionary dictionary);
+
+    boolean checkIsExist(String dataKey, String dataValue);
 }
