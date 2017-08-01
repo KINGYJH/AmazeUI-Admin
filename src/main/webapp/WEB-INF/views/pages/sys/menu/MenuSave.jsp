@@ -21,7 +21,7 @@
             </td>
             <td class="label">权限标识：</td>
             <td class="inputArea">
-                <input name="parentId" class="easyui-validatebox" required validType="NOCHS"/>
+                <input name="permission" class="easyui-validatebox" required validType="NOCHS"/>
             </td>
         </tr>
         <tr>

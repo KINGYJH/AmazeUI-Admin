@@ -18,4 +18,6 @@ public interface IRoleService {
     void edit(Role role);
 
     void del(Role role);
+
+    boolean checkIsExist(String name);
 }

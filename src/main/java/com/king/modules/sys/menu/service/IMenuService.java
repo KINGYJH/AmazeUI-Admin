@@ -24,4 +24,6 @@ public interface IMenuService {
     boolean isHasChild(String menuId);
 
     void edit(Menu menu);
+
+    List<Menu> findByIds(String[] menu_ids);
 }

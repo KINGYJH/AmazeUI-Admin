@@ -120,4 +120,11 @@ public class MenuServiceImpl implements IMenuService {
 
         menuDao.update(editMenu);
     }
+
+    @Override
+    public List<Menu> findByIds(String[] menu_ids) {
+        DetachedCriteria dc = menuDao.createDetachedCriteria();
+        dc.add(Restrictions.in("id", menu_ids));
+        return menuDao.find(dc);
+    }
 }
