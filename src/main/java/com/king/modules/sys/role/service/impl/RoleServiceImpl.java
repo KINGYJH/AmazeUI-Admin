@@ -111,4 +111,9 @@ public class RoleServiceImpl implements IRoleService {
         dc.add(Restrictions.in("id", roleIds));
         return roleDao.find(dc);
     }
+
+    @Override
+    public List<Role> getAllData() {
+        return roleDao.findAll();
+    }
 }

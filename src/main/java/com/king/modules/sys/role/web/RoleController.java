@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by YJH
@@ -106,6 +107,22 @@ public class RoleController extends BaseController {
         } catch (Exception e) {
             jsonMessage.setMsg("系统错误,请稍后再试");
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+        }
+        return jsonMessage;
+    }
+
+    @RequestMapping(value = "/get_all_data", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONMessage getAllData() {
+        JSONMessage jsonMessage = new JSONMessage();
+        try {
+            List<Role> data = roleService.getAllData();
+            jsonMessage.setData(data);
+            jsonMessage.setMsg("获取数据成功");
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+        } catch (Exception e) {
+            jsonMessage.setMsg("系统错误,请稍后再试");
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
         }
         return jsonMessage;
     }

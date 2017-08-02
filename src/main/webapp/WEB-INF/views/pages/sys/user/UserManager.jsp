@@ -57,7 +57,7 @@
             id: 'dl_user_add',
             title: '用户添加',
             width: 700,
-            height: 500,
+            height: 400,
             modal: true,
             shadow: false,
             resizable: true,

@@ -1,6 +1,7 @@
 package com.king.modules.sys.user.dao;
 
 import com.king.common.persistence.IBaseDao;
+import com.king.modules.sys.user.entity.User;
 
 import java.io.Serializable;
 
@@ -10,4 +11,5 @@ import java.io.Serializable;
  */
 public interface IUserDao<T, ID extends Serializable> extends IBaseDao<T, ID> {
 
+    User getByAcctName(String acctName);
 }

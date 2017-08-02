@@ -46,6 +46,12 @@
                 <tags:dic_comboBox id="user_status" name="status" dataKey="STATUS" isNull="true"/>
             </td>
         </tr>
+        <tr>
+            <td class="label">选择角色：</td>
+            <td class="inputArea" colspan="3">
+                <tags:role_combo id="user_role" name="roleIds" checkbox="true" width="92.5%" isNull="true"/>
+            </td>
+        </tr>
     </table>
 </form>
 <script type="text/javascript">

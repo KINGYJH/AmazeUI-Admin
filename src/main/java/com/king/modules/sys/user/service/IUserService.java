@@ -15,4 +15,6 @@ public interface IUserService {
     void save(User user);
 
     boolean checkIsExist(String acctName);
+
+    User getByAcctName(String acctName);
 }

@@ -76,4 +76,9 @@ public class UserServiceImpl implements IUserService {
         dc.add(Restrictions.eq("acctName", acctName));
         return !userDao.find(dc).isEmpty();
     }
+
+    @Override
+    public User getByAcctName(String acctName) {
+        return userDao.getByAcctName(acctName);
+    }
 }

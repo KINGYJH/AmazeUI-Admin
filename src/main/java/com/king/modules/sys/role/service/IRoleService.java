@@ -24,4 +24,7 @@ public interface IRoleService {
     boolean checkIsExist(String name);
 
     List<Role> findByIds(Object[] roleIds);
+
+    List<Role> getAllData();
+
 }
