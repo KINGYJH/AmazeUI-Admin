@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentMap;
  * on 2017/7/26 15:00.
  * 注释:
  */
-public class JaxbUtil {
+public class JaxbUtils {
 
     @SuppressWarnings("rawtypes")
     private static ConcurrentMap<Class, JAXBContext> jaxbContexts = new ConcurrentHashMap<Class, JAXBContext>();

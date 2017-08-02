@@ -2,7 +2,7 @@ package com.king.modules.sys.sequence.service.impl;
 
 import com.king.common.exception.ExistException;
 import com.king.common.exception.NoFoundException;
-import com.king.common.utils.DataBaseUtil;
+import com.king.common.utils.DataBaseUtils;
 import com.king.common.web.Pagination;
 import com.king.modules.sys.sequence.dao.ISequenceDao;
 import com.king.modules.sys.sequence.entity.Sequence;
@@ -43,7 +43,7 @@ public class SequenceServiceImpl implements ISequenceService {
     @Override
     @Transactional()
     public void save(Sequence sequence) {
-        if (!DataBaseUtil.tableIsExist(sequence.getTableName())) {
+        if (!DataBaseUtils.tableIsExist(sequence.getTableName())) {
             throw new NoFoundException("[" + sequence.getTableName() + "]表不存在");
         }
 

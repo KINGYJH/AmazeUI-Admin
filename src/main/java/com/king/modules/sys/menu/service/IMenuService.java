@@ -25,5 +25,5 @@ public interface IMenuService {
 
     void edit(Menu menu);
 
-    List<Menu> findByIds(String[] menu_ids);
+    List<Menu> findByIds(Object[] menu_ids);
 }

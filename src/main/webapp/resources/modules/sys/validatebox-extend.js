@@ -40,5 +40,11 @@ $.extend($.fn.validatebox.defaults.rules, {
             return reg.test(value);
         },
         message: '请输入数字.'
+    },
+    /*必须和某个字段相等*/
+    equalToPwd: {
+        validator: function (value, param) {
+            return $(param[0]).val() === value;
+        }, message: '两次密码不匹配'
     }
 });

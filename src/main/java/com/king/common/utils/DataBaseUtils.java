@@ -8,7 +8,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
  * on 2017/8/1 11:21.
  * 注释:
  */
-public class DataBaseUtil {
+public class DataBaseUtils {
 
     private static JdbcTemplate jdbcTemplate = SpringContextHolder.getBean(JdbcTemplate.class);
 

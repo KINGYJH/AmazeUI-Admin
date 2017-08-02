@@ -53,7 +53,7 @@
     </table>
 </form>
 <script type="text/javascript">
-    loadScript("${modules_rec}/sys/validatebox-extend.js");
+    includeJs("/sys/validatebox-extend.js");
 
     function submitForm() {
         if (jQuery('#menu_save').form('validate')) {

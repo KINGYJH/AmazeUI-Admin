@@ -76,11 +76,32 @@
         $.messager.alert(title, msgString, msgType);
     }
 
+    //转换JSON
     function toJSON(data) {
         if (typeof(data) === 'string') {
             return jQuery.parseJSON(data);
         } else {
             return data;
+        }
+    }
+
+    /**
+     * 引入js文件
+     * @param jsName js文件名称
+     * @returns {boolean}
+     */
+    function includeJs(jsName) {
+        var js = /js$/i.test(name);
+        var es = document.getElementsByTagName(js ? 'script' : 'link');
+        var isInclude = true;
+        for (var i = 0; i < es.length; i++) {
+            if (es[i][js ? 'src' : 'href'].indexOf(name) === -1) {
+                isInclude = false;
+                break;
+            }
+        }
+        if (isInclude) {
+            loadScript("${modules_rec}" + jsName);
         }
     }
 </script>

@@ -2,7 +2,7 @@ package com.king.modules.sys.home.service.impl;
 
 import com.king.common.exception.NoFoundException;
 import com.king.common.utils.FileUtils;
-import com.king.common.utils.JaxbUtil;
+import com.king.common.utils.JaxbUtils;
 import com.king.common.utils.WebUtils;
 import com.king.modules.sys.home.entity.HomeView;
 import com.king.modules.sys.home.entity.HomeViewList;
@@ -31,7 +31,7 @@ public class HomeService implements IHomeService {
             FileUtils.createFile(file.getPath());
         }
         String xmlStr = FileUtils.readFileByLines(file.getPath());
-        HomeViewList data = JaxbUtil.fromXml(xmlStr, HomeViewList.class);
+        HomeViewList data = JaxbUtils.fromXml(xmlStr, HomeViewList.class);
         return data == null ? new HomeViewList() : data.sort();
     }
 
@@ -51,7 +51,7 @@ public class HomeService implements IHomeService {
         homeView.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         HomeViewList homeViewList = getAllView();
         homeViewList.getHomeViews().add(homeView);
-        String xmlStr = JaxbUtil.toXml(homeViewList);
+        String xmlStr = JaxbUtils.toXml(homeViewList);
         FileUtils.createFile(WebUtils.getPath() + HOME_VIEW_CONFIG_PATH, xmlStr);
     }
 
@@ -65,7 +65,7 @@ public class HomeService implements IHomeService {
             }
         }
         homeViewList.getHomeViews().add(homeView);
-        String xmlStr = JaxbUtil.toXml(homeViewList);
+        String xmlStr = JaxbUtils.toXml(homeViewList);
         FileUtils.createFile(WebUtils.getPath() + HOME_VIEW_CONFIG_PATH, xmlStr);
     }
 
@@ -78,7 +78,7 @@ public class HomeService implements IHomeService {
                 break;
             }
         }
-        String xmlStr = JaxbUtil.toXml(homeViewList);
+        String xmlStr = JaxbUtils.toXml(homeViewList);
         FileUtils.createFile(WebUtils.getPath() + HOME_VIEW_CONFIG_PATH, xmlStr);
     }
 }

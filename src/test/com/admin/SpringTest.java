@@ -1,6 +1,5 @@
 package com.admin;
 
-import com.king.common.utils.DataBaseUtil;
 import com.king.common.web.TreeNode;
 import com.king.modules.sys.home.entity.HomeViewList;
 import com.king.modules.sys.home.service.IHomeService;
@@ -11,14 +10,12 @@ import com.king.modules.sys.user.service.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SqlRowSetResultSetExtractor;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author by yjh

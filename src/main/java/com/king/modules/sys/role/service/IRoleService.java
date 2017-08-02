@@ -3,6 +3,8 @@ package com.king.modules.sys.role.service;
 import com.king.common.web.Pagination;
 import com.king.modules.sys.role.entity.Role;
 
+import java.util.List;
+
 /**
  * Created by YJH
  * on 2017/8/1 16:38.
@@ -20,4 +22,6 @@ public interface IRoleService {
     void del(Role role);
 
     boolean checkIsExist(String name);
+
+    List<Role> findByIds(Object[] roleIds);
 }

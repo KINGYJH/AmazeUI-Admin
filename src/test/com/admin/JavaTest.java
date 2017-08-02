@@ -1,7 +1,6 @@
 package com.admin;
 
-import com.king.common.utils.JaxbUtil;
-import com.king.common.utils.WebUtils;
+import com.king.common.utils.JaxbUtils;
 import com.king.modules.sys.home.entity.HomeView;
 import com.king.modules.sys.home.entity.HomeViewList;
 import org.junit.Test;
@@ -32,7 +31,7 @@ public class JavaTest {
         entity_1.setUrl("/sys/home");
         list.getHomeViews().add(entity);
         list.getHomeViews().add(entity_1);
-        System.out.println(JaxbUtil.toXml(list));
+        System.out.println(JaxbUtils.toXml(list));
     }
 
     @Test
@@ -57,7 +56,7 @@ public class JavaTest {
                 "    </MenuView>\n" +
                 "</MenuViews>";
 
-        HomeViewList list = JaxbUtil.fromXml(xmlStr, HomeViewList.class);
+        HomeViewList list = JaxbUtils.fromXml(xmlStr, HomeViewList.class);
         System.out.println("");
     }
 }

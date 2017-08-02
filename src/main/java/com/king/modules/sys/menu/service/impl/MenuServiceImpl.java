@@ -122,7 +122,7 @@ public class MenuServiceImpl implements IMenuService {
     }
 
     @Override
-    public List<Menu> findByIds(String[] menu_ids) {
+    public List<Menu> findByIds(Object[] menu_ids) {
         DetachedCriteria dc = menuDao.createDetachedCriteria();
         dc.add(Restrictions.in("id", menu_ids));
         return menuDao.find(dc);

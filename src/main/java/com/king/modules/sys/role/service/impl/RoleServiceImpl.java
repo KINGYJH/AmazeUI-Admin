@@ -104,4 +104,11 @@ public class RoleServiceImpl implements IRoleService {
         dc.add(Restrictions.eq("name", name));
         return !roleDao.find(dc).isEmpty();
     }
+
+    @Override
+    public List<Role> findByIds(Object[] roleIds) {
+        DetachedCriteria dc = roleDao.createDetachedCriteria();
+        dc.add(Restrictions.in("id", roleIds));
+        return roleDao.find(dc);
+    }
 }
