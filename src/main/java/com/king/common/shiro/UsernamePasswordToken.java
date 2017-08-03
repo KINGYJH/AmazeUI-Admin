@@ -7,23 +7,12 @@ package com.king.common.shiro;
  */
 public class UsernamePasswordToken extends org.apache.shiro.authc.UsernamePasswordToken {
 
-    private String captcha;     //验证码
-
-    public String getCaptcha() {
-        return captcha;
-    }
-
-    public void setCaptcha(String captcha) {
-        this.captcha = captcha;
-    }
-
     public UsernamePasswordToken() {
         super();
     }
 
-    public UsernamePasswordToken(String username, char[] password, boolean rememberMe, String host, String captcha) {
+    public UsernamePasswordToken(String username, String password, boolean rememberMe, String host) {
         super(username, password, rememberMe, host);
-        this.captcha = captcha;
     }
 
 }

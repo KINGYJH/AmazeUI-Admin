@@ -12,6 +12,14 @@ public class JSONMessage implements Serializable {
     private String msg;
     private Object data;
 
+    public JSONMessage() {
+    }
+
+    public JSONMessage(Status status, String msg) {
+        this.status = status;
+        this.msg = msg;
+    }
+
     public Status getStatus() {
         return status;
     }

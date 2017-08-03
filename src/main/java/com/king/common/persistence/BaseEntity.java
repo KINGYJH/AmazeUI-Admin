@@ -3,16 +3,12 @@ package com.king.common.persistence;
 import com.king.common.annotation.DbInsertBefore;
 import com.king.common.annotation.DbUpdateBefore;
 import com.king.common.exception.ConcurrencyException;
-import com.king.common.utils.StringUtils;
 import com.king.modules.sys.sequence.util.SequenceUtil;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Created by YJH

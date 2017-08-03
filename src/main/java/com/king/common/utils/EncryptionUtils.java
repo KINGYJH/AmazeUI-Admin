@@ -17,7 +17,7 @@ public class EncryptionUtils {
      * @return
      */
     public static String MD5(String src) {
-        return MD5(src, 32, true, "UTF-8");
+        return MD5(src, 32, false, "UTF-8");
     }
 
     /**

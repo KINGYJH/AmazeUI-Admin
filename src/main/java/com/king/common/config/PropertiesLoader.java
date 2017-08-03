@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,11 +24,7 @@ public class PropertiesLoader {
 
     private static ResourceLoader resourceLoader = new DefaultResourceLoader();
 
-    private final Properties properties;
-
-    public PropertiesLoader(String... resourcesPaths) {
-        properties = loadProperties(resourcesPaths);
-    }
+    private static final Properties properties = loadProperties("/sys.properties", "/db.properties");
 
     public Properties getProperties() {
         return properties;
@@ -36,7 +33,7 @@ public class PropertiesLoader {
     /**
      * 取出Property，但以System的Property优先,取不到返回空字符串.
      */
-    private String getValue(String key) {
+    private static String getValue(String key) {
         String systemProperty = System.getProperty(key);
         if (systemProperty != null) {
             return systemProperty;
@@ -50,7 +47,7 @@ public class PropertiesLoader {
     /**
      * 取出String类型的Property，但以System的Property优先,如果都为Null则抛出异常.
      */
-    public String getProperty(String key) {
+    public static String getProperty(String key) {
         String value = getValue(key);
         if (value == null) {
             throw new NullPointerException();
@@ -126,7 +123,7 @@ public class PropertiesLoader {
     /**
      * 载入多个文件, 文件路径使用Spring Resource格式.
      */
-    private Properties loadProperties(String... resourcesPaths) {
+    private static Properties loadProperties(String... resourcesPaths) {
         Properties props = new Properties();
 
         for (String location : resourcesPaths) {

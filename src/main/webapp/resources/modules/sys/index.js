@@ -16,7 +16,7 @@ $(function () {
             if (node.attributes.url === "") {
                 return;
             }
-            if ($('#menu_tree_id').tree('isLeaf', node.target)) {
+            // if ($('#menu_tree_id').tree('isLeaf', node.target)) {
                 if (node.attributes.url.indexOf("#basepath#") !== -1) {
                     addTab(node.text, node.attributes.url
                             .replace("#basepath#", basePath),
@@ -26,7 +26,7 @@ $(function () {
                         + node.attributes.url, "iframe"
                         + node.id);
                 }
-            }
+            // }
         },
         onLoadSuccess: function (row, data) {
             $('#menu_tree_id').tree("collapseAll");

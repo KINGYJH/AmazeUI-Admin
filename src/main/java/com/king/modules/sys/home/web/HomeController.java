@@ -30,7 +30,7 @@ public class HomeController extends BaseController {
     public ModelAndView home(Model model) {
         HomeViewList data = homeService.getAllView();
         model.addAttribute("data", data.getShowHomeViews());
-        return new ModelAndView("/home");
+        return new ModelAndView("pages/home");
     }
 
     @RequestMapping(value = "/manager")

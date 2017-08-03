@@ -1,6 +1,5 @@
 package com.king.common.shiro;
 
-import com.king.common.utils.Encodes;
 import com.king.common.utils.StringUtils;
 import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.role.entity.Role;
@@ -11,7 +10,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
@@ -35,7 +33,7 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        ExtendSimplePrincipalCollection principalCollection = (ExtendSimplePrincipalCollection) principals;
+        ExtendSimplePrincipalCollection principalCollection = (ExtendSimplePrincipalCollection) getAvailablePrincipal(principals);
         String acctName = (String) principalCollection.getPrimaryPrincipal();
         User user = authService.searchByAcctName(acctName);
 
@@ -107,8 +105,6 @@ public class UserRealm extends AuthorizingRealm {
             }
         }
 
-        byte[] salt = Encodes.decodeHex(user.getPwd().substring(0, 16));
-        return new SimpleAuthenticationInfo(new ExtendSimplePrincipalCollection(user, user.getAcctName()),
-                user.getPwd().substring(16), ByteSource.Util.bytes(salt), getName());
+        return new SimpleAuthenticationInfo(new ExtendSimplePrincipalCollection(user.getAcctName(), getName()), user.getPwd().toCharArray(), getName());
     }
 }

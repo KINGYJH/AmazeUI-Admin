@@ -43,7 +43,7 @@ public class ShiroFilterChainManager {
         for (Menu menu : menuList) {
             //注册perms filter
             if (StringUtils.isNotBlank(menu.getHref())) {
-                filterChainManager.addToChain(menu.getHref(), "perms", menu.getPermission());
+                filterChainManager.addToChain("/admin" + menu.getHref(), "perms", menu.getPermission());
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.admin;
 
+import com.king.common.utils.EncryptionUtils;
 import com.king.common.utils.JaxbUtils;
 import com.king.modules.sys.home.entity.HomeView;
 import com.king.modules.sys.home.entity.HomeViewList;
@@ -58,5 +59,11 @@ public class JavaTest {
 
         HomeViewList list = JaxbUtils.fromXml(xmlStr, HomeViewList.class);
         System.out.println("");
+    }
+
+    @Test
+    public void md5(){
+        String str = EncryptionUtils.MD5("123456");
+        System.out.println(str);
     }
 }
