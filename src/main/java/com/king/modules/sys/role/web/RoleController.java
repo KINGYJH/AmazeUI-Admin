@@ -8,6 +8,7 @@ import com.king.common.web.JSONMessage;
 import com.king.common.web.Pagination;
 import com.king.modules.sys.role.entity.Role;
 import com.king.modules.sys.role.service.IRoleService;
+import com.king.modules.sys.user.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -81,6 +82,7 @@ public class RoleController extends BaseController {
         JSONMessage jsonMessage = new JSONMessage();
         try {
             roleService.edit(role);
+            UserUtil.updateAllUser();
             jsonMessage.setMsg("修改成功");
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
         } catch (ConcurrencyException | NoFoundException | ExistException e) {

@@ -94,6 +94,7 @@
 </div>
 <script type="text/javascript">
 
+    //判断是否在IFRAME中
     if (self.frameElement && self.frameElement.tagName === "IFRAME") {
         parent.location.reload();
     }
@@ -129,8 +130,8 @@
                             $('#error_msg').text("");
                         }, 5000);
                         $("#ver_code").trigger("click");
+                        $.messager.progress('close');
                     }
-                    $.messager.progress('close');
                 }
             })
         }

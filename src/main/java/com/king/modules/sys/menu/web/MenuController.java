@@ -91,8 +91,8 @@ public class MenuController extends BaseController {
 
     @RequestMapping(value = "/user_tree_data", method = RequestMethod.POST)
     @ResponseBody
-    public List<TreeNode> userTreeData(String parentId) {
-        return menuService.getTreeNode(parentId);
+    public List<TreeNode> userTreeData() {
+        return menuService.getUserTree();
     }
 
     @RequestMapping(value = "/get_all_treeData", method = RequestMethod.POST)
@@ -100,7 +100,7 @@ public class MenuController extends BaseController {
     public JSONMessage getAllTreeData() {
         JSONMessage jsonMessage = new JSONMessage();
         try {
-            List<TreeNode> data = menuService.getTreeNode("");
+            List<TreeNode> data = menuService.getAllTree();
             jsonMessage.setMsg("获取数据成功");
             jsonMessage.setData(data);
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);

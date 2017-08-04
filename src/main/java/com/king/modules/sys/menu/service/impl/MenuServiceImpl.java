@@ -9,6 +9,7 @@ import com.king.modules.sys.menu.dao.IMenuDao;
 import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.menu.service.IMenuService;
 import com.king.modules.sys.menu.util.MenuTreeUtil;
+import com.king.modules.sys.user.util.UserUtil;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -33,9 +34,6 @@ public class MenuServiceImpl implements IMenuService {
     @Autowired
     private IMenuDao<Menu, String> menuDao;
 
-    @Autowired
-    private MenuTreeUtil menuTreeUtil;
-
     @Override
     public Menu getById(String id) {
         Menu menu = menuDao.getById(id);
@@ -59,8 +57,15 @@ public class MenuServiceImpl implements IMenuService {
     }
 
     @Override
-    public List<TreeNode> getTreeNode(String parentId) {
-        return menuTreeUtil.getByParentId(parentId);
+    public List<TreeNode> getUserTree() {
+        MenuTreeUtil menuTreeUtil = new MenuTreeUtil(UserUtil.getUserMenu());
+        return menuTreeUtil.getMenuTree("0");
+    }
+
+    @Override
+    public List<TreeNode> getAllTree() {
+        MenuTreeUtil menuTreeUtil = new MenuTreeUtil(findAll());
+        return menuTreeUtil.getMenuTree("0");
     }
 
     @Override

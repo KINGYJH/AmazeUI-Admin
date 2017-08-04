@@ -17,7 +17,9 @@ public interface IMenuService {
 
     List<Menu> findAll();
 
-    List<TreeNode> getTreeNode(String parentId);
+    List<TreeNode> getUserTree();
+
+    List<TreeNode> getAllTree();
 
     List<Menu> findByParentId(String parentId);
 

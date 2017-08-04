@@ -53,7 +53,7 @@ public class SpringTest {
 
     @Test
     public void testTreeNodeMenu() {
-        List<TreeNode> list = menuService.getTreeNode(null);
+        List<TreeNode> list = menuService.getAllTree();
         System.out.println("");
     }
 

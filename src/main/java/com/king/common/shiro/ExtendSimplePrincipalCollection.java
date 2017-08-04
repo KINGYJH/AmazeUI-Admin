@@ -15,5 +15,4 @@ public class ExtendSimplePrincipalCollection extends SimplePrincipalCollection {
     public ExtendSimplePrincipalCollection(Object principal, String realmName) {
         super(principal, realmName);
     }
-
 }

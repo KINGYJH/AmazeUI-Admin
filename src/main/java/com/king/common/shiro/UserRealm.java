@@ -1,6 +1,7 @@
 package com.king.common.shiro;
 
 import com.king.common.utils.StringUtils;
+import com.king.modules.sys.dictionary.util.DictionaryUtil;
 import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.role.entity.Role;
 import com.king.modules.sys.user.entity.User;
@@ -95,12 +96,10 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         User user = authService.searchByAcctName(token.getPrincipal().toString());
 
-        //TODO 验证码
-
         if (null == user) {
             throw new UnknownAccountException(); //用户不存在
         } else {
-            if (user.getStatus().equals("dic_00004")) {//TODO 从数据获取字典值
+            if (user.getStatus().equals(DictionaryUtil.getByDataKeyAndDataValue("STATUS", "禁用").getId())) {//TODO 从数据获取字典值
                 throw new LockedAccountException(); //用户被禁用
             }
         }

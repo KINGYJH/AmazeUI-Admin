@@ -172,7 +172,6 @@ public abstract class BaseDao<T, ID extends Serializable> implements IBaseDao<T,
         return pagination(page, createDetachedCriteria());
     }
 
-
     /**
      * 使用检索标准对象分页查询
      *

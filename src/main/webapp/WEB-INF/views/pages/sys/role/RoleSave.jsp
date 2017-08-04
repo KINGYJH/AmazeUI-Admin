@@ -34,6 +34,7 @@
             <td class="label" valign="top">权限菜单选择：</td>
             <td class="inputArea">
                 <input type="hidden" id="permission_ids" name="permissionIds"/>
+                <%--<a class="easyui-linkbutton" id="check_btn">全选</a>--%>
                 <div style="float:left;margin-top:10px;margin-left: 15px;">
                     <ul id="menu_choose_tree" class="easyui-tree"></ul>
                 </div>
@@ -69,17 +70,24 @@
             url: '${projectPath}/sys/menu/get_all_treeData',
             lines: true,
             checkbox: true,
-            cascadeCheck: true,
+            cascadeCheck: false,
             onLoadSuccess: function (node, data) {
                 $('#menu_choose_tree').tree('expandAll');
             },
             onCheck: function (node, checked) {
+                if (checked == true) {
+                    checkedParent(node);
+                } else {
+                    clearChild(node);
+                }
                 var _checked = $('#menu_choose_tree').tree('getChecked');
                 var _menuIds = "";
                 for (var _index in _checked) {
                     _menuIds += _checked[_index].id + ",";
                 }
+
                 _menuIds = $.trim(_menuIds).substring(0, _menuIds.length - 1);
+
                 $('#permission_ids').val(_menuIds);
             },
             loadFilter: function (data) {
@@ -91,6 +99,55 @@
             }
         })
     })
+
+    function checkedParent(node) {
+        if ($('#menu_choose_tree').tree('getParent', node.target) !== null) {
+            $('#menu_choose_tree').tree('check', $('#menu_choose_tree').tree('getParent', node.target).target);
+            checkedParent($('#menu_choose_tree').tree('getParent', node.target));
+        }
+    }
+
+    $('#check_btn').click(function () {
+        console.log($('#menu_choose_tree').tree('getSelected'));
+        if ($('#menu_choose_tree').tree('getSelected') !== null) {
+            clearAll();
+            $(this).text('全选');
+        } else {
+            checkAll();
+            $(this).text('清空');
+        }
+    })
+
+    function checkAll() {
+        var _nodes = $('#menu_choose_tree').tree('getRoots');
+        for (var _index in _nodes) {
+            checkChild(_nodes[_index]);
+        }
+    }
+
+    function clearAll() {
+        var _nodes = $('#menu_choose_tree').tree('getRoots');
+        for (var _index in _nodes) {
+            clearChild(_nodes[_index]);
+        }
+    }
+
+    function checkChild(node) {
+        var childs = $('#menu_choose_tree').tree('getChildren', node.target);
+        for (var _index in childs) {
+            $('#menu_choose_tree').tree('check', childs[_index].target);
+            clearChild(childs[_index]);
+        }
+    }
+
+    function clearChild(node) {
+        var childs = $('#menu_choose_tree').tree('getChildren', node.target);
+        for (var _index in childs) {
+            $('#menu_choose_tree').tree('uncheck', childs[_index].target);
+            clearChild(childs[_index]);
+        }
+    }
+
 </script>
 </body>
 </html>

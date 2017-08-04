@@ -93,6 +93,7 @@
     function includeJs(jsName) {
         var js = /js$/i.test(name);
         var es = document.getElementsByTagName(js ? 'script' : 'link');
+        console.log(es);
         var isInclude = true;
         for (var i = 0; i < es.length; i++) {
             if (es[i][js ? 'src' : 'href'].indexOf(name) === -1) {
@@ -100,8 +101,33 @@
                 break;
             }
         }
+        console.log(isInclude);
         if (isInclude) {
             loadScript("${modules_rec}" + jsName);
         }
+    }
+
+    /**
+     * 字符串去重
+     * @param str 字符串
+     * @param regex 分隔符
+     * @param joinStr 连接符
+     * @returns {string} 结果
+     */
+    function duplicateRemoval(str, regex, joinStr) {
+        var strArr = str.split(regex);//把字符串分割成一个数组
+        strArr.sort();//排序
+        var result = new Array();//创建出一个结果数组
+        var tempStr = "";
+        for (var i in strArr) {
+            if (strArr[i] != tempStr) {
+                result.push(strArr[i]);
+                tempStr = strArr[i];
+            }
+            else {
+                continue;
+            }
+        }
+        return result.join(joinStr);
     }
 </script>

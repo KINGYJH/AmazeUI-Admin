@@ -48,4 +48,5 @@ public interface IBaseDao<T, ID extends Serializable> {
 
     @SuppressWarnings("unchecked")
     Pagination<T> pagination(Pagination<T> page, DetachedCriteria detachedCriteria, ResultTransformer resultTransformer);
+
 }

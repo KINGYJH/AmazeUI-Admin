@@ -23,4 +23,7 @@ public interface IDictionaryService {
     void del(Dictionary dictionary);
 
     boolean checkIsExist(String dataKey, String dataValue);
+
+    List<Dictionary> findAll();
+
 }

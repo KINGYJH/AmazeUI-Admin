@@ -1,12 +1,13 @@
 package com.king.modules.sys.menu.entity;
 
 import com.king.common.persistence.BaseEntity;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+
 
 /**
  * Created by YJH
@@ -15,6 +16,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "sys_menu")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Menu extends BaseEntity<Menu> {
 
     private Menu parent;        //父级菜单

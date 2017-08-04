@@ -3,7 +3,7 @@ package com.king.modules.sys.dictionary.service.impl;
 import com.king.common.exception.ExistException;
 import com.king.common.exception.NoFoundException;
 import com.king.common.web.Pagination;
-import com.king.modules.sys.dictionary.dao.IDictionaryDao;
+import com.king.modules.sys.dictionary.dao.IDictionaryGroupDao;
 import com.king.modules.sys.dictionary.entity.Dictionary;
 import com.king.modules.sys.dictionary.service.IDictionaryService;
 import org.hibernate.criterion.DetachedCriteria;
@@ -25,12 +25,11 @@ import java.util.List;
 public class DictionaryServiceImpl implements IDictionaryService {
 
     @Autowired
-    private IDictionaryDao<Dictionary, String> dictionaryDao;
+    private IDictionaryGroupDao<Dictionary, String> dictionaryDao;
 
     @Override
     public Pagination<Dictionary> pagination(Pagination<Dictionary> pagination, Dictionary dictionary) {
         DetachedCriteria dc = dictionaryDao.createDetachedCriteria();
-
         dc.addOrder(Order.asc("dataKey"));
         dc.addOrder(Order.asc("sort"));
         return dictionaryDao.pagination(pagination, dc);
@@ -102,5 +101,10 @@ public class DictionaryServiceImpl implements IDictionaryService {
         dc.add(Restrictions.eq("dataKey", dataValue));
         dc.add(Restrictions.eq("dataValue", dataValue));
         return !dictionaryDao.find(dc).isEmpty();
+    }
+
+    @Override
+    public List<Dictionary> findAll() {
+        return dictionaryDao.findAll();
     }
 }

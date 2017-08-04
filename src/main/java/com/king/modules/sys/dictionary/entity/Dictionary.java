@@ -1,11 +1,12 @@
 package com.king.modules.sys.dictionary.entity;
 
 import com.king.common.persistence.BaseEntity;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Date;
 
 /**
  * @author by yjh
@@ -14,6 +15,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "sys_dictionary")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Dictionary extends BaseEntity<Dictionary> {
 
     private String dataKey;     //键

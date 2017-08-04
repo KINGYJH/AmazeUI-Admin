@@ -71,7 +71,7 @@
             url: '${projectPath}/sys/menu/get_all_treeData',
             lines: true,
             checkbox: true,
-            cascadeCheck: true,
+            cascadeCheck: false,
             onLoadSuccess: function (node, data) {
                 $('#menu_choose_tree').tree('expandAll');
                 var _menuIds = $('#permission_ids').val().split(",");
@@ -81,12 +81,19 @@
                 }
             },
             onCheck: function (node, checked) {
+                if (checked == true) {
+                    checkedParent(node);
+                } else {
+                    clearChild(node);
+                }
                 var _checked = $('#menu_choose_tree').tree('getChecked');
                 var _menuIds = "";
                 for (var _index in _checked) {
                     _menuIds += _checked[_index].id + ",";
                 }
+
                 _menuIds = $.trim(_menuIds).substring(0, _menuIds.length - 1);
+
                 $('#permission_ids').val(_menuIds);
             },
             loadFilter: function (data) {
@@ -98,6 +105,21 @@
             }
         })
     })
+
+    function checkedParent(node) {
+        if ($('#menu_choose_tree').tree('getParent', node.target) !== null) {
+            $('#menu_choose_tree').tree('check', $('#menu_choose_tree').tree('getParent', node.target).target);
+            checkedParent($('#menu_choose_tree').tree('getParent', node.target));
+        }
+    }
+
+    function clearChild(node) {
+        var childs = $('#menu_choose_tree').tree('getChildren', node.target);
+        for (var _index in childs) {
+            $('#menu_choose_tree').tree('uncheck', childs[_index].target);
+            clearChild(childs[_index]);
+        }
+    }
 </script>
 </body>
 </html>
