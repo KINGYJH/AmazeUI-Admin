@@ -35,6 +35,10 @@
                 <td class="inputArea">
                     <input name="sort" value="${data.sort}" class="easyui-validatebox" validType="Number"/>
                 </td>
+                <td class="label">描述：</td>
+                <td class="inputArea">
+                    <input name="describes" value="${data.describes}" class="easyui-validatebox"/>
+                </td>
             </tr>
         </table>
     </form>
@@ -52,9 +56,10 @@
                     msgShow('系统提示', "系统出现错误请重试", 'info');
                 }, success: function (data) {
                     loadTierClose();
-                    var obj = toJSON(data);
+                    var obj = JSON.parse(data);
                     parent.msgShow('系统提示', obj.msg, 'info');
                     if (obj.status === "SUCCESS") {
+                        initDic();
                         parent.jQuery('#dl_dictionary_edit').dialog('close');
                     } else {
                         if (obj.msg.indexOf("重新提交")) {

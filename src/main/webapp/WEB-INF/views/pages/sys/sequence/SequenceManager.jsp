@@ -142,7 +142,7 @@
                         type: 'post',
                         success: function (data) {
                             loadTierClose();
-                            var obj = toJSON(data);
+                            var obj = JSON.parse(data);
                             msgShow('系统提示', obj.msg, 'info');
                             if (obj.status === "SUCCESS") {
                                 reloadDatagrId();

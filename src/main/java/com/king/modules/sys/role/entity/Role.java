@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.EAGER;
+
 /**
  * Created by YJH
  * on 2017/8/1 16:36.
@@ -40,7 +42,7 @@ public class Role extends BaseEntity<Role> {
         this.describes = describes;
     }
 
-    @ManyToMany//多对多关系
+    @ManyToMany//(fetch = EAGER)//多对多关系
 //    @Cascade(value = {CascadeType.SAVE_UPDATE})        //级联关系
     @JoinTable(name = "sys_role_menu",                     //中间表的名称
             joinColumns = {@JoinColumn(name = "role_id")},   //本表与中间表的外键对应关系

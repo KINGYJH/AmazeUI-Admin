@@ -25,11 +25,14 @@ public class ShiroFilterChainManager {
 
     private Map<String, NamedFilterList> defaultFilterChains;
 
+    /**
+     * 项目启动 初始化过滤链
+     */
     @PostConstruct
     public void init() {
         defaultFilterChains = new HashMap<>(filterChainManager.getFilterChains());
         List<Menu> menuList = authService.findAllPermission();
-//        initFilterChains(menuList);
+        initFilterChains(menuList);
     }
 
     public void initFilterChains(List<Menu> menuList) {
@@ -45,6 +48,16 @@ public class ShiroFilterChainManager {
             if (StringUtils.isNotBlank(menu.getHref())) {
                 filterChainManager.addToChain("/admin" + menu.getHref(), "perms", menu.getPermission());
             }
+        }
+    }
+
+    /**
+     * 更新过滤链
+     */
+    public void update() {
+        synchronized (filterChainManager) {
+            this.init();
+            filterChainManager.init();
         }
     }
 

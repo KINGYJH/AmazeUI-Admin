@@ -32,6 +32,8 @@
 <div data-options="region:'south'" style="height: 3%;text-align: center">
     <div class="footer">版权所有：${fns:getConfig('productName')} 技术支持：XXXXXXX 版本：${fns:getConfig('productVersion')}</div>
 </div>
+<script type="text/javascript">
+</script>
 </body>
 </html>
 

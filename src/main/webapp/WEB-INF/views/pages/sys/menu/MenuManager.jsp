@@ -42,9 +42,15 @@
                     }
                 },
                 {title: '菜单同级排序', field: 'sort', width: 50, align: 'center'},
-                {title: '菜单是否显示', field: 'isShow', width: 50, align: 'center'}
+                {
+                    title: '菜单是否显示', field: 'isShow', width: 50, align: 'center',
+                    formatter: function (value, row, index) {
+                        return parent.getDictValue(value);
+                    }
+                }
             ]],
-            onLoadError: function () {
+            onLoadError: function (arguments) {
+                console.log(arguments);
                 $.messager.alert("提示", "数据加载出错！", "error");
             },
             onBeforeExpand: function (node) {

@@ -78,7 +78,7 @@ public class DictionaryUtil {
                 return dictionary;
             }
         }
-        return null;
+        return new Dictionary();
     }
 
     /**

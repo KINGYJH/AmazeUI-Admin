@@ -3,11 +3,14 @@ package com.king.modules.sys.role.web;
 import com.king.common.exception.ConcurrencyException;
 import com.king.common.exception.ExistException;
 import com.king.common.exception.NoFoundException;
+import com.king.common.shiro.ShiroFilterChainManager;
+import com.king.common.shiro.UserRealm;
 import com.king.common.web.BaseController;
 import com.king.common.web.JSONMessage;
 import com.king.common.web.Pagination;
 import com.king.modules.sys.role.entity.Role;
 import com.king.modules.sys.role.service.IRoleService;
+import com.king.modules.sys.role.util.RoleUtil;
 import com.king.modules.sys.user.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,6 +59,8 @@ public class RoleController extends BaseController {
             roleService.save(role);
             jsonMessage.setMsg("添加成功");
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+
+            RoleUtil.editRoleAfter();
         } catch (NoFoundException | ExistException e) {
             jsonMessage.setMsg(e.getMessage());
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
@@ -85,6 +90,8 @@ public class RoleController extends BaseController {
             UserUtil.updateAllUser();
             jsonMessage.setMsg("修改成功");
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+
+            RoleUtil.editRoleAfter();
         } catch (ConcurrencyException | NoFoundException | ExistException e) {
             jsonMessage.setMsg(e.getMessage());
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
@@ -103,6 +110,8 @@ public class RoleController extends BaseController {
             roleService.del(role);
             jsonMessage.setMsg("删除成功");
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+
+            RoleUtil.editRoleAfter();
         } catch (ConcurrencyException | NoFoundException e) {
             jsonMessage.setMsg(e.getMessage());
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);

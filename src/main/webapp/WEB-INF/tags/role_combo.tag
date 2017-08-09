@@ -20,7 +20,7 @@
             async: false,
             type: 'post',
             success: function (data) {
-                var obj = parent.toJSON(data);
+                var obj = JSON.parse(data);
                 if (obj.status === "SUCCESS") {
                     var _panelHtml = '<div id="sp">' +
                         '<div style="color:#99BBE8;background:#fafafa;padding:5px;text-align: center">选择角色</div>' +

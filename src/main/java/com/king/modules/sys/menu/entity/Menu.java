@@ -89,7 +89,7 @@ public class Menu extends BaseEntity<Menu> {
         this.sort = sort;
     }
 
-    @Column(name = "is_show", length = 2)
+    @Column(name = "is_show", length = 16)
     public String getIsShow() {
         return isShow;
     }

@@ -10,13 +10,13 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#${id}').combobox({
-            url: '/admin/sys/dictionary/get_by_dataKey?dataKey=${dataKey}',
+            <%--url: '/admin/sys/dictionary/get_by_dataKey?dataKey=${dataKey}',--%>
+            data: getDictList('${dataKey}'),
             valueField: 'id',
             textField: 'dataValue',
             editable: false,
             required: ${isNull},
             onSelect: function (node) {
-                console.log(node.id);
                 $("#${id}_id").val(node.id);
             },
             onLoadSuccess: function (data) {
@@ -27,13 +27,6 @@
                             $('#${id}').combobox('setValue', data.data[i].dataValue);
                         }
                     }
-                }
-            },
-            loadFilter: function (data) {
-                if (data.status === "SUCCESS") {
-                    return data.data;
-                } else {
-                    return [];
                 }
             }
         });

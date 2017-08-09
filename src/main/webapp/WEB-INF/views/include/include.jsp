@@ -34,6 +34,8 @@
 <script type="text/javascript" src="${easy_rec}/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${easy_rec}/locale/easyui-lang-zh_CN.js"></script>
 
+<script type="text/javascript" href="${modules_rec}/common/json2.js"></script>
+
 <script type="text/javascript">
     var basePath = '${basePath}';
     var projectPath = '${projectPath}';
@@ -42,10 +44,19 @@
 
     //加载js
     function loadScript(url) {
-        var script = document.createElement("script");
-        script.type = "text/javascript";
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
         script.src = url;
         document.body.appendChild(script);
+    }
+
+    //加载css
+    function loadCss(url) {
+        var css = document.createElement('link');
+        css.href = url;
+        css.type = 'text/css';
+        css.rel = 'stylesheet';
+        document.body.appendChild(css);
     }
 
     //获取iframe高度
@@ -76,34 +87,23 @@
         $.messager.alert(title, msgString, msgType);
     }
 
-    //转换JSON
-    function toJSON(data) {
-        if (typeof(data) === 'string') {
-            return jQuery.parseJSON(data);
-        } else {
-            return data;
-        }
-    }
-
     /**
-     * 引入js文件
-     * @param jsName js文件名称
+     * 引入js/css文件
+     * @param name js/css文件名称
      * @returns {boolean}
      */
-    function includeJs(jsName) {
+    function includeJs(name) {
         var js = /js$/i.test(name);
         var es = document.getElementsByTagName(js ? 'script' : 'link');
-        console.log(es);
         var isInclude = true;
         for (var i = 0; i < es.length; i++) {
-            if (es[i][js ? 'src' : 'href'].indexOf(name) === -1) {
+            if (es[i][js ? 'src' : 'href'].indexOf(name) !== -1) {
                 isInclude = false;
                 break;
             }
         }
-        console.log(isInclude);
         if (isInclude) {
-            loadScript("${modules_rec}" + jsName);
+            js ? loadScript("${modules_rec}" + name) : loadCss(name);
         }
     }
 

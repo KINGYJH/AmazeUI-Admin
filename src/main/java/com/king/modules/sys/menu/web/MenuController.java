@@ -3,11 +3,13 @@ package com.king.modules.sys.menu.web;
 import com.king.common.exception.ConcurrencyException;
 import com.king.common.exception.DataErrorException;
 import com.king.common.exception.NoFoundException;
+import com.king.common.shiro.ShiroFilterChainManager;
 import com.king.common.web.BaseController;
 import com.king.common.web.JSONMessage;
 import com.king.common.web.TreeNode;
 import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.menu.service.IMenuService;
+import com.king.modules.sys.role.util.RoleUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +56,8 @@ public class MenuController extends BaseController {
             menuService.save(menu);
             jsonMessage.setMsg("添加成功!");
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+
+            RoleUtil.editMenuAfter();
         } catch (Exception e) {
             jsonMessage.setMsg("系统错误,请稍后在试!");
             jsonMessage.setStatus(JSONMessage.Status.FAIL);
@@ -79,6 +83,8 @@ public class MenuController extends BaseController {
             menuService.edit(menu);
             jsonMessage.setMsg("修改成功!");
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+
+            RoleUtil.editMenuAfter();
         } catch (NoFoundException | DataErrorException | ConcurrencyException e) {
             jsonMessage.setMsg(e.getMessage());
             jsonMessage.setStatus(JSONMessage.Status.FAIL);
@@ -95,7 +101,7 @@ public class MenuController extends BaseController {
         return menuService.getUserTree();
     }
 
-    @RequestMapping(value = "/get_all_treeData", method = RequestMethod.POST)
+    @RequestMapping(value = "/get_all_tree_data", method = RequestMethod.POST)
     @ResponseBody
     public JSONMessage getAllTreeData() {
         JSONMessage jsonMessage = new JSONMessage();

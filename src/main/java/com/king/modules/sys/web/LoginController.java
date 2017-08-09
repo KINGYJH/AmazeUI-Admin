@@ -1,6 +1,7 @@
 package com.king.modules.sys.web;
 
 import com.king.common.config.Global;
+import com.king.common.shiro.ExtendSimplePrincipalCollection;
 import com.king.common.shiro.LoginEntity;
 import com.king.common.utils.HttpUtils;
 import com.king.common.utils.VerifyCodeUtils;
@@ -8,6 +9,7 @@ import com.king.common.web.BaseController;
 import com.king.common.web.JSONMessage;
 import com.king.modules.sys.user.entity.User;
 import com.king.modules.sys.user.service.IAuthService;
+import com.king.modules.sys.user.util.UserUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -81,6 +83,7 @@ public class LoginController extends BaseController {
     @RequestMapping("/logout")
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
         Subject subject = SecurityUtils.getSubject();
+        UserUtil.clearUser((String) ((ExtendSimplePrincipalCollection) subject.getPrincipal()).getPrimaryPrincipal());
         subject.logout();
         return new ModelAndView("redirect:/");
     }

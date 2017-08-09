@@ -55,7 +55,7 @@
                     msgShow('系统提示', "系统出现错误请重试", 'info');
                 }, success: function (data) {
                     loadTierClose();
-                    var obj = parent.toJSON(data);
+                    var obj = JSON.parse(data);
                     parent.msgShow('系统提示', obj.msg, 'info');
                     if (obj.status === "SUCCESS") {
                         parent.jQuery('#dl_role_add').dialog('close');
@@ -67,7 +67,7 @@
 
     $(function () {
         $('#menu_choose_tree').tree({
-            url: '${projectPath}/sys/menu/get_all_treeData',
+            url: '${projectPath}/sys/menu/get_all_tree_data',
             lines: true,
             checkbox: true,
             cascadeCheck: false,

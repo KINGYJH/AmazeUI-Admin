@@ -4,6 +4,8 @@ import com.king.common.annotation.DbInsertBefore;
 import com.king.common.annotation.DbUpdateBefore;
 import com.king.common.exception.ConcurrencyException;
 import com.king.modules.sys.sequence.util.SequenceUtil;
+import com.king.modules.sys.user.entity.User;
+import com.king.modules.sys.user.util.UserUtil;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -47,13 +49,17 @@ public class BaseEntity<T> implements Serializable {
 
         this.id = SequenceUtil.getNextId(tableName);
 
-        //TODO 添加创建者信息
+        User user = UserUtil.getUser();
+        this.createUserId = user.getId();
+        this.createUserName = user.getAcctName();
         this.createDate = new Date();
     }
 
     @DbUpdateBefore
     public void updateBefore() {
-        //TODO 添加更新者信息
+        User user = UserUtil.getUser();
+        this.updateUserId = user.getId();
+        this.updateUserName = user.getUpdateUserName();
 
         this.updateDate = new Date();
     }

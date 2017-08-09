@@ -20,7 +20,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by YJH
@@ -46,8 +48,12 @@ public class MenuServiceImpl implements IMenuService {
     @Override
     @Transactional()
     public void save(Menu menu) {
-        Menu parent = this.getById(menu.getParent().getId());
-        menu.setParent(parent);
+        if (StringUtils.isNotBlank(menu.getParent().getId())) {
+            Menu parent = this.getById(menu.getParent().getId());
+            menu.setParent(parent);
+        } else {
+            menu.setParent(null);
+        }
         menuDao.save(menu);
     }
 
@@ -65,7 +71,25 @@ public class MenuServiceImpl implements IMenuService {
     @Override
     public List<TreeNode> getAllTree() {
         MenuTreeUtil menuTreeUtil = new MenuTreeUtil(findAll());
-        return menuTreeUtil.getMenuTree("0");
+        Menu menu = getById("0");
+        List<TreeNode> nodeList = new ArrayList<>();
+        List<TreeNode> childList = menuTreeUtil.getMenuTree("0");
+
+        TreeNode topNode = new TreeNode();
+        topNode.setChecked(false);
+        topNode.setIconCls(menu.getIcon());
+        topNode.setText(menu.getName());
+        topNode.setState("close");
+        topNode.setId(menu.getId());
+        Map<String, Object> map = new HashMap<>(); //附加数据,前台获取数据可(json对象.attributes.site)
+        map.put("id", menu.getId());
+        map.put("url", menu.getHref());
+        topNode.setAttributes(map);
+
+        topNode.setChildren(childList);
+
+        nodeList.add(topNode);
+        return nodeList;
     }
 
     @Override

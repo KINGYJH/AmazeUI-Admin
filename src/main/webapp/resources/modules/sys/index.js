@@ -1,3 +1,52 @@
+//数据字典
+var dict_obj = null;
+initDic();
+//初始化数据字典
+function initDic() {
+    $.ajax({
+        url: projectPath + '/sys/dictionary/get_all_data',
+        type: 'post',
+        async: false,
+        success: function (data) {
+            var obj = JSON.parse(data);
+            if (obj.status === "SUCCESS") {
+                dict_obj = obj.data;
+            }
+        }
+    });
+}
+
+/**
+ * 根据id获取字典值
+ * @param id
+ * @returns {*}
+ */
+function getDictValue(id) {
+    if (dict_obj === null) {
+        initDic();
+    } else {
+        for (var _index in dict_obj) {
+            if (dict_obj[_index].id === id) {
+                return dict_obj[_index].dataValue;
+            }
+        }
+    }
+}
+
+/**
+ * 根据key获取字典
+ * @param key
+ */
+function getDictList(key) {
+    var dataList = [];
+    for (var _index in dict_obj) {
+        if (dict_obj[_index].dataKey === key) {
+            dataList.push(dict_obj[_index]);
+        }
+    }
+    return dataList;
+}
+
 $(function () {
     $('#tabs').tabs('add', {
         title: "首页",
@@ -17,15 +66,15 @@ $(function () {
                 return;
             }
             // if ($('#menu_tree_id').tree('isLeaf', node.target)) {
-                if (node.attributes.url.indexOf("#basepath#") !== -1) {
-                    addTab(node.text, node.attributes.url
-                            .replace("#basepath#", basePath),
-                        "iframe" + node.id);
-                } else {
-                    addTab(node.text, projectPath
-                        + node.attributes.url, "iframe"
-                        + node.id);
-                }
+            if (node.attributes.url.indexOf("#basepath#") !== -1) {
+                addTab(node.text, node.attributes.url
+                        .replace("#basepath#", basePath),
+                    "iframe" + node.id);
+            } else {
+                addTab(node.text, projectPath
+                    + node.attributes.url, "iframe"
+                    + node.id);
+            }
             // }
         },
         onLoadSuccess: function (row, data) {

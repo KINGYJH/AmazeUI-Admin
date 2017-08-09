@@ -10,7 +10,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#${id}').combotree({
-            url: '/admin/sys/menu/get_all_treeData',
+            url: '/admin/sys/menu/get_all_tree_data',
             value: '请选择',
             editable: false,
             required: ${isNull},

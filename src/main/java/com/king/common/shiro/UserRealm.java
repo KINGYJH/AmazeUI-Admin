@@ -6,11 +6,16 @@ import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.role.entity.Role;
 import com.king.modules.sys.user.entity.User;
 import com.king.modules.sys.user.service.IAuthService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.cache.Cache;
+import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
@@ -99,11 +104,24 @@ public class UserRealm extends AuthorizingRealm {
         if (null == user) {
             throw new UnknownAccountException(); //用户不存在
         } else {
-            if (user.getStatus().equals(DictionaryUtil.getByDataKeyAndDataValue("STATUS", "禁用").getId())) {//TODO 从数据获取字典值
+            if (DictionaryUtil.getById(user.getStatus()).getDataValue().equals("禁用")) {
                 throw new LockedAccountException(); //用户被禁用
             }
         }
 
         return new SimpleAuthenticationInfo(new ExtendSimplePrincipalCollection(user.getAcctName(), getName()), user.getPwd().toCharArray(), getName());
+    }
+
+    /**
+     * 清空所有关联认证
+     */
+    public void clearAllCachedAuthorizationInfo2() {
+        Cache<Object, AuthorizationInfo> cache = getAuthorizationCache();
+        if (cache != null) {
+            for (Object key : cache.keys()) {
+                System.out.println(key + ":" + key.toString());
+                cache.remove(key);
+            }
+        }
     }
 }

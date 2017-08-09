@@ -91,7 +91,7 @@
                 id: 'dl_role_edit',
                 title: '角色修改',
                 width: 700,
-                height: 300,
+                height: 500,
                 modal: true,
                 shadow: false,
                 resizable: true,
@@ -138,7 +138,7 @@
                         type: 'post',
                         success: function (data) {
                             loadTierClose();
-                            var obj = toJSON(data);
+                            var obj = JSON.parse(data);
                             msgShow('系统提示', obj.msg, 'info');
                             if (obj.status === "SUCCESS") {
                                 reloadDatagrId();

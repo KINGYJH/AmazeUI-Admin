@@ -6,6 +6,7 @@ import com.king.common.web.Pagination;
 import com.king.modules.sys.dictionary.dao.IDictionaryGroupDao;
 import com.king.modules.sys.dictionary.entity.Dictionary;
 import com.king.modules.sys.dictionary.service.IDictionaryService;
+import com.king.modules.sys.dictionary.util.DictionaryUtil;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -43,6 +44,7 @@ public class DictionaryServiceImpl implements IDictionaryService {
         }
 
         dictionaryDao.save(dictionary);
+        DictionaryUtil.add(dictionary);
     }
 
     @Override
@@ -69,6 +71,8 @@ public class DictionaryServiceImpl implements IDictionaryService {
         editDictionary.setDataValue(dictionary.getDataValue());
         editDictionary.setSort(dictionary.getSort());
         dictionaryDao.update(editDictionary);
+
+        DictionaryUtil.update(dictionary);
     }
 
     @Override
@@ -86,6 +90,8 @@ public class DictionaryServiceImpl implements IDictionaryService {
         delDictionary.fainWhenConcurrencyViolation(dictionary.getVersion());
 
         dictionaryDao.delete(delDictionary);
+
+        DictionaryUtil.remover(dictionary);
     }
 
     /**

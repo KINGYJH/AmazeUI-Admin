@@ -3,12 +3,16 @@ package com.king.modules.sys.user.util;
 import com.king.common.shiro.ExtendSimplePrincipalCollection;
 import com.king.common.utils.CacheUtils;
 import com.king.common.utils.SpringContextHolder;
+import com.king.modules.sys.dictionary.util.DictionaryUtil;
 import com.king.modules.sys.menu.entity.Menu;
 import com.king.modules.sys.role.entity.Role;
 import com.king.modules.sys.user.entity.User;
 import com.king.modules.sys.user.service.IUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,7 +62,11 @@ public class UserUtil {
         List<Menu> menuList = new ArrayList<>();
         User user = getUser();
         for (Role role : user.getRole()) {
-            menuList.addAll(role.getPermission());
+            for (Menu menu : role.getPermission()) {
+                if (menu.getIsShow().equals(DictionaryUtil.getByDataKeyAndDataValue("IS_SHOW", "显示").getId())) {
+                    menuList.add(menu);
+                }
+            }
         }
         return menuList;
     }
@@ -74,7 +82,35 @@ public class UserUtil {
         }
         for (String key : userMap.keySet()) {
             User user = userService.getByAcctName(key);
+
+            //让用户权限加载出来
+            List<Menu> menuList = new ArrayList<>();
+            for (Role role : user.getRole()) {
+                for (Menu menu : role.getPermission()) {
+                    if (menu.getIsShow().equals(DictionaryUtil.getByDataKeyAndDataValue("IS_SHOW", "显示").getId())) {
+                        menuList.add(menu);
+                    }
+                }
+            }
+
             userMap.put(key, user);
         }
+        CacheUtils.put(CacheUtils.SYS_CACHE, CACHE_USER, userMap);
+    }
+
+    /**
+     * 退出登录 清楚用户
+     *
+     * @param acctName
+     */
+    public static void clearUser(String acctName) {
+        Map<String, User> userMap = (Map<String, User>) CacheUtils.get(CacheUtils.SYS_CACHE, CACHE_USER);
+        if (null == userMap) {
+            userMap = new HashMap<>();
+        }
+        if (userMap.containsKey(acctName)) {
+            userMap.remove(acctName);
+        }
+        CacheUtils.put(CacheUtils.SYS_CACHE, CACHE_USER, userMap);
     }
 }

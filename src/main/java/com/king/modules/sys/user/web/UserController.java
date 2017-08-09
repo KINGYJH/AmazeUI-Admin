@@ -1,5 +1,6 @@
 package com.king.modules.sys.user.web;
 
+import com.alibaba.fastjson.JSON;
 import com.king.common.exception.ExistException;
 import com.king.common.web.BaseController;
 import com.king.common.web.JSONMessage;
@@ -57,6 +58,14 @@ public class UserController extends BaseController {
             jsonMessage.setMsg("系统错误,请稍后再试");
             jsonMessage.setStatus(JSONMessage.Status.FAIL);
         }
+        return jsonMessage;
+    }
+
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONMessage del() {
+        JSONMessage jsonMessage = new JSONMessage();
+
         return jsonMessage;
     }
 

@@ -41,7 +41,12 @@
                 {title: '登录IP', field: 'lastLoginIP', width: 50, align: 'center'},
                 {title: '登录地址', field: 'lastLoginAddress', width: 50, align: 'center'},
                 {title: '登录平台', field: 'lastLoginPlatform', width: 50, align: 'center'},
-                {title: '用户状态', field: 'status', width: 50, align: 'center'}
+                {
+                    title: '用户状态', field: 'status', width: 50, align: 'center',
+                    formatter: function (value, row, index) {
+                        return parent.getDictValue(value);
+                    }
+                }
             ]],
             onLoadSuccess: function (data) {
             }
@@ -101,7 +106,7 @@
                         type: 'post',
                         success: function (data) {
                             loadTierClose();
-                            var obj = toJSON(data);
+                            var obj = JSON.parse(data);
                             msgShow('系统提示', obj.msg, 'info');
                             if (obj.status === "SUCCESS") {
                                 reloadDatagrId();

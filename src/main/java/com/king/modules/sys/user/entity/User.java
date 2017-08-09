@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static javax.persistence.FetchType.EAGER;
+
 /**
  * @author by yjh
  * @DateTime 2017/7/2 19:25
@@ -109,7 +111,7 @@ public class User extends BaseEntity<User> {
         this.headImg = headImg;
     }
 
-    @ManyToMany//多对多关系
+    @ManyToMany//(fetch = EAGER)//多对多关系 不懒加载
 //    @Cascade(value = {CascadeType.SAVE_UPDATE})        //级联关系
     @JoinTable(name = "sys_user_role",                     //中间表的名称
             joinColumns = {@JoinColumn(name = "user_id")},   //本表与中间表的外键对应关系

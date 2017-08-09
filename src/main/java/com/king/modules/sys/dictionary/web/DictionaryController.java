@@ -125,4 +125,20 @@ public class DictionaryController extends BaseController {
         }
         return jsonMessage;
     }
+
+    @RequestMapping(value = "/get_all_data", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONMessage getAll() {
+        JSONMessage jsonMessage = new JSONMessage();
+        try {
+            List<Dictionary> data = dictionaryService.findAll();
+            jsonMessage.setData(data);
+            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+            jsonMessage.setMsg("获取数据成功");
+        } catch (Exception e) {
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+            jsonMessage.setMsg("系统异常,请稍后再试");
+        }
+        return jsonMessage;
+    }
 }

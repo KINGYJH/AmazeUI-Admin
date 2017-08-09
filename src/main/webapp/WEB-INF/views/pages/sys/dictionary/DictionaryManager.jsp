@@ -38,6 +38,7 @@
             columns: [[
                 {title: '键', field: 'dataKey', width: 50, align: 'center'},
                 {title: '值', field: 'dataValue', width: 50, align: 'center'},
+                {title: '描述', field: 'describes', width: 50, align: 'center'},
                 {title: '排序', field: 'sort', width: 50, align: 'center'}
             ]],
             onLoadSuccess: function (data) {
@@ -138,9 +139,10 @@
                         type: 'post',
                         success: function (data) {
                             loadTierClose();
-                            var obj = toJSON(data);
+                            var obj = JSON.parse(data);
                             msgShow('系统提示', obj.msg, 'info');
                             if (obj.status === "SUCCESS") {
+                                parent.initDic();
                                 reloadDatagrId();
                             }
                         },

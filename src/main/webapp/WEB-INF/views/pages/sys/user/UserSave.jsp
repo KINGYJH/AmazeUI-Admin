@@ -67,7 +67,7 @@
                     msgShow('系统提示', "系统出现错误请重试", 'info');
                 }, success: function (data) {
                     loadTierClose();
-                    var obj = parent.toJSON(data);
+                    var obj = JSON.parse(data);
                     parent.msgShow('系统提示', obj.msg, 'info');
                     if (obj.status === "SUCCESS") {
                         parent.jQuery('#dl_user_add').dialog('close');
