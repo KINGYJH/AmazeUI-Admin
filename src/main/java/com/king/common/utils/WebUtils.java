@@ -1,7 +1,5 @@
 package com.king.common.utils;
 
-import java.io.File;
-
 /**
  * Created by YJH
  * on 2017/7/26 10:46.

@@ -19,6 +19,7 @@
 </head>
 <body>
 <div style="width: 100%;height: 100%;">
+    <button type="button" onclick="fileUpload()">文件长传</button>
     <c:forEach var="view" items="${data}">
         <div class="easyui-panel home_view" title="${view.title}"
              style="width:${view.width};height:${view.height};background:#fafafa;"
@@ -34,5 +35,37 @@
         </div>
     </c:forEach>
 </div>
+<script type="text/javascript">
+    function fileUpload() {
+        top.jQuery('<div/>').dialog({
+            href: '${projectPath}/upload_page?type=1',
+            id: 'dl_file_upload',
+            title: '文件上传',
+            width: 700,
+            height: 400,
+            modal: true,
+            shadow: false,
+            resizable: true,
+            buttons: [
+                {
+                    text: '保存',
+                    iconCls: "icon-ok",
+                    handler: function () {
+                        parent.submitForm();
+                    }
+                },
+                {
+                    text: '取消',
+                    iconCls: "icon-cancel",
+                    handler: function () {
+                        parent.jQuery('#dl_file_upload').dialog('close');
+                    }
+                }],
+            onClose: function () {
+                parent.jQuery(this).dialog('destroy');
+            }
+        })
+    }
+</script>
 </body>
 </html>
