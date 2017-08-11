@@ -17,4 +17,6 @@ public interface IUserService {
     boolean checkIsExist(String acctName);
 
     User getByAcctName(String acctName);
+
+    void updateLogin(User user);
 }

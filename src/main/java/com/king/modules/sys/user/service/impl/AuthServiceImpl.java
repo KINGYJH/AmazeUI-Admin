@@ -53,6 +53,8 @@ public class AuthServiceImpl implements IAuthService {
         user.setLastLoginDate(new Date());
         user.setLastLoginIP(login.getLoginIP());
         user.setLastLoginPlatform(login.getLoginPlatform());
+
+        userService.updateLogin(user);
         return user;
     }
 }

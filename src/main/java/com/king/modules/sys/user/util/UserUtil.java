@@ -47,6 +47,15 @@ public class UserUtil {
             return userMap.get(acctName);
         } else {
             User user = userService.getByAcctName(acctName);
+
+            //让用户权限加载出来
+            List<Menu> menuList = new ArrayList<>();
+            for (Role role : user.getRole()) {
+                for (Menu menu : role.getPermission()) {
+                    menuList.add(menu);
+                }
+            }
+
             userMap.put(acctName, user);
             CacheUtils.put(CacheUtils.SYS_CACHE, CACHE_USER, userMap);
             return user;
@@ -87,9 +96,7 @@ public class UserUtil {
             List<Menu> menuList = new ArrayList<>();
             for (Role role : user.getRole()) {
                 for (Menu menu : role.getPermission()) {
-                    if (menu.getIsShow().equals(DictionaryUtil.getByDataKeyAndDataValue("IS_SHOW", "显示").getId())) {
-                        menuList.add(menu);
-                    }
+                    menuList.add(menu);
                 }
             }
 

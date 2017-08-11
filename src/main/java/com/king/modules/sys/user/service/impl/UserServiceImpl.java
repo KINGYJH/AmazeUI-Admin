@@ -81,4 +81,10 @@ public class UserServiceImpl implements IUserService {
     public User getByAcctName(String acctName) {
         return userDao.getByAcctName(acctName);
     }
+
+    @Override
+    @Transactional()
+    public void updateLogin(User user) {
+        userDao.update(user);
+    }
 }

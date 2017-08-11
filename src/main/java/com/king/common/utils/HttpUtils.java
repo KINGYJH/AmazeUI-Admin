@@ -46,6 +46,8 @@ public class HttpUtils {
             return LoginPlatform.IPHONE.getName();
         } else if (userAgent.contains(LoginPlatform.ANDROID.name())) {
             return LoginPlatform.ANDROID.getName();
+        }else if(userAgent.contains(LoginPlatform.LINUX.name())){
+            return LoginPlatform.LINUX.getName();
         }
         return null;
     }
@@ -53,7 +55,8 @@ public class HttpUtils {
     private enum LoginPlatform {
         WINDOW("PC", 0),
         IPHONE("iPhone", 1),
-        ANDROID("Android", 2);
+        ANDROID("Android", 2),
+        LINUX("Linux",3);
 
         private String name;
         private int value;
