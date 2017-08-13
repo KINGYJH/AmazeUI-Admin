@@ -44,7 +44,7 @@ public class FileUploadController extends BaseController {
         return fileUploadService.upload(files, type);
     }
 
-    @RequestMapping(value = "/del_temp")
+    @RequestMapping(value = "${adminPath}/upload/del_temp")
     @ResponseBody
     public JSONMessage delTemp(String fileName) {
         return fileUploadService.delTemp(fileName);

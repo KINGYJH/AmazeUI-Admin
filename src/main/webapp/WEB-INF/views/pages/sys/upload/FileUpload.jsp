@@ -61,6 +61,20 @@
                 console.log(fileResult);
             }
         })
+
+        $(document.body).on('click', '.del_file', function () {
+            for (var _index in fileResult) {
+                console.log(fileResult[_index].deleteUrl);
+                if (fileResult[_index].deleteUrl === $(this).attr("delUrl")) {
+                    $.ajax({
+                        url: '${projectPath}' + fileResult[_index].deleteUrl,
+                        success: function (data) {
+
+                        }
+                    })
+                }
+            }
+        })
     }
 </script>
 </body>

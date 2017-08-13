@@ -2,6 +2,7 @@ package com.king.modules.sys.user.entity;
 
 import com.king.common.persistence.BaseEntity;
 import com.king.modules.sys.role.entity.Role;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -57,6 +58,8 @@ public class User extends BaseEntity<User> {
         this.pwd = pwd;
     }
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     @Column(name = "last_login_date")
     public Date getLastLoginDate() {
         return lastLoginDate;

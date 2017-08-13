@@ -6,6 +6,7 @@ import com.king.common.exception.ConcurrencyException;
 import com.king.modules.sys.sequence.util.SequenceUtil;
 import com.king.modules.sys.user.entity.User;
 import com.king.modules.sys.user.util.UserUtil;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -115,6 +116,8 @@ public class BaseEntity<T> implements Serializable {
     }
 
     @Column(name = "create_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     public Date getCreateDate() {
         return createDate;
     }
@@ -142,6 +145,8 @@ public class BaseEntity<T> implements Serializable {
     }
 
     @Column(name = "update_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     public Date getUpdateDate() {
         return updateDate;
     }

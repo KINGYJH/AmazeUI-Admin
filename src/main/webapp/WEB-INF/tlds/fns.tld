@@ -25,4 +25,12 @@
         <function-signature>java.lang.String getConfig(java.lang.String)</function-signature>
         <example>${fns:getConfig(key)}</example>
     </function>
+
+    <function>
+        <description>时间转换</description>
+        <name>dateToString</name>
+        <function-class>com.king.common.utils.DateUtils</function-class>
+        <function-signature>java.lang.String parseString(java.util.Date,java.lang.String)</function-signature>
+        <example>${fns:dateToString(date,pattern)}</example>
+    </function>
 </taglib>
