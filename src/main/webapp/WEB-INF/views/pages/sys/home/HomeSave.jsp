@@ -47,7 +47,7 @@
     </table>
 </form>
 <script type="text/javascript">
-    includeJs("/sys/validatebox-extend.js");
+    includeJs("${modules_rec}/sys/validatebox-extend.js");
 
     function submitForm() {
         if (jQuery('#home_save').form('validate')) {

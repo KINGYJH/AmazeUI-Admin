@@ -44,7 +44,7 @@
     </form>
 </c:if>
 <script type="text/javascript">
-    includeJs("/sys/validatebox-extend.js");
+    includeJs("${modules_rec}/sys/validatebox-extend.js");
 
     function submitForm() {
         if (jQuery('#dictionary_edit').form('validate')) {

@@ -103,7 +103,7 @@
             }
         }
         if (isInclude) {
-            js ? loadScript("${modules_rec}" + name) : loadCss(name);
+            js ? loadScript(name) : loadCss(name);
         }
     }
 
@@ -145,5 +145,28 @@
         for (var k in o)
             if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         return fmt;
+    }
+
+    /*
+*  方法:Array.remove(dx) 通过遍历,重构数组
+*  功能:删除数组元素.
+*  参数:
+*/
+    /**
+     * Array.remove(dx) 通过遍历,重构数组
+     * 删除数组元素.
+     * @param dx 删除元素的下标.
+     * @returns {boolean}
+     */
+    Array.prototype.remove = function (dx) {
+        if (isNaN(dx) || dx > this.length) {
+            return false;
+        }
+        for (var i = 0, n = 0; i < this.length; i++) {
+            if (this[i] != this[dx]) {
+                this[n++] = this[i]
+            }
+        }
+        this.length -= 1
     }
 </script>

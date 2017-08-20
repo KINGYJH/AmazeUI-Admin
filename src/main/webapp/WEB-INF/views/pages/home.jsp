@@ -51,7 +51,9 @@
                     text: '保存',
                     iconCls: "icon-ok",
                     handler: function () {
-                        parent.submitForm();
+                        var _array = parent.getFileArray();
+
+                        parent.jQuery('#dl_file_upload').dialog('close');
                     }
                 },
                 {

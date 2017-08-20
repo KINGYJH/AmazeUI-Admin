@@ -4,10 +4,12 @@ import com.king.common.upload.FileUploadConfig;
 import com.king.common.upload.UploadFailure;
 import com.king.common.upload.UploadResult;
 import com.king.common.upload.UploadSuccess;
+import com.king.common.utils.Encodes;
 import com.king.common.utils.StringUtils;
 import com.king.common.utils.WebUtils;
 import com.king.common.web.JSONMessage;
 import com.king.modules.sys.file.service.IFileUploadService;
+import com.sun.xml.internal.bind.v2.runtime.output.Encoded;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
