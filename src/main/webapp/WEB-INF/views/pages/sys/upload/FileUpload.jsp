@@ -51,8 +51,6 @@
                         delArray(_delUrl);
                     }
                     msgShow('系统提示', _obj.msg, 'info');
-
-                    console.log(fileResult);
                 }
             })
         })
@@ -94,17 +92,16 @@
             success: function (data) {
                 loadTierClose();
                 var obj = JSON.parse(data);
-
                 var alertMes = '';
-                for (var _index in obj.files) {
-                    var result = obj.files[_index];
-                    if (result.error !== undefined) {
-                        alertMes += '文件[' + result.name + ']上传失败,' + result.error + '\n';
+                for (var _index = 0; _index < obj.files.length; _index++) {
+                    var _result = obj.files[_index];
+                    if (_result.error !== undefined) {
+                        alertMes += '文件[' + _result.name + ']上传失败,' + result.error + '\n';
                     } else {
-                        alertMes += '文件[' + result.name + ']上传成功!\n';
-                        var _file = '<div class="fileName-div">' + result.name + '<span class="del_file" delUrl=' + html2Escape(result.deleteUrl) + '>X</span></div>';
+                        alertMes += '文件[' + _result.name + ']上传成功!\n';
+                        var _file = '<div class="fileName-div">' + _result.name + '<span class="del_file" delUrl=' + html2Escape(_result.deleteUrl) + '>X</span></div>';
                         $('#fileList').append(_file);
-                        fileResult.push(result);
+                        fileResult.push(_result);
 
                         $('#input_file').filebox('clear');
 

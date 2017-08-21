@@ -65,6 +65,9 @@ public class FileUploadServiceImpl implements IFileUploadService {
     private List<Object> img(MultipartFile[] files, FileUploadConfig config) throws IOException {
         List<Object> results = new ArrayList<>();
 
+        File upFolder = new File(WebUtils.getPath(), config.getDicName());
+        upFolder.mkdirs();
+
         File folder = new File(WebUtils.getPath(), config.getTemp());
         folder.mkdirs();
         String url = config.getTemp();

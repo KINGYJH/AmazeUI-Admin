@@ -22,9 +22,9 @@
             onLoadSuccess: function (data) {
                 if (${value != null}) {
                     var value = '${value}';
-                    for (var i = 0; i < data.data.length; i++) {
-                        if (value === data.data[i].id) {
-                            $('#${id}').combobox('setValue', data.data[i].dataValue);
+                    for (var i = 0; i < data.length; i++) {
+                        if (value === data[i].id) {
+                            $('#${id}').combobox('setValue', data[i].dataValue);
                         }
                     }
                 }

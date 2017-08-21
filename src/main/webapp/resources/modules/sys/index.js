@@ -1,6 +1,7 @@
 //数据字典
 var dict_obj = null;
 initDic();
+
 //初始化数据字典
 function initDic() {
     $.ajax({
@@ -57,10 +58,12 @@ $(function () {
 });
 
 $(function () {
+    var icon = new Array();
     $('#menu_tree_id').tree({
         url: projectPath + "/sys/menu/user_tree_data",
         method: 'post',
         lines: true,
+        async: false,
         onClick: function (node) {
             if (node.attributes.url === "") {
                 return;
@@ -79,6 +82,17 @@ $(function () {
         },
         onLoadSuccess: function (row, data) {
             $('#menu_tree_id').tree("collapseAll");
+
+            //根据url修改图标，使用内联样式覆盖外部链接
+            for (var index = 0; index < icon.length; index++) {
+                if (icon[index].iconCls !== "" && typeof(icon[index].iconCls) !== "undefined") {
+                    $('#' + icon[index].domId + ' .tree-icon').css("background", "url(" + icon[index].iconCls + ") no-repeat center center");
+                }
+            }
+        },
+        formatter: function (node) {
+            icon.push({"domId": node.domId, "iconCls": node.iconCls});
+            return node.text;
         }
     })
 });

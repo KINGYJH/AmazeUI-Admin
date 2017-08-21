@@ -45,7 +45,11 @@
             <tr>
                 <td class="label">菜单图标：</td>
                 <td class="inputArea">
-                    <input name="icon" value="${data.icon}" class="easyui-validatebox"/>
+                    <img src="${data.icon}" id="show_icon"
+                         style="width: 16px;height: 18px;border: 0px;background: url(${easy_rec}/themes/default/images/tree_icons.png) no-repeat -224px 0;">
+                    <a href="#" class="easyui-linkbutton" iconCls="icon-disk_upload"
+                       style="margin-top: -10px;margin-left: 10px;" onclick="fileUpload()">上传</a>
+                    <input type="hidden" name="icon" value="${data.icon}" class="easyui-validatebox"/>
                 </td>
                 <td class="label">是否显示：</td>
                 <td class="inputArea">
@@ -87,6 +91,44 @@
                 }
             })
         }
+    }
+
+    function fileUpload() {
+        top.jQuery('<div/>').dialog({
+            href: '${projectPath}/upload_page?type=1',
+            id: 'dl_file_upload',
+            title: '图标上传',
+            width: 700,
+            height: 400,
+            modal: true,
+            shadow: false,
+            resizable: true,
+            buttons: [
+                {
+                    text: '保存',
+                    iconCls: "icon-ok",
+                    handler: function () {
+                        var _array = parent.getFileArray();
+                        if (_array.length > 0) {
+                            var _url = escape2Html(_array[0].url);
+                            $('#show_icon').attr('src', basePath + _url);
+                            $('#menu_save').find("input[name='icon']").val(_url);
+                        }
+
+                        parent.jQuery('#dl_file_upload').dialog('close');
+                    }
+                },
+                {
+                    text: '取消',
+                    iconCls: "icon-cancel",
+                    handler: function () {
+                        parent.jQuery('#dl_file_upload').dialog('close');
+                    }
+                }],
+            onClose: function () {
+                parent.jQuery(this).dialog('destroy');
+            }
+        })
     }
 </script>
 </body>

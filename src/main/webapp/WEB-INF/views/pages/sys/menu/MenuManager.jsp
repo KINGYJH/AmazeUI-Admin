@@ -38,7 +38,7 @@
                 {
                     title: '菜单图标', field: 'icon', width: 50, align: 'center',
                     formatter: function (value, row, index) {
-                        return typeof(value) === "undefined" ? '' : '<img src="' + value + '"/>';
+                        return typeof(value) === "undefined" ? '' : '<img src="' + basePath + value + '" id="show_icon" style="width: 16px;height: 18px;border: 0px;">';
                     }
                 },
                 {title: '菜单同级排序', field: 'sort', width: 50, align: 'center'},

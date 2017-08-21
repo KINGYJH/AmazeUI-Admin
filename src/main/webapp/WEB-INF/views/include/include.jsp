@@ -18,6 +18,7 @@
 
 <link href="${easy_rec}/themes/default/easyui.css" type="text/css" rel="stylesheet">
 <link href="${easy_rec}/themes/icon.css" type="text/css" rel="stylesheet">
+<link href="${easy_rec}/themes/IconExtension.css" type="text/css" rel="stylesheet">
 
 <link href="${modules_rec}/override.css" type="text/css" rel="stylesheet">
 
@@ -147,11 +148,6 @@
         return fmt;
     }
 
-    /*
-*  方法:Array.remove(dx) 通过遍历,重构数组
-*  功能:删除数组元素.
-*  参数:
-*/
     /**
      * Array.remove(dx) 通过遍历,重构数组
      * 删除数组元素.
@@ -164,9 +160,9 @@
         }
         for (var i = 0, n = 0; i < this.length; i++) {
             if (this[i] != this[dx]) {
-                this[n++] = this[i]
+                this[n++] = this[i];
             }
         }
-        this.length -= 1
+        this.length -= 1;
     }
 </script>

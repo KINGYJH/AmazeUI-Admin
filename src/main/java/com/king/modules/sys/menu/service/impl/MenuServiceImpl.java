@@ -2,7 +2,10 @@ package com.king.modules.sys.menu.service.impl;
 
 import com.king.common.exception.DataErrorException;
 import com.king.common.exception.NoFoundException;
+import com.king.common.utils.FileUtils;
+import com.king.common.utils.ImgUtils;
 import com.king.common.utils.StringUtils;
+import com.king.common.utils.WebUtils;
 import com.king.common.web.Pagination;
 import com.king.common.web.TreeNode;
 import com.king.modules.sys.menu.dao.IMenuDao;
@@ -19,6 +22,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +58,15 @@ public class MenuServiceImpl implements IMenuService {
         } else {
             menu.setParent(null);
         }
+
+        //处理图片
+        String img_url = menu.getIcon();
+        img_url = img_url.replaceAll("temp", "upload");
+        //保存为略缩图
+        ImgUtils.saveImg(new File(WebUtils.getPath(), menu.getIcon()), WebUtils.getPath() + img_url, 16, 18, true);
+
+        menu.setIcon(img_url);
+
         menuDao.save(menu);
     }
 
@@ -143,7 +156,20 @@ public class MenuServiceImpl implements IMenuService {
         editMenu.setName(menu.getName());
         editMenu.setPermission(menu.getPermission());
         editMenu.setSort(menu.getSort());
-        editMenu.setIcon(menu.getIcon());
+
+        //如果图标发生改变
+        if (!menu.getIcon().equals(editMenu.getIcon())) {
+            String img_url = menu.getIcon();
+            img_url = img_url.replaceAll("temp", "upload");
+            //保存为略缩图
+            ImgUtils.saveImg(new File(WebUtils.getPath(), menu.getIcon()), WebUtils.getPath() + img_url, 16, 18, true);
+
+            //删除旧文件
+            FileUtils.deleteFile(WebUtils.getPath() + editMenu.getIcon());
+
+            editMenu.setIcon(img_url);
+        }
+
         editMenu.setIsShow(menu.getIsShow());
         editMenu.setHref(menu.getHref());
 

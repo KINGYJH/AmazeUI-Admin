@@ -57,6 +57,8 @@
         <ehcache.version>2.6.11</ehcache.version>
         <ehcache-web.version>2.0.4</ehcache-web.version>
         <shiro.version>1.4.0</shiro.version>
+        <thumbnailator.version>0.4.8</thumbnailator.version>
+        <javamelody.version>1.68.1</javamelody.version>
     </properties>
 
     <dependencies>
@@ -282,6 +284,22 @@
             <version>${shiro.version}</version>
         </dependency>
         <!-- end Shiro -->
+
+        <!-- start thumbnailator imgUtil -->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>${thumbnailator.version}</version>
+        </dependency>
+        <!-- end thumbnailator -->
+
+        <!-- start javamelody-->
+        <dependency>
+            <groupId>net.bull.javamelody</groupId>
+            <artifactId>javamelody-core</artifactId>
+            <version>${javamelody.version}</version>
+        </dependency>
+        <!-- end javamelody-->
     </dependencies>
 
     <build>
