@@ -14,6 +14,30 @@
 <body class="easyui-layout" style="overflow-y: hidden" scroll="no">
 <!--上-->
 <div data-options="region:'north',border:false" style="overflow: hidden;height: 10%" class="header">
+    <div class="main-header" data-options="region:'north',border:false,split:true">
+        <div class="main-header-left">
+            <h1>King丶Yang</h1>
+        </div>
+        <div class="main-header-right">
+            <p>
+                <strong class="easyui-tooltip" title="2条未读消息">admin</strong>，欢迎您！
+            </p>
+            <p>
+                <span>
+                    更换主题 :
+                    <select id="theme-change" style="width: 90px;height: 20px">
+                        <option value="default">default</option>
+                        <option value="black">black</option>
+                        <option value="bootstrap">bootstrap</option>
+                        <option value="gray">gray</option>
+                        <option value="material">material</option>
+                        <option value="metro">metro</option>
+                    </select>
+                </span>
+                |<a href="/logout">安全退出</a>
+            </p>
+        </div>
+    </div>
 </div>
 <!-- 左 -->
 <div data-options="region:'west',split:'true',title:'菜单'" style="width:200px;" id="west">

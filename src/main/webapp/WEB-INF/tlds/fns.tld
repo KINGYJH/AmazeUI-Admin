@@ -33,4 +33,12 @@
         <function-signature>java.lang.String parseString(java.util.Date,java.lang.String)</function-signature>
         <example>${fns:dateToString(date,pattern)}</example>
     </function>
+
+    <function>
+        <description>获取当前登录用户</description>
+        <name>getUser</name>
+        <function-class>com.king.modules.sys.user.util.UserUtil</function-class>
+        <function-signature>com.king.modules.sys.user.entity.User getUser()</function-signature>
+        <example>${fns:getUser()}</example>
+    </function>
 </taglib>

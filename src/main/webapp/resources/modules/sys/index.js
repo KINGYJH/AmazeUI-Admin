@@ -58,6 +58,8 @@ $(function () {
 });
 
 $(function () {
+
+    //菜单
     var icon = new Array();
     $('#menu_tree_id').tree({
         url: projectPath + "/sys/menu/user_tree_data",
@@ -69,9 +71,8 @@ $(function () {
                 return;
             }
             // if ($('#menu_tree_id').tree('isLeaf', node.target)) {
-            if (node.attributes.url.indexOf("#basepath#") !== -1) {
-                addTab(node.text, node.attributes.url
-                        .replace("#basepath#", basePath),
+            if (node.attributes.url.indexOf("monitoring") !== -1) {
+                addTab(node.text, basePath + node.attributes.url,
                     "iframe" + node.id);
             } else {
                 addTab(node.text, projectPath
@@ -95,6 +96,22 @@ $(function () {
             return node.text;
         }
     })
+
+    //选择主题
+    $('#theme-change').combobox({
+        onChange: function (newValue, oldValue) {
+            if (newValue) {
+                changeThemeFun(newValue);
+            }
+        },
+        onLoadSuccess: function (data) {
+            $('#theme-change').combobox('select', $.cookie('easyuiThemeName'));
+        }
+    })
+
+    if ($.cookie('easyuiThemeName')) {
+        changeThemeFun($.cookie('easyuiThemeName'));
+    }
 });
 
 function addTab(subtitle, url, id) {
@@ -140,3 +157,23 @@ function tabClose() {
     //     return false;
     // });
 }
+
+/* 更换主题 */
+function changeThemeFun(themeName) {
+    var $easyuiTheme = $('#easyuiTheme');
+    var url = $easyuiTheme.attr('href');
+    var href = url.substring(0, url.indexOf('themes')) + 'themes/' + themeName + '/easyui.css';
+    $easyuiTheme.attr('href', href);
+
+    var $iframe = $('iframe');
+    if ($iframe.length > 0) {
+        for (var i = 0; i < $iframe.length; i++) {
+            var ifr = $iframe[i];
+            $(ifr).contents().find('#easyuiTheme').attr('href', href);
+        }
+    }
+
+    $.cookie('easyuiThemeName', themeName, {
+        expires: 7
+    });
+};

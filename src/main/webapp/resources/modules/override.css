@@ -2,7 +2,8 @@
     width: 100%;
     line-height: 40px;
 }
-.my_table_form  tr {
+
+.my_table_form tr {
     margin-top: 10px;
 }
 
@@ -27,6 +28,45 @@
     behavior: url(./PIE.htc);
 }
 
-.width-full{
+.width-full {
     width: 99%;
+}
+
+/*head*/
+.main-header {
+    height: 100%;
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    border-bottom: 1px #95b8e7 solid;
+    /*background: url(../images/bg_header.jpg) bottom repeat-x;*/
+}
+
+.main-header-left {
+    position: absolute;
+    z-index: 1;
+    left: 15px;
+    top: 0;
+}
+
+.main-header-left h1 {
+    font: 20px/20px Verdana;
+    color: black;
+}
+
+.main-header-right {
+    position: absolute;
+    z-index: 1;
+    right: 5px;
+    top: 0;
+    color: black;
+    text-align: right;
+}
+
+.main-header-right p {
+    line-height: 0.7em;
+}
+
+.main-header-right a {
+    color: black;
 }
