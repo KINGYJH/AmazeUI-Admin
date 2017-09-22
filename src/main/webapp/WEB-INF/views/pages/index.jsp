@@ -10,6 +10,8 @@
 <head>
     <title>${fns:getConfig('productName')}</title>
     <script src="${modules_rec}/sys/index.js"></script>
+    <script src="${modules_rec}/sys/webSocket.js"></script>
+    <script src="${rec}/sockjs/sockjs.min.js"></script>
 </head>
 <body class="easyui-layout" style="overflow-y: hidden" scroll="no">
 <!--上-->
@@ -34,7 +36,7 @@
                         <option value="metro">metro</option>
                     </select>
                 </span>
-                |<a href="/logout">安全退出</a>
+                |  <a href="/logout">安全退出</a>
             </p>
         </div>
     </div>
@@ -57,6 +59,7 @@
     <div class="footer">版权所有：${fns:getConfig('productName')} 技术支持：XXXXXXX 版本：${fns:getConfig('productVersion')}</div>
 </div>
 <script type="text/javascript">
+
 </script>
 </body>
 </html>

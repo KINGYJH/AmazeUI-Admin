@@ -72,7 +72,7 @@
         <div style="margin-bottom:20px">
             <input class="easyui-textbox" name="pwd" id="pwd" type="password"
                    style="width:100%;height:30px;padding:12px" required
-                   data-options="prompt:'登录密码',iconCls:'icon-lock',iconWidth:38">
+                   data-options="iconCls:'icon-lock',iconWidth:38">
         </div>
         <div style="margin-bottom:20px">
             <input class="easyui-textbox" name="captcha" type="text" id="captcha"

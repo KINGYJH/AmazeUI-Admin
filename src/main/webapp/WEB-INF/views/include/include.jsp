@@ -40,6 +40,7 @@
 <script type="text/javascript">
     var basePath = '${basePath}';
     var projectPath = '${projectPath}';
+    var rec = '${rec}';
     var easy_rec = '${easy_rec}';
     var modules_rec = '${modules_rec}';
 

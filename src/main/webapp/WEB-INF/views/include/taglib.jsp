@@ -14,6 +14,7 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <c:set var="projectPath" value="${basePath}${fns:getAdminPath()}"/>
+<c:set var="rec" value="${pageContext.request.contextPath}/resources"/>
 <c:set var="easy_rec" value="${pageContext.request.contextPath}/resources/jquery-easyui-1.5.2"/>
 <c:set var="modules_rec" value="${pageContext.request.contextPath}/resources/modules"/>
 <c:set var="img" value="${pageContext.request.contextPath}/resources/images"/>
