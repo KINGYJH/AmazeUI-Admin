@@ -1,6 +1,7 @@
 package com.king.modules.sys.menu.entity;
 
 import com.king.common.persistence.BaseEntity;
+import com.king.common.type.YesOrNoStatus;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NotFound;
@@ -25,7 +26,7 @@ public class Menu extends BaseEntity<Menu> {
     private String permission;  //菜单权限标识
     private String icon;        //菜单图标
     private Integer sort;       //菜单排序
-    private String isShow;      //菜单是否显示
+    private YesOrNoStatus isShow;      //菜单是否显示
 
     private String state = "open"; // 用于datagrid判断
 
@@ -89,12 +90,13 @@ public class Menu extends BaseEntity<Menu> {
         this.sort = sort;
     }
 
-    @Column(name = "is_show", length = 16)
-    public String getIsShow() {
+    @Column(name = "is_show", length = 10)
+    @Enumerated(EnumType.STRING)
+    public YesOrNoStatus getIsShow() {
         return isShow;
     }
 
-    public void setIsShow(String isShow) {
+    public void setIsShow(YesOrNoStatus isShow) {
         this.isShow = isShow;
     }
 

@@ -1,6 +1,7 @@
 package com.king.modules.sys.user.util;
 
 import com.king.common.shiro.ExtendSimplePrincipalCollection;
+import com.king.common.type.YesOrNoStatus;
 import com.king.common.utils.CacheUtils;
 import com.king.common.utils.SpringContextHolder;
 import com.king.modules.sys.dictionary.util.DictionaryUtil;
@@ -72,7 +73,7 @@ public class UserUtil {
         User user = getUser();
         for (Role role : user.getRole()) {
             for (Menu menu : role.getPermission()) {
-                if (menu.getIsShow().equals(DictionaryUtil.getByDataKeyAndDataValue("IS_SHOW", "显示").getId())) {
+                if (menu.getIsShow().getName().equals(YesOrNoStatus.YES.getName())) {
                     menuList.add(menu);
                 }
             }

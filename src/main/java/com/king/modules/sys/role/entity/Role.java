@@ -55,7 +55,7 @@ public class Role extends BaseEntity<Role> {
         this.permission = permission;
     }
 
-    @Column(name = "permission_ids")
+    @Column(name = "permission_ids",length = 2000)
     public String getPermissionIds() {
         return permissionIds;
     }

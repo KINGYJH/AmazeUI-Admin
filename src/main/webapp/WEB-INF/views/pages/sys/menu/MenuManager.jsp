@@ -58,6 +58,7 @@
                 return true;
             },
             onLoadSuccess: function (row, data) {
+                console.log(data);
             }
         })
     })

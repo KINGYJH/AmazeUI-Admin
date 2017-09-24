@@ -53,8 +53,10 @@
                 </td>
                 <td class="label">是否显示：</td>
                 <td class="inputArea">
-                    <tags:dic_comboBox id="isShow" name="isShow" dataKey="IS_SHOW" isNull="true"
-                                       value="${data.isShow}"/>
+                    <select id="isShow" class="easyui-combobox" name="isShow" required>
+                        <option value="YES">显示</option>
+                        <option value="NO">不显示</option>
+                    </select>
                 </td>
             </tr>
             <tr>

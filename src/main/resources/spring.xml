@@ -20,6 +20,10 @@
         <property name="configLocation" value="classpath:cache/ehcache.xml"/>
     </bean>
 
+    <bean id="taskQueue" class="com.king.common.queue.base.TaskQueue" init-method="init" destroy-method="stop">
+        <property name="size" value="3"/>
+    </bean>
+
     <import resource="spring-mvc.xml"/>
     <import resource="spring-shiro.xml"/>
     <import resource="spring-persistence.xml"/>

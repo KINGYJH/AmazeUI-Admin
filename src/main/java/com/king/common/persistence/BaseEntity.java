@@ -50,17 +50,17 @@ public class BaseEntity<T> implements Serializable {
 
         this.id = SequenceUtil.getNextId(tableName);
 
-        User user = UserUtil.getUser();
-        this.createUserId = user.getId();
-        this.createUserName = user.getAcctName();
-        this.createDate = new Date();
+//        User user = UserUtil.getUser();
+//        this.createUserId = user.getId();
+//        this.createUserName = user.getAcctName();
+//        this.createDate = new Date();
     }
 
     @DbUpdateBefore
     public void updateBefore() {
-        User user = UserUtil.getUser();
-        this.updateUserId = user.getId();
-        this.updateUserName = user.getUpdateUserName();
+//        User user = UserUtil.getUser();
+//        this.updateUserId = user.getId();
+//        this.updateUserName = user.getUpdateUserName();
 
         this.updateDate = new Date();
     }

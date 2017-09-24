@@ -1,5 +1,6 @@
 package com.king.common.shiro;
 
+import com.king.common.type.EnableStatus;
 import com.king.common.utils.StringUtils;
 import com.king.modules.sys.dictionary.util.DictionaryUtil;
 import com.king.modules.sys.menu.entity.Menu;
@@ -104,7 +105,7 @@ public class UserRealm extends AuthorizingRealm {
         if (null == user) {
             throw new UnknownAccountException(); //用户不存在
         } else {
-            if (DictionaryUtil.getById(user.getStatus()).getDataValue().equals("禁用")) {
+            if (user.getStatus().getName().equals(EnableStatus.DISABLE.getName())) {
                 throw new LockedAccountException(); //用户被禁用
             }
         }

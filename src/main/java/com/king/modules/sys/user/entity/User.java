@@ -1,6 +1,7 @@
 package com.king.modules.sys.user.entity;
 
 import com.king.common.persistence.BaseEntity;
+import com.king.common.type.EnableStatus;
 import com.king.modules.sys.role.entity.Role;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,7 +27,7 @@ public class User extends BaseEntity<User> {
     private String lastLoginIP;             //登录IP
     private String lastLoginAddress;        //登录地址
     private String lastLoginPlatform;       //登录平台
-    private String status;                  //用户状态
+    private EnableStatus status;            //用户状态
     private String headImg;                 //头像
     private List<Role> role = new ArrayList<>();//角色集合
     private String roleIds;                 //角色所有id
@@ -97,11 +98,12 @@ public class User extends BaseEntity<User> {
     }
 
     @Column(name = "status", length = 25)
-    public String getStatus() {
+    @Enumerated(EnumType.STRING)
+    public EnableStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(EnableStatus status) {
         this.status = status;
     }
 

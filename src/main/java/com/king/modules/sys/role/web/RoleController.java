@@ -5,9 +5,12 @@ import com.king.common.exception.ExistException;
 import com.king.common.exception.NoFoundException;
 import com.king.common.shiro.ShiroFilterChainManager;
 import com.king.common.shiro.UserRealm;
+import com.king.common.type.OperationType;
+import com.king.common.type.ResultType;
 import com.king.common.web.BaseController;
 import com.king.common.web.JSONMessage;
 import com.king.common.web.Pagination;
+import com.king.modules.sys.log.util.LogUtil;
 import com.king.modules.sys.role.entity.Role;
 import com.king.modules.sys.role.service.IRoleService;
 import com.king.modules.sys.role.util.RoleUtil;
@@ -43,6 +46,7 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Pagination<Role> dataList(Role role, HttpServletRequest request) {
+        LogUtil.write(role, OperationType.SEARCH, "角色:查询数据");
         return roleService.pagination(new Pagination<>(request), role);
     }
 
@@ -61,12 +65,16 @@ public class RoleController extends BaseController {
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
 
             RoleUtil.editRoleAfter();
+
+            LogUtil.write(role, OperationType.SAVE, "角色:添加");
         } catch (NoFoundException | ExistException e) {
             jsonMessage.setMsg(e.getMessage());
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
         } catch (Exception e) {
             jsonMessage.setMsg("系统错误,请稍后再试");
-            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+
+            LogUtil.write(role, OperationType.SAVE, e.getMessage(), ResultType.FAIL, "角色:添加");
         }
         return jsonMessage;
     }
@@ -92,12 +100,16 @@ public class RoleController extends BaseController {
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
 
             RoleUtil.editRoleAfter();
+
+            LogUtil.write(role, OperationType.UPDATE, "角色:修改");
         } catch (ConcurrencyException | NoFoundException | ExistException e) {
             jsonMessage.setMsg(e.getMessage());
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
         } catch (Exception e) {
             jsonMessage.setMsg("系统错误,请稍后再试");
-            jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+            jsonMessage.setStatus(JSONMessage.Status.FAIL);
+
+            LogUtil.write(role, OperationType.UPDATE, e.getMessage(), ResultType.FAIL, "角色:修改");
         }
         return jsonMessage;
     }
@@ -112,12 +124,16 @@ public class RoleController extends BaseController {
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
 
             RoleUtil.editRoleAfter();
+
+            LogUtil.write(role, OperationType.DEL, "角色:删除");
         } catch (ConcurrencyException | NoFoundException e) {
             jsonMessage.setMsg(e.getMessage());
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
         } catch (Exception e) {
             jsonMessage.setMsg("系统错误,请稍后再试");
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+
+            LogUtil.write(role, OperationType.DEL, e.getMessage(), ResultType.FAIL, "角色:删除");
         }
         return jsonMessage;
     }
@@ -131,9 +147,13 @@ public class RoleController extends BaseController {
             jsonMessage.setData(data);
             jsonMessage.setMsg("获取数据成功");
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+
+            LogUtil.write("", OperationType.SEARCH, "角色:获取所有数据");
         } catch (Exception e) {
             jsonMessage.setMsg("系统错误,请稍后再试");
             jsonMessage.setStatus(JSONMessage.Status.FAIL);
+
+            LogUtil.write("", OperationType.SEARCH, e.getMessage(), ResultType.FAIL, "角色:获取所有数据");
         }
         return jsonMessage;
     }

@@ -1,10 +1,12 @@
 package com.king.modules.sys.user.web;
 
-import com.alibaba.fastjson.JSON;
 import com.king.common.exception.ExistException;
+import com.king.common.type.OperationType;
+import com.king.common.type.ResultType;
 import com.king.common.web.BaseController;
 import com.king.common.web.JSONMessage;
 import com.king.common.web.Pagination;
+import com.king.modules.sys.log.util.LogUtil;
 import com.king.modules.sys.user.entity.User;
 import com.king.modules.sys.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,8 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Pagination<User> dataList(User user, HttpServletRequest request) {
-        return userService.pagination(new Pagination<User>(request), user);
+        LogUtil.write(user, OperationType.SEARCH, "用户:查询数据");
+        return userService.pagination(new Pagination<>(request), user);
     }
 
     @RequestMapping(value = "/save_page")
@@ -51,12 +54,16 @@ public class UserController extends BaseController {
             userService.save(user);
             jsonMessage.setMsg("添加成功");
             jsonMessage.setStatus(JSONMessage.Status.SUCCESS);
+
+            LogUtil.write(user, OperationType.SAVE, "用户:添加");
         } catch (ExistException e) {
             jsonMessage.setMsg(e.getMessage());
             jsonMessage.setStatus(JSONMessage.Status.FAIL);
         } catch (Exception e) {
             jsonMessage.setMsg("系统错误,请稍后再试");
             jsonMessage.setStatus(JSONMessage.Status.FAIL);
+
+            LogUtil.write(user, OperationType.SAVE, e.getMessage(), ResultType.FAIL, "用户:添加");
         }
         return jsonMessage;
     }
