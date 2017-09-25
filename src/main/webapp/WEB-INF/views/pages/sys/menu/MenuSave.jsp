@@ -45,7 +45,7 @@
             </td>
             <td class="label">是否显示：</td>
             <td class="inputArea">
-                <tags:dic_comboBox id="isShow" name="isShow" dataKey="IS_SHOW" isNull="true"/>
+                <tags:dic_comboBox id="isShow" name="isShow" dataKey="YES_OR_NO" isNull="true"/>
             </td>
         </tr>
         <tr>

@@ -45,7 +45,7 @@
                 {
                     title: '菜单是否显示', field: 'isShow', width: 50, align: 'center',
                     formatter: function (value, row, index) {
-                        return parent.getDictValue(value);
+                        return parent.getDicShowValue("YES_OR_NO",value);
                     }
                 }
             ]],
@@ -58,7 +58,6 @@
                 return true;
             },
             onLoadSuccess: function (row, data) {
-                console.log(data);
             }
         })
     })

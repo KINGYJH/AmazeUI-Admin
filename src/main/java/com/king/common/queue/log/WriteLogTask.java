@@ -6,6 +6,7 @@ import com.king.common.type.Priority;
 import com.king.common.utils.SpringContextHolder;
 import com.king.modules.sys.log.entity.SysLog;
 import com.king.modules.sys.log.service.ISysLogService;
+import org.apache.shiro.SecurityUtils;
 
 /**
  * @author by yjh
@@ -16,7 +17,6 @@ public class WriteLogTask extends BasicTask {
     private static TaskQueue taskQueue = SpringContextHolder.getBean(TaskQueue.class);
 
     private static ISysLogService sysLogService = SpringContextHolder.getBean(ISysLogService.class);
-
 
     private SysLog sysLog;
 

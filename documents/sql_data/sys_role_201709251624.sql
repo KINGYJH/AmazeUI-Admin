@@ -1,0 +1,4 @@
+﻿INSERT INTO admin.sys_role (id,create_date,create_user_id,create_user_name,update_date,update_user_id,update_user_name,version,describes,name,permission_ids,sort) VALUES 
+('role_0001','2017-08-09','user_000001','admin','2017-09-25','user_000001',NULL,37,'系统管理员','admin','0,menu_0001,menu_0002,menu_0013,menu_0014,menu_0015,menu_0016,menu_0017,menu_0018,menu_0019,menu_0003,menu_0007,menu_0008,menu_0009,menu_0010,menu_0011,menu_0012,menu_0020,menu_0004,menu_0021,menu_0022,menu_0023,menu_0005,menu_0024,menu_0025,menu_0026,menu_0027,menu_0028,menu_0029,menu_0006,menu_0030,menu_0031,menu_0032,menu_0033,menu_0034,menu_0035,menu_0036,menu_0037,undefined',0)
+,('role_0002','2017-08-09','user_000001','admin','2017-09-25','user_000001',NULL,3,'游客','guest','0,menu_0001,menu_0004,menu_0021,menu_0022,menu_0023,undefined',0)
+;

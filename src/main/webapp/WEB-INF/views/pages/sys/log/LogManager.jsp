@@ -14,15 +14,16 @@
 <body>
 <div id="tb" style="padding:2px 5px;">
 </div>
-<table id="dg_log" class="easyui-datagrid" data-options="toolbar:'#tb'">
+<table id="dg_log" data-options="toolbar:'#tb'">
 </table>
 <script type="text/javascript">
     $(function () {
-        $('#dg_role').datagrid({
+        $('#dg_log').datagrid({
             url: '${projectPath}/sys/log/list',
             width: 'auto',
             height: getIframeHeight() * 0.96,
-            pageSize: 20,
+            pageSize: 100,
+            pageList:[100,500,1000],
             fitColumns: true,
             striped: true,
             singleSelect: true,
@@ -31,11 +32,26 @@
             loadMsg: "正在努力加载中...",
             idField: 'id',
             columns: [[
-                {title: '操作时间', field: 'createDate', width: 50, align: 'center'},
+                {
+                    title: '操作时间', field: 'createDate', width: 50, align: 'center',
+                    formatter: function (value, row, index) {
+                        return value != null ? dateFormat(value) : null;
+                    }
+                },
                 {title: '操作人员', field: 'createUserName', width: 50, align: 'center'},
                 {title: '操作模块', field: 'operationModular', width: 50, align: 'center'},
-                {title: '操作参数', field: 'operationParameter', width: 50, align: 'center'},
-                {title: '操作类型', field: 'operationType', width: 50, align: 'center'}
+                {
+                    title: '操作参数', field: 'operationParameter', width: 50, align: 'center',
+                    formatter: function (value) {
+                        return "<span onmouseover=textTooltip(this)>" + "<a href='#'>" + value + "</a>" + "</span>";
+                    }
+                },
+                {
+                    title: '操作类型', field: 'operationType', width: 50, align: 'center',
+                    formatter: function (value, row, index) {
+                        return parent.getDicShowValue("OPERATION_TYPE", value);
+                    }
+                }
             ]],
             onLoadSuccess: function (data) {
                 console.log(data);

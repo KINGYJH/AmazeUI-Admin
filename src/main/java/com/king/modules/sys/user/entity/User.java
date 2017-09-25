@@ -59,8 +59,8 @@ public class User extends BaseEntity<User> {
         this.pwd = pwd;
     }
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:DD")
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_login_date")
     public Date getLastLoginDate() {
         return lastLoginDate;

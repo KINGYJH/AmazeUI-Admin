@@ -12,12 +12,12 @@
         $('#${id}').combobox({
             <%--url: '/admin/sys/dictionary/get_by_dataKey?dataKey=${dataKey}',--%>
             data: getDictList('${dataKey}'),
-            valueField: 'id',
-            textField: 'dataValue',
+            valueField: 'dataValue',
+            textField: 'showValue',
             editable: false,
             required: ${isNull},
             onSelect: function (node) {
-                $("#${id}_id").val(node.id);
+                $("#${id}_id").val(node.dataValue);
             },
             onLoadSuccess: function (data) {
                 if (${value != null}) {

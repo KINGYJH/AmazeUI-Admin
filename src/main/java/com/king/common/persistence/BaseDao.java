@@ -12,6 +12,7 @@ import org.hibernate.transform.ResultTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -88,11 +89,21 @@ public abstract class BaseDao<T, ID extends Serializable> implements IBaseDao<T,
     @Override
     public void save(T entity) {
         try {
+            Object id = null;
             for (Method method : entity.getClass().getMethods()) {
-                DbInsertBefore insertBefore = method.getAnnotation(DbInsertBefore.class);
-                if (insertBefore != null) {
-                    method.invoke(entity);
+                Id idAnn = method.getAnnotation(Id.class);
+                if (idAnn != null) {
+                    id = method.invoke(entity);
                     break;
+                }
+            }
+            if (null == id || "".equals(id)) {
+                for (Method method : entity.getClass().getMethods()) {
+                    DbInsertBefore insertBefore = method.getAnnotation(DbInsertBefore.class);
+                    if (insertBefore != null) {
+                        method.invoke(entity);
+                        break;
+                    }
                 }
             }
         } catch (IllegalAccessException | InvocationTargetException e) {
@@ -201,8 +212,8 @@ public abstract class BaseDao<T, ID extends Serializable> implements IBaseDao<T,
         //set data
         page.setRows(criteria.list());
 
-        // set total
-        Criteria criteriaCount = detachedCriteria.getExecutableCriteria(getSession()).setProjection(Projections.rowCount());
+        // set count
+        Criteria criteriaCount = createDetachedCriteria().getExecutableCriteria(getSession()).setProjection(Projections.rowCount());
         int total = ((Long) criteriaCount.uniqueResult()).intValue();
         page.setTotal(total);
         return page;

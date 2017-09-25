@@ -31,10 +31,16 @@
                 </td>
             </tr>
             <tr>
+                <td class="label">显示值：</td>
+                <td class="inputArea">
+                    <input name="showValue" value="${data.showValue}" class="easyui-validatebox" required/>
+                </td>
                 <td class="label">排序：</td>
                 <td class="inputArea">
                     <input name="sort" value="${data.sort}" class="easyui-validatebox" validType="Number"/>
                 </td>
+            </tr>
+            <tr>
                 <td class="label">描述：</td>
                 <td class="inputArea">
                     <input name="describes" value="${data.describes}" class="easyui-validatebox"/>

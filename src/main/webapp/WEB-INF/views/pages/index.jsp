@@ -58,6 +58,17 @@
 <div data-options="region:'south'" style="height: 3%;text-align: center">
     <div class="footer">版权所有：${fns:getConfig('productName')} 技术支持：XXXXXXX 版本：${fns:getConfig('productVersion')}</div>
 </div>
+
+<div id="mm" class="easyui-menu" style="width:150px;">
+    <div id="mm-tabclose">关闭</div>
+    <div id="mm-tabcloseall">全部关闭</div>
+    <div id="mm-tabcloseother">除此之外全部关闭</div>
+    <div class="menu-sep"></div>
+    <div id="mm-tabcloseright">当前页右侧全部关闭</div>
+    <div id="mm-tabcloseleft">当前页左侧全部关闭</div>
+    <div class="menu-sep"></div>
+    <div id="mm-exit">退出</div>
+</div>
 <script type="text/javascript">
 
 </script>

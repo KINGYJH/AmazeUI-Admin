@@ -35,6 +35,23 @@ function getDictValue(id) {
 }
 
 /**
+ * 获取显示值
+ * @param key
+ * @param value
+ */
+function getDicShowValue(key, value) {
+    if (dict_obj === null) {
+        initDic();
+    } else {
+        for (var _index in dict_obj) {
+            if (dict_obj[_index].dataKey === key && dict_obj[_index].dataValue === value) {
+                return dict_obj[_index].showValue;
+            }
+        }
+    }
+}
+
+/**
  * 根据key获取字典
  * @param key
  */
@@ -145,17 +162,76 @@ function tabClose() {
     });
 
     //鼠标菜单右键
-    // $('.tabs-inner').bind('contextmenu', function (e) {
-    //     $('#mm').menu('show', {
-    //         left: e.pageX,
-    //         top: e.pageY
-    //     });
-    //
-    //     var subtitle = $(this).children("span").text();
-    //     $('#mm').data("currtab", subtitle);
-    //
-    //     return false;
-    // });
+    $('.tabs-inner').bind('contextmenu', function (e) {
+        $('#mm').menu('show', {
+            left: e.pageX,
+            top: e.pageY
+        });
+
+        var subtitle = $(this).children("span").text();
+        $('#mm').data("currtab", subtitle);
+
+        return false;
+    });
+
+    // 关闭当前
+    $('#mm-tabclose').click(function () {
+        var currtab_title = $('#mm').data("currtab");
+        $('#tabs').tabs('close', currtab_title);
+    });
+    // 全部关闭
+    $('#mm-tabcloseall').click(function () {
+        $('.tabs-inner span').each(function (i, n) {
+            var t = $(n).text();
+            if (t != "首页") {
+                $('#tabs').tabs('close', t);
+            }
+        });
+    });
+    // 关闭除当前之外的TAB
+    $('#mm-tabcloseother').click(function () {
+        var currtab_title = $('#mm').data("currtab");
+        $('.tabs-inner span').each(function (i, n) {
+            var t = $(n).text();
+            if (t != "首页") {
+                if (t != currtab_title)
+                    $('#tabs').tabs('close', t);
+            }
+        });
+    });
+    // 关闭当前右侧的TAB
+    $('#mm-tabcloseright').click(function () {
+        var nextall = $('.tabs-selected').nextAll();
+        if (nextall.length == 0) {
+            return false;
+        }
+        nextall.each(function (i, n) {
+            var t = $('a:eq(0) span', $(n)).text();
+            if (t != "首页") {
+                $('#tabs').tabs('close', t);
+            }
+        });
+        return false;
+    });
+    // 关闭当前左侧的TAB
+    $('#mm-tabcloseleft').click(function () {
+        var prevall = $('.tabs-selected').prevAll();
+        if (prevall.length == 0) {
+            return false;
+        }
+        prevall.each(function (i, n) {
+            var t = $('a:eq(0) span', $(n)).text();
+            if (t != "首页") {
+                $('#tabs').tabs('close', t);
+            }
+        });
+        return false;
+    });
+
+    // 退出
+    $("#mm-exit").click(function () {
+        $('#mm').menu('hide');
+    });
 }
 
 /* 更换主题 */

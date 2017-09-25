@@ -1,10 +1,14 @@
 package com.king.modules.sys.sequence.entity;
 
+import com.king.common.annotation.DbUpdateBefore;
 import com.king.common.persistence.BaseEntity;
+import com.king.modules.sys.user.entity.User;
+import com.king.modules.sys.user.util.UserUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * @author by yjh
@@ -20,6 +24,12 @@ public class Sequence extends BaseEntity<Sequence> {
     private String prefix;          //前缀
     private Integer length;         //长度
     private Integer newValue = 0;       //当前值
+
+    @Override
+    @DbUpdateBefore
+    public void updateBefore() {
+        setUpdateDate(new Date());
+    }
 
     @Column(name = "table_name", length = 50)
     public String getTableName() {

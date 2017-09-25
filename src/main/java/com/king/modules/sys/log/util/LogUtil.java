@@ -7,9 +7,9 @@ import com.king.common.type.OperationType;
 import com.king.common.type.ResultType;
 import com.king.common.utils.SpringContextHolder;
 import com.king.modules.sys.log.entity.SysLog;
-import com.king.modules.sys.log.service.ISysLogService;
 import com.king.modules.sys.user.entity.User;
 import com.king.modules.sys.user.util.UserUtil;
+import org.apache.shiro.SecurityUtils;
 
 import java.util.Date;
 

@@ -37,14 +37,19 @@
             columns: [[
                 {title: '用户名', field: 'acctName', width: 50, align: 'center'},
                 {title: '昵称', field: 'nickName', width: 50, align: 'center'},
-                {title: '登录时间', field: 'lastLoginDate', width: 50, align: 'center'},
+                {
+                    title: '登录时间', field: 'lastLoginDate', width: 50, align: 'center',
+                    formatter: function (value, row, index) {
+                        return value != null ? dateFormat(value) : null;
+                    }
+                },
                 {title: '登录IP', field: 'lastLoginIP', width: 50, align: 'center'},
                 {title: '登录地址', field: 'lastLoginAddress', width: 50, align: 'center'},
                 {title: '登录平台', field: 'lastLoginPlatform', width: 50, align: 'center'},
                 {
                     title: '用户状态', field: 'status', width: 50, align: 'center',
                     formatter: function (value, row, index) {
-                        return parent.getDictValue(value);
+                        return parent.getDicShowValue('STATUS', value);
                     }
                 }
             ]],

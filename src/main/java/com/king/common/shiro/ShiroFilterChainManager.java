@@ -32,7 +32,7 @@ public class ShiroFilterChainManager {
     public void init() {
         defaultFilterChains = new HashMap<>(filterChainManager.getFilterChains());
         List<Menu> menuList = authService.findAllPermission();
-        initFilterChains(menuList);
+//        initFilterChains(menuList);
     }
 
     public void initFilterChains(List<Menu> menuList) {

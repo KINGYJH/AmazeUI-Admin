@@ -1,0 +1,46 @@
+﻿INSERT INTO admin.sys_menu (id,create_date,create_user_id,create_user_name,update_date,update_user_id,update_user_name,version,href,icon,is_show,name,permission,sort,parent_id) VALUES 
+('0','2017-08-09',NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,'YES','顶级菜单','sys:top',0,NULL)
+,('menu_0002','2017-08-09',NULL,NULL,NULL,NULL,NULL,0,'/sys/menu/manager',NULL,'YES','菜单管理','sys:menu:manager',0,'menu_0001')
+,('menu_0003','2017-08-09','user_000001','admin','2017-08-09','user_000001',NULL,1,'/sys/role/manager','','YES','角色管理','sys:role:manager',1,'menu_0001')
+,('menu_0001','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'','','YES','系统设置','sys:system',0,'0')
+,('menu_0004','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/user/manager','','YES','用户管理','sys:user:manager',2,'menu_0001')
+,('menu_0005','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/sequence/manager','','YES','表序列管理','sys:sequence:manager',3,'menu_0001')
+,('menu_0006','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/dictionary/manager','','YES','数据字典管理','sys:dictionary:manager',4,'menu_0001')
+,('menu_0007','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/role/save_page','','NO','角色添加页面','sys:role:save_page',0,'menu_0003')
+,('menu_0008','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/role/save','','NO','角色添加提交','sys:role:save',1,'menu_0003')
+,('menu_0009','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/role/edit_page','','NO','角色修改页面','sys:role:edit_page',2,'menu_0003')
+;
+INSERT INTO admin.sys_menu (id,create_date,create_user_id,create_user_name,update_date,update_user_id,update_user_name,version,href,icon,is_show,name,permission,sort,parent_id) VALUES 
+('menu_0010','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/role/edit','','NO','角色修改提交','sys:role:edit',3,'menu_0003')
+,('menu_0011','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/role/del','','NO','角色删除','sys:role:del',4,'menu_0003')
+,('menu_0012','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/role/get_all_data','','NO','获取所有角色数据','sys:role:get_all_data',5,'menu_0003')
+,('menu_0013','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/menu/save_page','','NO','菜单添加页面','sys:menu:save_page',0,'menu_0002')
+,('menu_0014','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/menu/save','','NO','菜单添加提交','sys:menu:save',1,'menu_0002')
+,('menu_0015','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/menu/edit_page','','NO','菜单修改页面','sys:menu:edit_page',2,'menu_0002')
+,('menu_0016','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/menu/edit','','NO','菜单修改提交','sys:menu:edit',3,'menu_0002')
+,('menu_0017','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/menu/user_tree_data','','NO','当前登录用户菜单数据','sys:menu:user_tree_data',4,'menu_0002')
+,('menu_0018','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/menu/get_all_tree_data','','NO','所有菜单数据','sys:menu:get_all_tree_data',5,'menu_0002')
+,('menu_0019','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/menu/list','','NO','菜单管理页面数据','sys:menu:list',6,'menu_0002')
+;
+INSERT INTO admin.sys_menu (id,create_date,create_user_id,create_user_name,update_date,update_user_id,update_user_name,version,href,icon,is_show,name,permission,sort,parent_id) VALUES 
+('menu_0020','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/role/list','','NO','角色管理页面数据','sys:role:list',6,'menu_0003')
+,('menu_0021','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/user/save_page','','NO','用户添加页面','sys:user:save_page',2,'menu_0004')
+,('menu_0022','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/user/list','','NO','用户管理页面数据','sys:user:list',0,'menu_0004')
+,('menu_0023','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/user/del','','NO','用户删除','sys:user:del',1,'menu_0004')
+,('menu_0024','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/sequence/list','','NO','表序列管理页面数据','sys:sequence:list',0,'menu_0005')
+,('menu_0025','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/sequence/save_page','','NO','表序列添加页面','sys:sequence:save_page',1,'menu_0005')
+,('menu_0026','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/sequence/save','','NO','表序列添加提交','sys:sequence:save',2,'menu_0005')
+,('menu_0027','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/sequence/edit_page','','NO','表序列修改页面','sys:sequence:edit_page',3,'menu_0005')
+,('menu_0028','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/sequence/edit','','NO','表序列修改提交','sys:sequence:edit',4,'menu_0005')
+,('menu_0029','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/sequence/del','','NO','表序列删除','sys:sequence:del',5,'menu_0005')
+;
+INSERT INTO admin.sys_menu (id,create_date,create_user_id,create_user_name,update_date,update_user_id,update_user_name,version,href,icon,is_show,name,permission,sort,parent_id) VALUES 
+('menu_0030','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/dictionary/list','','NO','数据字典管理页面数据','sys:dictionary:list',0,'menu_0006')
+,('menu_0031','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/dictionary/save_page','','NO','数据字典添加页面 ','sys:dictionary:save_page',1,'menu_0006')
+,('menu_0032','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/dictionary/save','','NO','数据字典添加提交','sys:dictionary:save',2,'menu_0006')
+,('menu_0033','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/dictionary/edit_page','','NO','数据字典修改页面','sys:dictionary:edit_page',3,'menu_0006')
+,('menu_0034','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/dictionary/edit','','NO','数据字典修改提交','sys:dictionary:edit',4,'menu_0006')
+,('menu_0035','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/dictionary/del','','NO','数据字典删除','sys:dictionary:del',5,'menu_0006')
+,('menu_0036','2017-08-09','user_000001','admin',NULL,NULL,NULL,0,'/sys/dictionary/get_by_dataKey','','NO','根据数据字典key获取数据','sys:dictionary:get_by_datakey',6,'menu_0006')
+,('menu_0037','2017-09-25','user_000001','admin',NULL,NULL,NULL,0,'/sys/log/manager','','YES','日志查询','sys:log:manager',99,'menu_0001')
+;

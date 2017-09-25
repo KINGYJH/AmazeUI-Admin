@@ -50,17 +50,17 @@ public class BaseEntity<T> implements Serializable {
 
         this.id = SequenceUtil.getNextId(tableName);
 
-//        User user = UserUtil.getUser();
-//        this.createUserId = user.getId();
-//        this.createUserName = user.getAcctName();
-//        this.createDate = new Date();
+        User user = UserUtil.getUser();
+        this.createUserId = user.getId();
+        this.createUserName = user.getAcctName();
+        this.createDate = new Date();
     }
 
     @DbUpdateBefore
     public void updateBefore() {
-//        User user = UserUtil.getUser();
-//        this.updateUserId = user.getId();
-//        this.updateUserName = user.getUpdateUserName();
+        User user = UserUtil.getUser();
+        this.updateUserId = user.getId();
+        this.updateUserName = user.getUpdateUserName();
 
         this.updateDate = new Date();
     }
@@ -116,8 +116,8 @@ public class BaseEntity<T> implements Serializable {
     }
 
     @Column(name = "create_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:DD")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getCreateDate() {
         return createDate;
     }
@@ -145,8 +145,8 @@ public class BaseEntity<T> implements Serializable {
     }
 
     @Column(name = "update_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:DD")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getUpdateDate() {
         return updateDate;
     }

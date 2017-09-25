@@ -38,6 +38,7 @@
             columns: [[
                 {title: '键', field: 'dataKey', width: 50, align: 'center'},
                 {title: '值', field: 'dataValue', width: 50, align: 'center'},
+                {title: '显示值', field: 'showValue', width: 50, align: 'center'},
                 {title: '描述', field: 'describes', width: 50, align: 'center'},
                 {title: '排序', field: 'sort', width: 50, align: 'center'}
             ]],

@@ -133,7 +133,7 @@
         return result.join(joinStr);
     }
 
-    Date.prototype.Format = function (fmt) { //author: meizz
+    Date.prototype.Format = function (fmt) {
         var o = {
             "M+": this.getMonth() + 1, //月份
             "d+": this.getDate(), //日
@@ -200,4 +200,35 @@
         } : decodeURIComponent;
         return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
     };
+
+    /**
+     * time转换位时间格式
+     * @param time
+     * @returns {string}
+     */
+    function dateFormat(time) {
+        var date = new Date(time);
+        var str = date.getFullYear() + "年";
+        str += (date.getMonth() + 1) + "月";
+        str += date.getDate() + "日 ";
+        str += date.getHours() + ":";
+        str += date.getMinutes() + ":";
+        str += date.getSeconds();
+        return str;
+    }
+
+    /**
+     * 文本溢出显示
+     * @param obj
+     */
+    function textTooltip(obj) {
+        $(obj).tooltip({
+            position: 'top',
+            content: $(obj).text(),
+            trackMouse: true,
+            onHide: function () {
+                $(obj).tooltip('destroy');
+            }
+        }).tooltip('show');
+    }
 </script>

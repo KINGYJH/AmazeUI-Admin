@@ -1,0 +1,4 @@
+﻿INSERT INTO admin.sys_user (id,create_date,create_user_id,create_user_name,update_date,update_user_id,update_user_name,version,acct_name,head_img,last_login_address,last_login_date,last_login_ip,last_login_platform,nick_name,pwd,role_ids,status) VALUES 
+('user_000001',NULL,NULL,NULL,'2017-09-25 08:22:44.000','user_000001',NULL,15,'admin','',NULL,'2017-09-25 08:22:44.000','127.0.0.1','PC','系统管理员','96e79218965eb72c92a549dd5a330112','role_0001,','ENABLE')
+,('user_000002','2017-08-09 00:00:00.000','user_000001','admin',NULL,NULL,NULL,0,'guest','',NULL,NULL,NULL,NULL,'游客','96e79218965eb72c92a549dd5a330112','role_0002,','ENABLE')
+;

@@ -1,10 +1,17 @@
 package com.king.modules.sys.log.entity;
 
+import com.king.common.annotation.DbInsertBefore;
 import com.king.common.persistence.BaseEntity;
 import com.king.common.type.OperationType;
 import com.king.common.type.ResultType;
+import com.king.modules.sys.sequence.util.SequenceUtil;
+import com.king.modules.sys.user.entity.User;
+import com.king.modules.sys.user.util.UserUtil;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.lang.reflect.ParameterizedType;
+import java.util.Date;
 
 /**
  * @author by yjh
@@ -20,6 +27,12 @@ public class SysLog extends BaseEntity<SysLog> {
     private String describe;                //描述
     private ResultType result;              //操作结果
 
+    @Override
+    @DbInsertBefore
+    public void insertBefore() {
+        String tableName = "sys_log";
+        setId(SequenceUtil.getNextId(tableName));
+    }
 
     @Column(name = "operation_modular")
     public String getOperationModular() {

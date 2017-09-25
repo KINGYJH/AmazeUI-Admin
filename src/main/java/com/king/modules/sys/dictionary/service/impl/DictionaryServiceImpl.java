@@ -68,6 +68,7 @@ public class DictionaryServiceImpl implements IDictionaryService {
             }
         }
 
+        editDictionary.setShowValue(dictionary.getShowValue());
         editDictionary.setDataValue(dictionary.getDataValue());
         editDictionary.setSort(dictionary.getSort());
         dictionaryDao.update(editDictionary);

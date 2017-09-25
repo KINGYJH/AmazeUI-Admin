@@ -20,6 +20,7 @@ public class Dictionary extends BaseEntity<Dictionary> {
 
     private String dataKey;     //键
     private String dataValue;   //值
+    private String showValue;   //显示值
     private String describes;   //描述
     private Integer sort;       //排序
 
@@ -43,6 +44,15 @@ public class Dictionary extends BaseEntity<Dictionary> {
 
     public void setDataValue(String dataValue) {
         this.dataValue = dataValue;
+    }
+
+    @Column(name = "show_value")
+    public String getShowValue() {
+        return showValue;
+    }
+
+    public void setShowValue(String showValue) {
+        this.showValue = showValue;
     }
 
     @Column(name = "describes")
